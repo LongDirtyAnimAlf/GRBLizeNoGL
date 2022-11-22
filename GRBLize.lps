@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Active="Debug"/>
+    <BuildModes Active="Release"/>
     <Units>
       <Unit>
         <Filename Value="GRBLize.dpr"/>
@@ -12,6 +12,7 @@
         <CursorPos Y="49"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="ABOUT.PAS"/>
@@ -121,6 +122,7 @@
         <TopLine Value="919"/>
         <CursorPos X="22" Y="947"/>
         <UsageCount Value="22"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="DirectX\DirectShow9.pas"/>
@@ -175,6 +177,7 @@
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="gerber_import.pas"/>
@@ -283,6 +286,7 @@
         <TopLine Value="972"/>
         <CursorPos Y="994"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="page_pens.inc"/>
