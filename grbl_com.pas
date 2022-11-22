@@ -28,6 +28,8 @@ type
   procedure ShowAliveState(my_state: t_alivestates);
 
   function SetupFTDI: String;
+  procedure CleanupFTDI;
+
   function InitFTDI(my_device:Integer; baud_str: String):String;
   function InitFTDIbySerial(my_serial: String; baud_str: String):String;
 
@@ -148,7 +150,6 @@ var
   AliveCount: Integer;
   LastAliveState: t_alivestates;
   grbl_is_connected: boolean;
-
 
 implementation
 
@@ -1163,6 +1164,20 @@ begin
     end;
   end else
     result:= 'No FTDI devices found';
+end;
+
+procedure CleanupFTDI;
+begin
+  if Assigned(ftdi) then
+  begin
+    if ftdi_isopen then
+    begin
+      ftdi_isopen:= false;
+      ftdi.closeDevice;
+    end;
+    if Assigned(ftdi_device_list) then ftdi.destroyDeviceInfoList(ftdi_device_list);
+    freeandnil(ftdi);
+  end;
 end;
 
 procedure SetFTDIbaudRate(my_str: String);

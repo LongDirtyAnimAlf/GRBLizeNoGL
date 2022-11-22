@@ -944,6 +944,8 @@ procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   grbl_ini:TRegistry;
 begin
+  DrawingBitmap.Free;
+
   grbl_ini:= TRegistry.Create;
   try
     grbl_ini.RootKey := HKEY_CURRENT_USER;

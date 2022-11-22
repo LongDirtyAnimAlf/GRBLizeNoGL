@@ -1213,11 +1213,9 @@ begin
 
   if com_isopen then
     COMclose;
-  if ftdi_isopen then begin
-    ftdi_isopen:= false;
-    ftdi.closeDevice;
-    freeandnil(ftdi);
-  end;
+
+  CleanupFTDI;
+
   grbl_is_connected:= false;
   SaveIniFile;
 
@@ -1232,6 +1230,14 @@ begin
   {$endif}
   if IsFormOpen('Form2') then
     Form2.Close;
+
+  LEDbusy.Free;
+  JoyPad.Free;
+
+  StopWatch.Free;
+  grbl_sendlist.Free;
+
+  form_CriticalSection.Free;
 end;
 
 // #############################################################################

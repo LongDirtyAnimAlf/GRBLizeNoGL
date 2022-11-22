@@ -3,15 +3,15 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Active="Default"/>
+    <BuildModes Active="Debug"/>
     <Units>
       <Unit>
         <Filename Value="GRBLize.dpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="10"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="ABOUT.PAS"/>
@@ -22,7 +22,8 @@
         <UnitName Value="about"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="24" Y="11"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="ftdiclass\bsearchtree.pas"/>
@@ -30,14 +31,16 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="28"/>
         <CursorPos X="22" Y="34"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="ftdiclass\blinklist.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="31"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="clipper.pas"/>
@@ -45,24 +48,25 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="33"/>
         <CursorPos X="9" Y="54"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="grbl_com.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="162"/>
-        <CursorPos X="7" Y="174"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="124"/>
+        <CursorPos Y="153"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="ftdiclass\FTDIchip.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="120"/>
+        <CursorPos X="42" Y="145"/>
+        <UsageCount Value="21"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -72,7 +76,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -82,7 +86,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -92,7 +96,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -104,7 +108,8 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos Y="34"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="drawing_window.pas"/>
@@ -112,10 +117,12 @@
         <ComponentName Value="Form2"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="672"/>
-        <CursorPos X="38" Y="692"/>
-        <UsageCount Value="20"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="919"/>
+        <CursorPos X="22" Y="947"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="DirectX\DirectShow9.pas"/>
@@ -124,7 +131,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -134,7 +141,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -144,7 +151,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -154,7 +161,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -163,10 +170,14 @@
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="1219"/>
+        <CursorPos Y="1241"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="gerber_import.pas"/>
@@ -175,7 +186,8 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="41"/>
         <CursorPos X="32" Y="58"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="import_files.pas"/>
@@ -183,7 +195,8 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="740"/>
         <CursorPos X="2" Y="757"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="app_Defaults.pas"/>
@@ -192,7 +205,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -202,7 +215,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -210,7 +223,8 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="13"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="cam_view.pas"/>
@@ -218,7 +232,8 @@
         <HasResources Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="14"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\fpcsrc\packages\fcl-base\src\syncobjs.pp"/>
@@ -231,6 +246,7 @@
         <TopLine Value="83"/>
         <CursorPos X="3" Y="96"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\fpcsrc\rtl\win\wininc\struct.inc"/>
@@ -284,6 +300,7 @@
         <TopLine Value="489"/>
         <CursorPos Y="505"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\fpcsrc\rtl\objpas\sysutils\sysinth.inc"/>
@@ -307,6 +324,7 @@
         <TopLine Value="4850"/>
         <CursorPos X="10" Y="4867"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\trunk\fpcsrc\rtl\win\wininc\defines.inc"/>
@@ -314,6 +332,7 @@
         <TopLine Value="4969"/>
         <CursorPos X="5" Y="4986"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\trunk\fpcsrc\rtl\win\wininc\func.inc"/>
@@ -321,6 +340,7 @@
         <TopLine Value="474"/>
         <CursorPos X="10" Y="491"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\include\control.inc"/>
@@ -397,15 +417,7 @@
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="6">
-      <Position>
-        <Filename Value="grbl_player_main.pas"/>
-        <Caret Line="1130" Column="10" TopLine="1111"/>
-      </Position>
-      <Position>
-        <Filename Value="grbl_player_main.pas"/>
-        <Caret Line="1131" Column="10" TopLine="1111"/>
-      </Position>
+    <JumpHistory HistoryIndex="16">
       <Position>
         <Filename Value="grbl_player_main.pas"/>
         <Caret Line="1123" Column="13" TopLine="1111"/>
@@ -425,6 +437,52 @@
       <Position>
         <Filename Value="GRBLize.dpr"/>
         <Caret Line="40" TopLine="6"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1145" Column="27" TopLine="1132"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1145" Column="27" TopLine="1132"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1183" Column="3" TopLine="1208"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1257" Column="3" TopLine="1255"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1216" TopLine="1198"/>
+      </Position>
+      <Position>
+        <Filename Value="drawing_window.pas"/>
+        <Caret Line="676" Column="14" TopLine="672"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1218" TopLine="1198"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1065" TopLine="1038"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1235" TopLine="1211"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1218" Column="19" TopLine="1210"/>
       </Position>
     </JumpHistory>
     <RunParams>
