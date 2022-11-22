@@ -160,6 +160,7 @@
       <Unit>
         <Filename Value="app_Defaults.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="app_defaults"/>
       </Unit>
       <Unit>
         <Filename Value="DirectX\DirectDraw.pas"/>

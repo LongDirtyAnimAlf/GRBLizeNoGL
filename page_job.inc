@@ -101,7 +101,8 @@ begin
     Cells[6,i+1]:= '100';
     Cells[6,i+1]:= 'YES';
     Cells[8,i+1]:= '';
-    job.fileDelimStrings[i]:= '"",-1,0°,OFF,0,0,100';
+    //job.fileDelimStrings[i]:= '"",-1,0°,OFF,0,0,100';
+    job.fileDelimStrings[i]:= '"",-1,'+RotationAngles[deg0]+',OFF,0,0,100';
     with FileParamArray[i] do begin
       bounds.min.x := high(Integer);
       bounds.min.y := high(Integer);

@@ -1,4 +1,4 @@
-unit import_files;
+﻿unit import_files;
 
 interface
 uses
@@ -160,7 +160,7 @@ const
    ('Contour', 'Inside', 'Outside', 'Pocket', 'Drill');
   ShapeColorArray: Array [0..4] of Tcolor =
    (clBlack, clBlue, clRed, clFuchsia, clgreen);
-  ToolTipArray: Array [0..7] of String[15] =
+  ToolTipArray: Array [0..7] of String =
    ('Flat Tip', 'Cone 30°', 'Cone 45°', 'Cone 60°', 'Cone 90°','Ball Tip','Drill', 'Dummy');
   zeroPoint: TIntPoint = (
     X: 0;
