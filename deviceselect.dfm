@@ -3,8 +3,6 @@ object deviceselectbox: Tdeviceselectbox
   Top = 108
   BorderStyle = bsDialog
   Caption = 'Select USB Device'
-  ClientHeight = 249
-  ClientWidth = 505
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clBlack

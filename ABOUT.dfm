@@ -4,8 +4,6 @@ object AboutBox: TAboutBox
   ActiveControl = OKButton
   BorderStyle = bsDialog
   Caption = 'About GRBLize'
-  ClientHeight = 324
-  ClientWidth = 361
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clBlack

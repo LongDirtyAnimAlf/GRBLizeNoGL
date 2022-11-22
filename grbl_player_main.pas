@@ -5,20 +5,15 @@ unit grbl_player_main;
 interface
 
 uses
-  Windows, MMsystem,
+  Math, StdCtrls, ComCtrls, ToolWin, Buttons, ExtCtrls, ImgList,
+  Controls, StdActns, Classes, ActnList, Menus, GraphUtil,
+  SysUtils, StrUtils, Windows, Graphics, Forms, Messages,
+  Dialogs, Spin, FileCtrl, Grids, Registry, ShellApi, MMsystem, SyncObjs,
   {$ifndef FPC}
-  ShellApi, VFrames, XPMan, System.ImageList, System.Actions,
-  ToolWin, GraphUtil, Spin, FileCtrl,
-  ExtDlgs, CheckLst,ValEdit,
+  VFrames, XPMan, ValEdit, System.ImageList, System.Actions,
   Vcl.ColorGrd, Vcl.Samples.Gauges, System.UItypes,
-  {$else}
-  //synaser,
   {$endif}
-  Math, StdCtrls, ComCtrls, Buttons, ExtCtrls, ImgList,
-  SyncObjs, Controls, StdActns, Classes, ActnList, Menus,
-  SysUtils, StrUtils, Graphics, Forms, Messages,Types,
-  Dialogs, Grids, Registry,
-  drawing_window,
+  ExtDlgs, CheckLst, drawing_window,
   FTDItypes, deviceselect, grbl_com,
   app_defaults;
 
@@ -36,6 +31,8 @@ type
     raw: Integer;
     active: Boolean;
   end;
+
+  { TForm1 }
 
   TForm1 = class(TForm)
     MainMenu1: TMainMenu;
@@ -695,15 +692,13 @@ implementation
 
 uses
   import_files, Clipper, About, bsearchtree,
-  {$ifndef FPC}
-  cam_view,
-  {$endif}
+  {$ifndef FPC}cam_view,{$endif}
   gerber_import;
 
 {$ifdef FPC}
-{$R grbl_player_main.lfm}
+{$R *.lfm}
 {$else}
-{$R grbl_player_main.dfm}
+{$R *.dfm}
 {$endif}
 
 // #############################################################################

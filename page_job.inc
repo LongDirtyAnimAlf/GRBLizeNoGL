@@ -981,10 +981,10 @@ begin
   end;
 end;
 
-
 procedure TForm1.ComboBox1Exit(Sender: TObject);
 begin
-  with sender as TComboBox do begin
+  with Sender as TComboBox do
+  begin
     hide;
     SgFiles.Options:= SgFiles.Options - [goEditing, goAlwaysShowEditor];
     if ItemIndex >= 0 then
@@ -1000,7 +1000,6 @@ begin
   SgFiles.Options:= SgFiles.Options - [goEditing];
 end;
 
-
 procedure TForm1.SgFilesMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 var R: TRect;
@@ -1014,21 +1013,21 @@ begin
     exit;
   with SgFiles do begin
     Options:= Options - [goEditing, goAlwaysShowEditor];
-    case Col of
+    case my_col of
       0:
         begin
           UnHilite;
           OpenFileDialog.FilterIndex:= 0;
           if OpenFileDialog.Execute then begin
-            Cells[0, Row]:= OpenFileDialog.Filename;
-            job.fileDelimStrings[Row-1]:= Rows[Row].DelimitedText;
+            Cells[0, my_row]:= OpenFileDialog.Filename;
+            job.fileDelimStrings[my_row-1]:= Rows[my_row].DelimitedText;
             UnHilite;
             my_ext:= AnsiUpperCase(ExtractFileExt(OpenFileDialog.Filename));
             if (my_ext = '.GBR') or (my_ext = '.GBL') or (my_ext = '.GTL') then begin
-              sgFiles.Cells[0, Row]:= '';
+              sgFiles.Cells[0, my_row]:= '';
               ConvertedFileName:='';
               GerberFileName:= OpenFileDialog.Filename;
-              GerberFileNumber:= Row;
+              GerberFileNumber:= my_row;
               FormGerber.ShowModal;
             end else
               OpenFilesInGrid;
@@ -1046,7 +1045,9 @@ begin
               ItemIndex:= 1;
             Show;
             BringToFront;
+            {$ifndef FPC}
             SetFocus;
+            {$endif}
             DroppedDown := true;
           end;
         end;
