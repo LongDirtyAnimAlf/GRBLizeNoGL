@@ -36,11 +36,8 @@
     <File Path="clipper.pas"/>
     <File Path="drawing_window.pas"/>
     <File Path="drawing_window.dfm"/>
-    <File Path="cam_view.pas"/>
-    <File Path="cam_view.dfm"/>
     <File Path="grbl_player_main.pas"/>
     <File Path="grbl_player_main.dfm"/>
-    <File Path="VFrames.pas"/>
     <File Path="gerber_import.pas"/>
     <File Path="gerber_import.dfm"/>
     <File Path="import_files.pas"/>
@@ -58,5 +55,8 @@
     <File Path="decodestatus_09.inc"/>
     <File Path="joypad.inc"/>
     <File Path="joypad_handling.inc"/>
+    <File Path="cam_view.pas"/>
+    <File Path="cam_view.dfm"/>
+    <File Path="VFrames.pas"/>
   </ProjectSortOrder>
 </BorlandProject>

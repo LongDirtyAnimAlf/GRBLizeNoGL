@@ -135,8 +135,13 @@ var
   i: Integer;
   aRect: TRect;
   aStr: String;
+  {$ifdef FPC}
+  style: TTextStyle;
+  {$endif}
 begin
+  {$ifndef FPC}
   Rect.Left:= Rect.Left-4; // Workaround für XE8-Darstellung
+  {$endif}
   with SgBlocks,Canvas do begin
     aStr:= Cells[ACol, ARow];
     if (aRow = 0) or (aCol = 0) then begin
@@ -186,7 +191,13 @@ begin
                 Font.style:= [];
              end;
             aRect.Top := aRect.Top + 1; // adjust top to center vertical
+            {$ifdef FPC}
+            style:=Canvas.TextStyle;
+            style.Alignment:=taCenter;
+            Canvas.TextRect(aRect,aRect.Left,aRect.Top,aStr,style);
+            {$else}
             DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
+            {$endif}
           end;
         else begin
           if not final_array[aRow-1].enable then begin

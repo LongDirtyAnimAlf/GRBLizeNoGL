@@ -122,9 +122,6 @@
         <DCCReference Include="drawing_window.pas">
             <Form>Form2</Form>
         </DCCReference>
-        <DCCReference Include="cam_view.pas">
-            <Form>Form3</Form>
-        </DCCReference>
         <DCCReference Include="DirectX\DirectShow9.pas"/>
         <DCCReference Include="DirectX\DirectSound.pas"/>
         <DCCReference Include="DirectX\DXTypes.pas"/>
@@ -132,13 +129,15 @@
         <DCCReference Include="grbl_player_main.pas">
             <Form>Form1</Form>
         </DCCReference>
-        <DCCReference Include="VFrames.pas"/>
         <DCCReference Include="gerber_import.pas">
             <Form>FormGerber</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="import_files.pas"/>
         <DCCReference Include="app_Defaults.pas"/>
+        <DCCReference Include="cam_view.pas">
+            <Form>Form3</Form>
+        </DCCReference>
+        <DCCReference Include="VFrames.pas"/>
         <DCCReference Include="DirectX\DirectDraw.pas"/>
         <None Include="drill_import.inc">
             <ContainerId>File</ContainerId>
@@ -193,7 +192,7 @@
             <Platforms>
                 <Platform value="Win32">True</Platform>
             </Platforms>
-            <Deployment Version="3">
+            <Deployment Version="2">
                 <DeployFile LocalName="joypad.inc" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
@@ -242,6 +241,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="ModelSupport_GRBLize\default.txaPackage" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="page_run.inc" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
@@ -284,6 +289,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="ModelSupport_GRBLizeNoGLS\default.txaPackage" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="page_pens.inc" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
@@ -321,18 +332,6 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="page_pens.inc" Configuration="Release" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="ModelSupport_GRBLize\default.txaPackage" Configuration="Release" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="ModelSupport_GRBLizeNoGLS\default.txaPackage" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -510,19 +509,16 @@
                     </Platform>
                 </DeployClass>
                 <DeployClass Required="true" Name="ProjectOutput">
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
                     <Platform Name="Win32">
                         <Operation>0</Operation>
                     </Platform>
-                    <Platform Name="Linux64">
+                    <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="Android">
@@ -579,6 +575,12 @@
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeX86File">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\x86</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>

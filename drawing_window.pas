@@ -8,8 +8,8 @@ uses
   Math, StdCtrls, ComCtrls, ToolWin, Buttons, ExtCtrls, ImgList,
   Controls, StdActns, Classes, ActnList, Menus, GraphUtil,
   SysUtils, StrUtils, Windows, Graphics, Forms, Registry,  // Messages,
-  Dialogs, Spin, ShellApi, VFrames, ExtDlgs, grbl_com, XPMan, CheckLst, Clipper,
-  System.UItypes, System.Types, MMsystem, import_files;
+  Dialogs, Spin, ShellApi, ExtDlgs, grbl_com, CheckLst, Clipper,
+  UItypes, Types, MMsystem, import_files;
 
 type
   TForm2 = class(TForm)
@@ -677,6 +677,7 @@ begin
       p2.x:= pmax.x;
       p2.y:= p1.y;
       vlen_ok:= abs(p2.x - p1.x) > 100;
+      //vlen_ok:=true;
       Canvas.font.Orientation:= 0;
       if vlen_ok then begin           // X-Vektorlänge in mm anzeigen
         draw_arrow(p1, p2, true, true);
@@ -689,6 +690,7 @@ begin
       p2.x:= p1.x;
       p2.y:= pmax.y;
       vlen_ok:= abs(p2.y - p1.y) > 100;
+      //vlen_ok:=true;
       Canvas.font.Orientation:= 900;
       if vlen_ok then begin           // X-Vektorlänge in mm anzeigen
         draw_arrow(p1, p2, true, true);

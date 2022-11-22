@@ -7,7 +7,11 @@ var i: Integer;
   my_str: string;
   my_Settings: TFormatSettings;
 begin
+  {$ifdef FPC}
+  my_Settings:=DefaultFormatSettings;
+  {$else}
   my_Settings.Create;
+  {$endif}
   my_str:= '';
   result:= 0;
   if start_idx >= length(grbl_str) then

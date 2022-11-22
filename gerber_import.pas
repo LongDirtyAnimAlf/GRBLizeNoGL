@@ -2,9 +2,9 @@
 
 interface
 
-uses ShellApi, Winapi.Windows, MMsystem, System.SysUtils, System.Classes,
-  Vcl.Graphics, Vcl.Forms,
-  Vcl.Controls, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, Vcl.Dialogs,
+uses ShellApi, Windows, MMsystem, SysUtils, Classes,
+  Graphics, Forms,
+  Controls, StdCtrls, Buttons, ExtCtrls, Dialogs,
   import_files, grbl_com;
 
 type
@@ -55,7 +55,11 @@ function CopyFileEx(const ASource, ADest: string; ARenameCheck: boolean = false)
 var
   sh: TSHFileOpStruct;
 begin
+  {$ifdef FPC}
+  sh.hwnd := Application.Handle;
+  {$else}
   sh.Wnd := Application.Handle;
+  {$endif}
   sh.wFunc := FO_COPY;
   // String muss mit #0#0 terminiert werden, um das Listenende zu setzen
   sh.pFrom := PChar(ASource + #0#0);

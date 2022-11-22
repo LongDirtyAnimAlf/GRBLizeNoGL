@@ -9,9 +9,13 @@ var
   aRect: TRect;
   aStr: String;
   my_tooltip: Integer;
-
+  {$ifdef FPC}
+  style: TTextStyle;
+  {$endif}
 begin
-  Rect.Left:= Rect.Left-4;    // Workaround für XE8-Darstellung
+  {$ifndef FPC}
+  Rect.Left:= Rect.Left-4; // Workaround für XE8-Darstellung
+  {$endif}
   if aRow = 0 then with SgPens,Canvas do begin
     Font.Style := [fsBold];
     TextRect(Rect, Rect.Left + 2, Rect.Top + 2, Cells[ACol, ARow]);
@@ -75,7 +79,13 @@ begin
         aRect := Rect;
         aStr:= Cells[ACol, ARow];
         aRect.Top := aRect.Top + 1; // adjust top to center vertical
+        {$ifdef FPC}
+        style:=Canvas.TextStyle;
+        style.Alignment:=taCenter;
+        Canvas.TextRect(aRect,aRect.Left,aRect.Top,aStr,style);
+        {$else}
         DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
+        {$endif}
       end;
     9:  // Shape
       begin
@@ -92,7 +102,13 @@ begin
         Font.Color:= ShapeColorArray[ord(my_shape)];
         aStr:= ShapeArray[ord(my_shape)];
         aRect.Top := aRect.Top + 1; // adjust top to center vertical
+        {$ifdef FPC}
+        style:=Canvas.TextStyle;
+        style.Alignment:=taCenter;
+        Canvas.TextRect(aRect,aRect.Left,aRect.Top,aStr,style);
+        {$else}
         DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
+        {$endif}
       end;
     11:  // ATC, nicht aktiv
       begin
@@ -119,7 +135,13 @@ begin
         my_tooltip:= job.pens[aRow-1].tooltip;
         aStr:= ToolTipArray[my_tooltip];
         aRect.Top := aRect.Top + 1; // adjust top to center vertical
+        {$ifdef FPC}
+        style:=Canvas.TextStyle;
+        style.Alignment:=taCenter;
+        Canvas.TextRect(aRect,aRect.Left,aRect.Top,aStr,style);
+        {$else}
         DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
+        {$endif}
       end;
     end; //case
   end;

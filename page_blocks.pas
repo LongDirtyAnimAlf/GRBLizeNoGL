@@ -79,7 +79,9 @@ var
   aRect: TRect;
   aStr: String;
 begin
+  {$ifndef FPC}
   Rect.Left:= Rect.Left-4; // Workaround für XE8-Darstellung
+  {$endif}
   with SgBlocks,Canvas do begin
     aStr:= Cells[ACol, ARow];
     if (aRow = 0) or (aCol = 0) then begin

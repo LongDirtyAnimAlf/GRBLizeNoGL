@@ -1,7 +1,9 @@
 object Form2: TForm2
-  Left = 0
-  Top = 0
   Cursor = crCross
+  Left = 65
+  Height = 563
+  Top = 160
+  Width = 856
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
   BorderIcons = [biSystemMenu]
@@ -14,30 +16,23 @@ object Form2: TForm2
   Constraints.MaxWidth = 1200
   Constraints.MinHeight = 240
   Constraints.MinWidth = 320
-  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
-  Font.Style = []
-  OldCreateOrder = False
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnMouseWheel = FormMouseWheel
   OnPaint = FormPaint
   OnResize = FormResize
-  DesignSize = (
-    856
-    563)
-  PixelsPerInch = 96
-  TextHeight = 13
+  LCLVersion = '2.3.0.0'
   object DrawingBox: TPaintBox
     Left = 0
-    Top = 8
-    Width = 857
     Height = 565
     Hint = 'Milling View - Drag with left-click or modify with right-click'
-    Anchors = [akLeft, akTop, akRight, akBottom]
+    Top = 8
+    Width = 857
+    Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clCream
     DragCursor = crSizeAll
     ParentColor = False
@@ -49,95 +44,97 @@ object Form2: TForm2
   end
   object Panel1: TPanel
     Left = 8
+    Height = 177
     Top = 8
     Width = 132
-    Height = 177
     Align = alCustom
+    ClientHeight = 177
+    ClientWidth = 132
     TabOrder = 0
     object Label1: TLabel
       Left = 24
+      Height = 13
       Top = 160
       Width = 78
-      Height = 13
       Caption = 'Grid/Ruler in mm'
     end
     object BtnZoomReset: TButton
       Left = 16
+      Height = 24
       Top = 129
       Width = 97
-      Height = 24
       HelpType = htKeyword
       HelpKeyword = 'Reset zoom and pan'
       Caption = 'Zoom Reset'
-      Font.Charset = ANSI_CHARSET
+      Font.CharSet = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Arial'
       Font.Style = [fsBold]
+      OnClick = BtnZoomResetClick
       ParentFont = False
       TabOrder = 0
       TabStop = False
-      OnClick = BtnZoomResetClick
     end
     object TrackBarZoom: TTrackBar
       Left = 0
-      Top = 88
-      Width = 129
       Height = 20
       Hint = 'View zoom - disabled when camera ON'
+      Top = 88
+      Width = 129
       Max = 50
       Min = 1
+      OnChange = TrackBarZoomChange
       PageSize = 1
       Position = 4
-      TabOrder = 1
       TabStop = False
       TickStyle = tsNone
-      OnChange = TrackBarZoomChange
+      TabOrder = 1
     end
     object CheckBoxDimensions: TCheckBox
       Left = 8
-      Top = 8
-      Width = 121
       Height = 17
+      Top = 8
+      Width = 100
       Caption = 'Show Dimensions'
-      TabOrder = 2
       OnClick = CheckBoxDimensionsClick
+      TabOrder = 2
     end
     object CheckBoxDirections: TCheckBox
       Left = 8
-      Top = 32
-      Width = 105
       Height = 17
+      Top = 32
+      Width = 94
       Caption = 'Show Directions'
-      TabOrder = 3
       OnClick = CheckBoxDirectionsClick
+      TabOrder = 3
     end
     object StaticText2: TStaticText
       Left = 8
+      Height = 17
       Top = 108
       Width = 10
-      Height = 17
       Caption = '1'
       TabOrder = 4
     end
     object StaticText3: TStaticText
       Left = 112
+      Height = 17
       Top = 108
       Width = 16
-      Height = 17
       Caption = '50'
       TabOrder = 5
     end
     object CheckBoxToolpath: TCheckBox
       Left = 8
-      Top = 56
-      Width = 121
       Height = 17
+      Top = 56
+      Width = 92
       Caption = 'Show Tool Path'
       Checked = True
+      OnClick = CheckBoxDirectionsClick
       State = cbChecked
       TabOrder = 6
-      OnClick = CheckBoxDirectionsClick
     end
   end
   object PopupMenuObject: TPopupMenu
@@ -181,11 +178,13 @@ object Form2: TForm2
     object Drill1: TMenuItem
       Caption = 'Drill'
       GroupIndex = 2
+      RadioItem = True
       OnClick = pu_radioClick
     end
     object N2: TMenuItem
       Caption = '-'
       GroupIndex = 2
+      RadioItem = True
     end
     object pu_isatCenter1: TMenuItem
       Caption = 'Tool is above Object Center'
@@ -233,6 +232,7 @@ object Form2: TForm2
     object N5: TMenuItem
       Caption = '-'
       GroupIndex = 3
+      RadioItem = True
     end
     object pu_moveZero2: TMenuItem
       Caption = 'Move Tool to Part Zero'
@@ -289,11 +289,13 @@ object Form2: TForm2
     object MenuItem7: TMenuItem
       Caption = 'Drill'
       GroupIndex = 2
+      RadioItem = True
       OnClick = pu_radioClick
     end
     object MenuItem8: TMenuItem
       Caption = '-'
       GroupIndex = 2
+      RadioItem = True
     end
     object MenuItem10: TMenuItem
       Caption = 'Tool is above Point'

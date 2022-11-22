@@ -342,7 +342,11 @@ function FloatToStrDot(my_val: Double):String;
 var
   my_Settings: TFormatSettings;
 begin
+  {$ifdef FPC}
+  my_Settings:=DefaultFormatSettings;
+  {$else}
   my_Settings.Create;
+  {$endif}
   my_Settings.DecimalSeparator := '.';
   FloatToStrDot:= FormatFloat('0.00',my_val,my_Settings);
 end;
@@ -351,7 +355,11 @@ function StrDotToFloat(my_str: String): Double;
 var
   my_Settings: TFormatSettings;
 begin
+  {$ifdef FPC}
+  my_Settings:=DefaultFormatSettings;
+  {$else}
   my_Settings.Create;
+  {$endif}
   my_Settings.DecimalSeparator := '.';
   StrDotToFloat:= StrToFloatDef(my_str,0,my_Settings);
 end;

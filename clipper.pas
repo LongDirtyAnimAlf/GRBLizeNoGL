@@ -47,9 +47,11 @@ unit clipper;
 //{$DEFINE use_deprecated}
 
 // enable LEGACYIFEND for Delphi XE4+
+{$ifndef FPC}
 {$IF CompilerVersion >= 25.0}
   {$LEGACYIFEND ON}
 {$IFEND}
+{$endif}
 
 // use generic lists for NextGen compiler
 {$IFDEF NEXTGEN}

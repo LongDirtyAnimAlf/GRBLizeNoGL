@@ -5,13 +5,21 @@ unit grbl_player_main;
 interface
 
 uses
-  Math, StdCtrls, ComCtrls, ToolWin, Buttons, ExtCtrls, ImgList,
-  Controls, StdActns, Classes, ActnList, Menus, GraphUtil,
-  SysUtils, StrUtils, Windows, Graphics, Forms, Messages,
-  Dialogs, Spin, FileCtrl, Grids, Registry, ShellApi, MMsystem, SyncObjs,
-  VFrames, ExtDlgs, XPMan, CheckLst, drawing_window,
-  ValEdit, System.ImageList, System.Actions,
-  FTDItypes, deviceselect, grbl_com, Vcl.ColorGrd, Vcl.Samples.Gauges, System.UItypes,
+  Windows, MMsystem,
+  {$ifndef FPC}
+  ShellApi, VFrames, XPMan, System.ImageList, System.Actions,
+  ToolWin, GraphUtil, Spin, FileCtrl,
+  ExtDlgs, CheckLst,ValEdit,
+  Vcl.ColorGrd, Vcl.Samples.Gauges, System.UItypes,
+  {$else}
+  //synaser,
+  {$endif}
+  Math, StdCtrls, ComCtrls, Buttons, ExtCtrls, ImgList,
+  SyncObjs, Controls, StdActns, Classes, ActnList, Menus,
+  SysUtils, StrUtils, Graphics, Forms, Messages,Types,
+  Dialogs, Grids, Registry,
+  drawing_window,
+  FTDItypes, deviceselect, grbl_com,
   app_defaults;
 
 
@@ -59,7 +67,9 @@ type
     OpenFileDialog: TOpenDialog;
     TimerDraw: TTimer;
     BtnClose: TButton;
+    {$ifndef FPC}
     XPManifest1: TXPManifest;
+    {$endif}
     N7: TMenuItem;
     OpenJobDialog: TOpenDialog;
     SaveJobDialog: TSaveDialog;
@@ -683,9 +693,18 @@ const
 
 implementation
 
-uses import_files, Clipper, About, bsearchtree, cam_view, gerber_import;
+uses
+  import_files, Clipper, About, bsearchtree,
+  {$ifndef FPC}
+  cam_view,
+  {$endif}
+  gerber_import;
 
-{$R *.dfm}
+{$ifdef FPC}
+{$R grbl_player_main.lfm}
+{$else}
+{$R grbl_player_main.dfm}
+{$endif}
 
 // #############################################################################
 // #############################################################################
@@ -808,8 +827,10 @@ begin
     BtnRunGcode.Enabled:= my_state;
     BtnRunJob.Enabled:= my_state and (length(final_array) > 0);
     BtnRunTool.Enabled:= my_state and (length(final_array) > 0);
+    {$ifndef FPC}
     Form3.BtnMoveToolZero.Enabled:= my_state;
     Form3.BtnMoveCamZero.Enabled:= my_state;
+    {$endif}
   end;
 end;
 
@@ -1088,12 +1109,14 @@ begin
     grbl_ini.Free;
   end;
 
+  {$ifndef FPC}
   if not IsFormOpen('Form3') then
     Form3 := TForm3.Create(Self);
   if ShowSpindleCam1.Checked then
     Form3.show
   else
     Form3.hide;
+  {$endif}
 
   if not IsFormOpen('Form2') then
     Form2 := TForm2.Create(Self);
@@ -1170,7 +1193,9 @@ begin
     grbl_ini.WriteString('SettingsPath',JobSettingsPath);
     grbl_ini.WriteBool('DrawingFormVisible',Form1.ShowDrawing1.Checked);
     grbl_ini.WriteBool('CamFormVisible',Form1.ShowSpindleCam1.Checked);
+    {$ifndef FPC}
     grbl_ini.WriteBool('CamOn', CamIsOn);
+    {$endif}
     if ftdi_isopen then
       grbl_ini.WriteString('FTDIdeviceSerial', ftdi_serial)
     else
@@ -1201,8 +1226,10 @@ begin
     AboutBox.Close;
   if IsFormOpen('DeviceSelectbox') then
     DeviceSelectbox.Close;
+  {$ifndef FPC}
   if IsFormOpen('Form3') then
     Form3.Close;
+  {$endif}
   if IsFormOpen('Form2') then
     Form2.Close;
 end;
@@ -1247,26 +1274,26 @@ var
   CaptionY: Integer;
   TabCaption: string;
 begin
-  with Control.Canvas do begin
-    if TabIndex = 4 then
-      Font.Color:= clteal;
-    if TabIndex = 3 then
-      Font.Color:= clgreen;
-    if Active then
-//      Brush.Color:= clwindow;
-      Brush.Color:= cl3Dlight;
-    FillRect(Rect);
+  {$ifndef FPC}
+    with Control.Canvas do begin
+      if TabIndex = 4 then
+        Font.Color:= clteal;
+      if TabIndex = 3 then
+        Font.Color:= clgreen;
+      if Active then
+  //      Brush.Color:= clwindow;
+        Brush.Color:= cl3Dlight;
+      FillRect(Rect);
 
-    TabCaption := PageControl1.Pages[TabIndex].Caption;
-    CaptionX := Rect.Left + ((Rect.Right - Rect.Left - TextWidth(TabCaption)) div 2);
-    CaptionY := Rect.Top + ((Rect.Bottom - Rect.Top - TextHeight('Gg')) div 2);
+      TabCaption := PageControl1.Pages[TabIndex].Caption;
+      CaptionX := Rect.Left + ((Rect.Right - Rect.Left - TextWidth(TabCaption)) div 2);
+      CaptionY := Rect.Top + ((Rect.Bottom - Rect.Top - TextHeight('Gg')) div 2);
 
-    TextOut(CaptionX, CaptionY, TabCaption);
-//    TextRect(Rect, Rect.Left + 2, Rect.Top + 2, TabCaption);
-  end;
+      TextOut(CaptionX, CaptionY, TabCaption);
+  //    TextRect(Rect, Rect.Left + 2, Rect.Top + 2, TabCaption);
+    end;
+  {$endif}
 end;
-
-
 
 procedure TForm1.PageControl1MouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
@@ -2124,10 +2151,12 @@ end;
 procedure TForm1.ShowSpindleCam1Click(Sender: TObject);
 begin
   ShowSpindleCam1.Checked:= not ShowSpindleCam1.Checked;
+  {$ifndef FPC}
   if ShowSpindleCam1.Checked then
     Form3.Show
   else
     Form3.Hide;
+  {$endif}
 end;
 
 procedure TForm1.CheckUseATC2Click(Sender: TObject);

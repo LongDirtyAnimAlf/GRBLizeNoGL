@@ -98,7 +98,6 @@ object deviceselectbox: Tdeviceselectbox
       ReadOnly = True
       RowSelect = True
       ParentFont = False
-      ShowWorkAreas = True
       TabOrder = 1
       ViewStyle = vsReport
       OnDblClick = ListView1DblClick

@@ -2,7 +2,8 @@ unit about;
 
 interface
 
-uses Windows, Classes, Graphics, Forms, Controls, StdCtrls,
+uses
+  Windows, Classes, Graphics, Forms, Controls, StdCtrls,
   Buttons, ExtCtrls;
 
 type

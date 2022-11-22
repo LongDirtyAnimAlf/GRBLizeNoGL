@@ -697,9 +697,13 @@ procedure TForm1.SgJobDefaultsDrawCell(Sender: TObject; ACol, ARow: Integer;
 var
   aRect: TRect;
   aStr: String;
-
+  {$ifdef FPC}
+  style: TTextStyle;
+  {$endif}
 begin
+  {$ifndef FPC}
   Rect.Left:= Rect.Left-4; // Workaround für XE8-Darstellung
+  {$endif}
   aStr:= SgJobDefaults.Cells[ACol, ARow];
   if aRow = 0 then with SgJobDefaults,Canvas do begin
     Font.Style := [fsBold];
@@ -722,7 +726,13 @@ begin
       FillRect(Rect);
       aStr:= Cells[ACol, ARow];
       aRect.Top := aRect.Top + 1; // adjust top to center vertical
+      {$ifdef FPC}
+      style:=Canvas.TextStyle;
+      style.Alignment:=taCenter;
+      Canvas.TextRect(aRect,aRect.Left,aRect.Top,aStr,style);
+      {$else}
       DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
+      {$endif}
     end;
 end;
 
@@ -799,9 +809,13 @@ procedure TForm1.SgAppDefaultsDrawCell(Sender: TObject; ACol, ARow: Integer;
 var
   aRect: TRect;
   aStr: String;
-
+  {$ifdef FPC}
+  style: TTextStyle;
+  {$endif}
 begin
+  {$ifndef FPC}
   Rect.Left:= Rect.Left-4; // Workaround für XE8-Darstellung
+  {$endif}
   aStr:= SgAppDefaults.Cells[ACol, ARow];
   if aRow = 0 then with SgAppDefaults,Canvas do begin
     Font.Style := [fsBold];
@@ -826,7 +840,13 @@ begin
       FillRect(Rect);
       aStr:= Cells[ACol, ARow];
       aRect.Top := aRect.Top + 1; // adjust top to center vertical
+      {$ifdef FPC}
+      style:=Canvas.TextStyle;
+      style.Alignment:=taCenter;
+      Canvas.TextRect(aRect,aRect.Left,aRect.Top,aStr,style);
+      {$else}
       DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
+      {$endif}
     end;
   end;
 end;
@@ -872,8 +892,13 @@ procedure TForm1.SgFilesDrawCell(Sender: TObject; ACol, ARow: Integer;
 var
   aRect: TRect;
   aStr: String;
+  {$ifdef FPC}
+  style: TTextStyle;
+  {$endif}
 begin
+  {$ifndef FPC}
   Rect.Left:= Rect.Left-4; // Workaround für XE8-Darstellung
+  {$endif}
   if aRow = 0 then with SgFiles,Canvas do begin
     Font.Style := [fsBold];
     TextRect(Rect, Rect.Left + 2, Rect.Top + 2, Cells[ACol, ARow]);
@@ -921,7 +946,13 @@ begin
           FillRect(Rect);
           aRect := Rect;
           aRect.Top := aRect.Top + 1; // adjust top to center
+          {$ifdef FPC}
+          style:=Canvas.TextStyle;
+          style.Alignment:=taCenter;
+          Canvas.TextRect(aRect,aRect.Left,aRect.Top,aStr,style);
+          {$else}
           DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
+          {$endif}
         end;
       7:  // Clear-"Button"
         begin
@@ -938,7 +969,13 @@ begin
           FillRect(Rect);
           aRect := Rect;
           aRect.Top := aRect.Top + 1; // adjust top to center
+          {$ifdef FPC}
+          style:=Canvas.TextStyle;
+          style.Alignment:=taCenter;
+          Canvas.TextRect(aRect,aRect.Left,aRect.Top,aStr,style);
+          {$else}
           DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
+          {$endif}
         end;
     end;
   end;

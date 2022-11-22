@@ -27,11 +27,10 @@ type
 
 var
   deviceselectbox: Tdeviceselectbox;
+
 implementation
 
 {$R *.dfm}
-
-
 
 procedure Tdeviceselectbox.CancelButtonClick(Sender: TObject);
 begin
