@@ -6,7 +6,7 @@
 procedure CalcTipDia;
 var j: Integer;
 begin
-  for j := 0 to 31 do begin
+  for j := 0 to Pred(c_numOfPens) do begin
     case job.pens[j].tooltip of
       1:
         job.pens[j].tipdia:= job.pens[j].z_end * 0.53; // tan(30°) * 2
@@ -29,9 +29,9 @@ end;
 procedure PenGridListToJob;
 var i, j: Integer;
 begin
-  for i:= 0 to c_numOfFiles do
+  for i:= 0 to Pred(c_numOfFiles) do
     job.fileDelimStrings[i]:= Form1.SgFiles.Rows[i+1].DelimitedText;
-  for i := 1 to 32 do with Form1.SgPens do begin
+  for i := 1 to c_numOfPens do with Form1.SgPens do begin
     // Color und Enable in DrawCell erledigt!
     j:= i-1;
     job.pens[j].color:= StrToIntDef(Cells[1,i],0);
@@ -55,7 +55,7 @@ end;
 procedure JobToPenGridList;
 var i: Integer;
 begin
-  for i := 0 to 31 do with Form1.SgPens do begin
+  for i := 0 to Pred(c_numOfPens) do with Form1.SgPens do begin
     if i < 10 then
       Cells[0,i+1]:= 'P' + IntToStr(i)
     else
@@ -79,7 +79,7 @@ begin
     Cells[12,i+1]:= IntToStr(job.pens[i].tooltip);
   end;
   Form1.SgPens.Repaint;
-  for i:= 0 to c_numOfFiles do
+  for i:= 0 to Pred(c_numOfFiles) do
     Form1.SgFiles.Rows[i+1].DelimitedText:= job.fileDelimStrings[i];
 end;
 
@@ -91,10 +91,10 @@ procedure ClearFiles;
 var i: Integer;
 begin
   init_blockarrays;
-  for i := 0 to c_numOfFiles do with Form1.SgFiles do begin
+  for i := 0 to Pred(c_numOfFiles) do with Form1.SgFiles do begin
     Cells[0,i+1]:= '';
     Cells[1,i+1]:= 'OFF';
-    Cells[2,i+1]:= '0°';
+    Cells[2,i+1]:= RotationAngles[deg0];
     Cells[3,i+1]:= 'OFF';
     Cells[4,i+1]:= '0';
     Cells[5,i+1]:= '0';
@@ -113,7 +113,7 @@ begin
   end;
 
   with job do begin
-    for i := 0 to 31 do begin
+    for i := 0 to Pred(c_numOfPens) do begin
       pens[i].used:= false;
     end;
   end;
@@ -137,7 +137,7 @@ begin
     '#,Tool,Ena,Dia,Shape,"Polygons [closed vectors] -open vectors-"';
   Form1.SgJobdefaults.Rows[0].DelimitedText:= 'Parameter,Value';
   with job do begin
-    for i := 0 to 31 do begin
+    for i := 0 to Pred(c_numOfPens) do begin
       pens[i]:= PenInit;
       pens[i].offset.x:= 0;
       pens[i].offset.y:= 0;
@@ -163,10 +163,10 @@ begin
     pens[17].color:=16755455;
     pens[18].color:=12632256;
     pens[19].color:=15987699;;
-    for i := 20 to 31 do begin
+    for i := 20 to Pred(c_numOfPens) do begin
       pens[i].color:=clgray;
     end;
-    for i := 10 to 31 do begin
+    for i := 10 to Pred(c_numOfPens) do begin
       pens[i].shape:= drillhole;
       pens[i].tooltip:= 6;
       pens[i].diameter:= 1.0;
@@ -336,21 +336,21 @@ begin
   PenGridListToJob;
   DefaultsGridListToJob;
   init_blockArrays;
-  for i:= 0 to 31 do begin
+  for i:= 0 to Pred(c_numOfPens) do begin
     job.pens[i].used:= false;
     job.pens[i].enable:= false;
     job.pens[i].force_closed:= false;
   end;
   with Form1.SgFiles do begin
-    for i:= 1 to c_numOfFiles +1 do begin
-      if Cells[2, i] = '90°' then
-        FileParamArray[i-1].rotate:= deg90
-      else if Cells[2, i] = '270°' then
-        FileParamArray[i-1].rotate:= deg270
-      else if Cells[2, i] = '180°' then
-        FileParamArray[i-1].rotate:= deg180
-      else
-        FileParamArray[i-1].rotate:= deg0;
+    for i:= 1 to c_numOfFiles do begin
+      if Cells[2, i] = RotationAngles[deg0] then
+        FileParamArray[i-1].rotate:= deg0
+      else if Cells[2, i] = RotationAngles[deg90] then
+          FileParamArray[i-1].rotate:= deg90
+      else if Cells[2, i] = RotationAngles[deg180] then
+          FileParamArray[i-1].rotate:= deg180
+      else if Cells[2, i] = RotationAngles[deg270] then
+          FileParamArray[i-1].rotate:= deg270;
       FileParamArray[i-1].mirror:= Cells[3, i] = 'ON';
       FileParamArray[i-1].offset.X:= round(StrToFloatDef(Cells[4, i], 0) * c_hpgl_scale);
       FileParamArray[i-1].offset.Y:= round(StrToFloatDef(Cells[5, i], 0) * c_hpgl_scale);
@@ -400,7 +400,7 @@ begin
   end;
 
   job.pens[0].enable:= false; // Tool 0 immer disabled
-  for i:= 1 to 31 do begin
+  for i:= 1 to Pred(c_numOfPens) do begin
     job.pens[i].enable:= job.pens[i].used;
   end;
 
@@ -691,7 +691,6 @@ begin
   NeedsRedraw:= true;
 end;
 
-
 procedure TForm1.SgJobDefaultsDrawCell(Sender: TObject; ACol, ARow: Integer;
   Rect: TRect; State: TGridDrawState);
 var
@@ -733,7 +732,13 @@ begin
       {$else}
       DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
       {$endif}
-    end;
+    end
+  else
+  begin
+    {$ifdef FPC}
+    TStringGrid(Sender).DefaultDrawCell(ACol, ARow,Rect,State);
+    {$endif}
+  end;
 end;
 
 procedure TForm1.SgJobDefaultsExit(Sender: TObject);
@@ -941,7 +946,7 @@ begin
           end;
           if aStr <> 'OFF' then
             Font.Style := [fsBold];
-          if aStr = '0°' then
+          if aStr = RotationAngles[deg0] then
             Font.Style := [];
           FillRect(Rect);
           aRect := Rect;
@@ -1053,14 +1058,16 @@ begin
         end;
       2:
         begin
-          if Cells[2, my_Row] = '0°' then
-            Cells[2, my_Row]:= '90°'
-          else if Cells[2, my_Row] = '90°' then
-            Cells[2, my_Row]:= '180°'
-          else if Cells[2, my_Row] = '180°' then
-            Cells[2, my_Row]:= '270°'
+          if Cells[2, my_Row] = RotationAngles[deg0] then
+            Cells[2, my_Row]:= RotationAngles[deg90]
+          else if Cells[2, my_Row] = RotationAngles[deg90] then
+            Cells[2, my_Row]:= RotationAngles[deg180]
+          else if Cells[2, my_Row] = RotationAngles[deg180] then
+            Cells[2, my_Row]:= RotationAngles[deg270]
+          else if Cells[2, my_Row] = RotationAngles[deg270] then
+            Cells[2, my_Row]:= RotationAngles[deg0]
           else
-            Cells[2, my_Row]:= '0°';
+            Cells[2, my_Row]:= RotationAngles[deg0];
           Repaint;
           OpenFilesInGrid;
         end;
@@ -1083,10 +1090,10 @@ begin
           UnHilite;
           Cells[0, my_Row]:= '';
           Cells[1, my_Row]:= '-1';
-          Cells[2, my_Row]:= '0°';
+          Cells[2, my_Row]:= RotationAngles[deg0];
           Cells[3, my_Row]:= 'OFF';
           Cells[8, my_Row]:= '';
-          for i:= 0 to c_numOfPens do
+          for i:= 0 to Pred(c_numOfPens) do
             job.pens[i].used:= false;
           OpenFilesInGrid;
         end;

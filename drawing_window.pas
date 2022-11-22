@@ -12,6 +12,9 @@ uses
   UItypes, Types, MMsystem, import_files;
 
 type
+
+  { TForm2 }
+
   TForm2 = class(TForm)
     DrawingBox: TPaintBox;
     PopupMenuObject: TPopupMenu;
@@ -57,6 +60,7 @@ type
     pu_MoveCamToPoint: TMenuItem;
     N3: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormDestroy(Sender: TObject);
     procedure pu_camIsAtPointClick(Sender: TObject);
     procedure pu_camIsAtCenterClick(Sender: TObject);
     procedure pu_moveCamToPointClick(Sender: TObject);
@@ -944,8 +948,6 @@ procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   grbl_ini:TRegistry;
 begin
-  DrawingBitmap.Free;
-
   grbl_ini:= TRegistry.Create;
   try
     grbl_ini.RootKey := HKEY_CURRENT_USER;
@@ -962,6 +964,11 @@ begin
   end;
 
   Form1.WindowMenu1.Items[0].Checked:= false;
+end;
+
+procedure TForm2.FormDestroy(Sender: TObject);
+begin
+  DrawingBitmap.Free;
 end;
 
 procedure TForm2.FormActivate(Sender: TObject);
@@ -1053,9 +1060,11 @@ procedure TForm2.DrawingBoxMouseDown(Sender: TObject; Button: TMouseButton;
 // Popup-Menu mit rechter Maustaste
 var pt: TPoint;
   move_enabled: boolean;
+  ac:HCURSOR;
 begin
   if (ssLeft in Shift) then begin
-    SetCursor(Screen.Cursors[crSize]);
+    ac:=Screen.Cursors[crSize];
+    SetCursor(TCursor(ac));
     mouse_start.x:= X;
     mouse_start.y:= Y;
     search_entry_in_drawing(x,y);

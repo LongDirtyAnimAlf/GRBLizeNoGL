@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 199
+  Left = 355
   Height = 695
-  Top = 170
+  Top = 180
   Width = 932
   BorderStyle = bsSingle
   ClientHeight = 675
@@ -655,7 +655,7 @@ object Form1: TForm1
         Font.Name = 'MS Sans Serif'
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine]
         ParentFont = False
-        RowCount = 9
+        RowCount = 8
         ScrollBars = ssNone
         TabOrder = 0
         OnClick = SgFilesClick
@@ -740,7 +740,7 @@ object Form1: TForm1
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goThumbTracking]
         ParentDoubleBuffered = False
         ParentFont = False
-        RowCount = 33
+        RowCount = 32
         ScrollBars = ssVertical
         TabOrder = 0
         OnDrawCell = SgPensDrawCell

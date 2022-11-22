@@ -468,7 +468,7 @@ begin
   if length(final_array) > 0 then begin
     my_pen:= final_array[0].pen;
   end;
-  for i:= 0 to 31 do begin
+  for i:= 0 to Pred(c_numOfPens) do begin
     if job.pens[i].enable and  job.pens[i].used then begin
       my_tooltip:= job.pens[i].tooltip;
       if job.pens[i].shape = drillhole then
