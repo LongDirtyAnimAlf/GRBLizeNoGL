@@ -5,18 +5,19 @@ unit grbl_player_main;
 interface
 
 uses
-  Math, StdCtrls, ComCtrls, ToolWin, Buttons, ExtCtrls, ImgList,
-  Controls, StdActns, Classes, ActnList, Menus, GraphUtil,
+  Math, StdCtrls, ComCtrls, Buttons, ExtCtrls, ImgList,
+  Controls, StdActns, Classes, ActnList, Menus,
   SysUtils, StrUtils, Windows, Graphics, Forms, Messages,
-  Dialogs, Spin, FileCtrl, Grids, Registry, ShellApi, MMsystem, SyncObjs,
+  Dialogs,  Grids, Registry, MMsystem, SyncObjs,
   {$ifndef FPC}
+  ToolWin, GraphUtil, Spin, FileCtrl, ShellApi,
   VFrames, XPMan, ValEdit, System.ImageList, System.Actions,
   Vcl.ColorGrd, Vcl.Samples.Gauges, System.UItypes,
+  ExtDlgs, CheckLst,
   {$endif}
-  ExtDlgs, CheckLst, drawing_window,
+  drawing_window,
   FTDItypes, deviceselect, grbl_com,
   app_defaults;
-
 
 const
   c_ProgNameStr: String = 'GRBLize ';
@@ -1123,7 +1124,11 @@ begin
   Combobox1.Parent := SgFiles;
   ComboBox1.Visible := False;
   SgFiles.Row:=1;
+  {$ifdef FPC}
+  SgFiles.Col:=SgFiles.ColCount;
+  {$else}
   SgFiles.Col:=4;
+  {$endif}
 
   LoadIniFile;
 //  BtnProbeTLC.Enabled:= CheckFixedProbeZ.Checked;
@@ -1135,7 +1140,6 @@ begin
 
   SgGrblSettings.FixedCols:= 1;
   SgAppdefaults.FixedCols:= 1;
-
   BringToFront;
   Memo1.lines.add(''+ SetUpFTDI);
 

@@ -188,6 +188,7 @@ begin
     Rows[7].DelimitedText:='"Z Gauge Height",10';
     Rows[8].DelimitedText:='"Optimize Drill Path",ON';
     Rows[9].DelimitedText:= '"Use Excellon Drill Diameters",ON';
+    Row:=Pred(RowCount);
   end;
   ClearFiles;
 end;
@@ -699,6 +700,7 @@ var
   aStr: String;
   {$ifdef FPC}
   style: TTextStyle;
+  IsSelected:boolean;
   {$endif}
 begin
   {$ifndef FPC}
@@ -708,6 +710,7 @@ begin
   if aRow = 0 then with SgJobDefaults,Canvas do begin
     Font.Style := [fsBold];
     TextRect(Rect, Rect.Left + 2, Rect.Top + 2, aStr);
+    Font.Style := [];
   end else if (aCol = 1) and ((aStr= 'ON') or (aStr= 'OFF')) then // ON, OFF
     with SgJobDefaults,Canvas do begin
       FrameRect(Rect);
@@ -733,11 +736,27 @@ begin
       {$else}
       DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
       {$endif}
+      Font.Style := [];
     end
   else
   begin
     {$ifdef FPC}
-    TStringGrid(Sender).DefaultDrawCell(ACol, ARow,Rect,State);
+    with TStringGrid(Sender),TStringGrid(Sender).Canvas do
+    begin
+      if aCol in [1] then
+      begin
+        if Assigned(Editor) then
+        begin
+          IsSelected := (gdSelected in State) AND Editor.Visible;
+          if IsSelected and (gdFocused in State) then
+          begin
+            Brush.Color := clLime;
+            FillRect(Rect);
+          end;
+        end;
+      end;
+      DefaultDrawCell(ACol, ARow, Rect, State);
+    end;
     {$endif}
   end;
 end;
@@ -752,10 +771,9 @@ end;
 procedure TForm1.SgJobDefaultsKeyPress(Sender: TObject; var Key: Char);
 begin
   if (Key = #13) or (Key = #10) then begin
-    SgJobDefaultsExit(Sender);;
+    SgJobDefaultsExit(Sender);
   end;
 end;
-
 
 procedure TForm1.SgJobDefaultsMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
@@ -783,7 +801,17 @@ end;
 procedure TForm1.SgJobDefaultsClick(Sender: TObject);
 begin
   with SgJobDefaults do
+  begin
     Options:= Options - [goEditing, goAlwaysShowEditor];
+    {$ifdef FPC}
+    if Assigned(Editor) then
+    begin
+      EditorMode:=True;
+      Editor.Visible:=True;
+      Editor.SetFocus;
+    end;
+    {$endif}
+  end;
   NeedsRedraw:= true;
   ListBlocks;
   if SgJobDefaults.Row > 7 then
@@ -853,6 +881,13 @@ begin
       {$else}
       DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
       {$endif}
+      Font.Style := [];
+    end
+    else
+    begin
+      {$ifdef FPC}
+      TStringGrid(Sender).DefaultDrawCell(ACol, ARow,Rect,State);
+      {$endif}
     end;
   end;
 end;
@@ -885,7 +920,17 @@ end;
 procedure TForm1.SgAppDefaultsClick(Sender: TObject);
 begin
   with SgAppDefaults do
+  begin
     Options:= Options - [goEditing, goAlwaysShowEditor];
+    {$ifdef FPC}
+    if Assigned(Editor) then
+    begin
+      EditorMode:=True;
+      Editor.Visible:=True;
+      Editor.SetFocus;
+    end;
+    {$endif}
+  end;
 end;
 
 // #############################################################################
@@ -900,6 +945,7 @@ var
   aStr: String;
   {$ifdef FPC}
   style: TTextStyle;
+  IsSelected: boolean;
   {$endif}
 begin
   {$ifndef FPC}
@@ -908,6 +954,7 @@ begin
   if aRow = 0 then with SgFiles,Canvas do begin
     Font.Style := [fsBold];
     TextRect(Rect, Rect.Left + 2, Rect.Top + 2, Cells[ACol, ARow]);
+    Font.Style := [];
   end else with SgFiles,Canvas do begin
     Pen.Color := cl3Dlight;
     Font.Color:=clblack;
@@ -959,6 +1006,7 @@ begin
           {$else}
           DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
           {$endif}
+          Font.Style := [];
         end;
       7:  // Clear-"Button"
         begin
@@ -971,7 +1019,6 @@ begin
           InflateRect(Rect, -1, -1);
           Font.Style := [];
           aStr:= 'CLR';
-          Font.Style := [];
           FillRect(Rect);
           aRect := Rect;
           aRect.Top := aRect.Top + 1; // adjust top to center
@@ -981,6 +1028,21 @@ begin
           Canvas.TextRect(aRect,aRect.Left,aRect.Top,aStr,style);
           {$else}
           DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
+          {$endif}
+        end;
+      else
+        begin
+          {$ifdef FPC}
+          if Assigned(Editor) then
+          begin
+            IsSelected := (gdSelected in State) AND Editor.Visible;
+            if IsSelected and (gdFocused in State) then
+            begin
+              Brush.Color := clLime;
+              FillRect(Rect);
+            end;
+          end;
+          DefaultDrawCell(ACol, ARow, Rect, State);
           {$endif}
         end;
     end;
@@ -1081,9 +1143,8 @@ begin
           Repaint;
           OpenFilesInGrid;
         end;
-      4,5,6, 8:
+      4,5,6,8:
         begin
-//          Options:= Options + [goEditing, goAlwaysShowEditor];
           Options:= Options + [goEditing, goAlwaysShowEditor];
         end;
       7:
@@ -1115,12 +1176,26 @@ end;
 
 procedure TForm1.SgFilesExit(Sender: TObject);
 begin
-
+  with SgFiles do
+  begin
+    Options:= Options - [goEditing, goAlwaysShowEditor];
+  end;
 end;
 
 procedure TForm1.SgFilesClick(Sender: TObject);
 begin
-  SgFiles.Options:= SgFiles.Options - [goEditing, goAlwaysShowEditor];
+  with SgFiles do
+  begin
+    Options:= Options - [goEditing, goAlwaysShowEditor];
+    {$ifdef FPC}
+    if Assigned(Editor) then
+    begin
+      EditorMode:=True;
+      Editor.Visible:=True;
+      Editor.SetFocus;
+    end;
+    {$endif}
+  end;
 end;
 
 

@@ -198,6 +198,7 @@ begin
             {$else}
             DrawText(Canvas.Handle, PChar(aStr), Length(aStr), aRect, DT_CENTER);
             {$endif}
+            Font.Style := [];
           end;
         else begin
           if not final_array[aRow-1].enable then begin

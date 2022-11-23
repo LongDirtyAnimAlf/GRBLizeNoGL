@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 355
+  Left = 467
   Height = 695
-  Top = 180
+  Top = 184
   Width = 932
   BorderStyle = bsSingle
   ClientHeight = 675
@@ -646,7 +646,8 @@ object Form1: TForm1
         Hint = 'File settings - click on path to load. G-Code and SVG files will be mapped to Pen/Tool 9.'
         Top = 25
         Width = 569
-        ColCount = 10
+        AutoFillColumns = True
+        ColCount = 9
         DefaultDrawing = False
         DefaultRowHeight = 18
         FixedCols = 0
@@ -663,6 +664,17 @@ object Form1: TForm1
         OnExit = SgFilesExit
         OnKeyPress = SgFilesKeyPress
         OnMouseDown = SgFilesMouseDown
+        ColWidths = (
+          63
+          63
+          63
+          63
+          63
+          63
+          63
+          62
+          62
+        )
       end
       object SgJobDefaults: TStringGrid
         Left = 8
@@ -670,7 +682,9 @@ object Form1: TForm1
         Hint = 'General job settings common for all files and tools'
         Top = 202
         Width = 265
+        AutoFillColumns = True
         ColCount = 2
+        DefaultColWidth = 160
         DefaultDrawing = False
         DefaultRowHeight = 18
         Font.Color = clWindowText
@@ -686,6 +700,10 @@ object Form1: TForm1
         OnExit = SgJobDefaultsExit
         OnKeyPress = SgJobDefaultsKeyPress
         OnMouseDown = SgJobDefaultsMouseDown
+        ColWidths = (
+          160
+          101
+        )
       end
       object MemoComment: TMemo
         Left = 304

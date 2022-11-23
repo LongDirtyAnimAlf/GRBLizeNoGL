@@ -145,6 +145,12 @@ begin
   if aRow = 0 then with (Sender as TStringGrid),Canvas do begin
     Font.Style := [fsBold];
     TextRect(Rect, Rect.Left + 2, Rect.Top + 2, Cells[ACol, ARow]);
+  end
+  else
+  begin
+    {$ifdef FPC}
+    TStringGrid(Sender).DefaultDrawCell(ACol, ARow,Rect,State);
+    {$endif}
   end;
 end;
 
