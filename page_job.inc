@@ -530,7 +530,7 @@ begin
     Form1.Memo1.lines.add('Job reset and initialized.');
   end;
   // sind Files noch aktuell?
-  for i:= 1 to c_numOfFiles +1 do begin
+  for i:= 1 to c_numOfFiles do begin
     my_path:= Form1.SgFiles.Cells[0,i];
     if (length(my_path) < 4) or (not FileExists(my_path)) then
       continue;
