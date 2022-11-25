@@ -137,4 +137,21 @@ begin
       Form1.SgAppDefaults.Cells[1,sg_row]:= 'OFF';
 end;
 
+initialization
+  (*
+  with MachineOptions do begin
+    SPI:= false;
+    Display:= false;
+    Panel:= false;
+    Caxis:= false;
+    VariableSpindle:= false;
+    MistCoolant:= false;
+    HomingLock:= false;
+    DeviceAddressed:= false;
+    DeviceAddress:= 0;
+    HomingOrigin:= false;  // HOMING_FORCE_SET_ORIGIN
+    SingleAxisHoming:= false;
+    NewGrblVersion:= true;
+  end;
+  *)
 end.

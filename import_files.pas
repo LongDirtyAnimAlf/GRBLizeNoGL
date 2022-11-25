@@ -10,14 +10,15 @@ const
   c_numOfFiles = 8 -1;
   c_numOfPens = 32 -1;
 
-  type
+type
 
-  Thpgl_cmd = (cmd_none, cmd_pa, cmd_pu, cmd_pd, cmd_sp, cmd_in,
+  Thpgl_cmd = (cmd_none, cmd_pa, cmd_pu, cmd_pd, cmd_sp, cmd_in, cmd_aa,
               cmd_number, cmd_drill, cmd_exit, cmd_nextline);
-  Taction = (none, lift, seek, mill, drill);
-  Tshape = (contour, inside, outside, pocket, drillhole);
+  Tshape  = (contour, inside, outside, pocket, drillhole);
   Trotate = (deg0, deg90, deg180, deg270);
+  Taction = (none, lift, seek, mill, drill);
   T_parseReturnType = (p_none, p_endofline, p_letters, p_number);
+  TPtType = set of (t_mill, t_hilite);
 
   TFloatPoint = record
     X: Double;
@@ -42,10 +43,11 @@ const
     penoverride: Integer;
     rotate: Trotate;
     mirror: Boolean;
-    scale: Double;
     isdrillfile:Boolean;
     bounds: Tbounds;
     offset: TintPoint;
+    scale:  TFloatPoint;
+    scale_y: Double;
   end;
 
   Tpen_record = record
@@ -77,17 +79,19 @@ const
   end;
 
   Tblock_record = record
-    enable: boolean;
-    pen: Integer;
-    fileID: Integer;   // von welchem File?
-    closed: boolean;   // closed Polygon (TRUE) oder offener Linienpfad (FALSE)
-    isChild: boolean;  // hat einen Parent
-    parentID: Integer;  // -1 wenn kein Parent gefunden, sonst Block-#
-    isParent: boolean;  // hat eine ChildList
-    childList: Array of Integer;
-    bounds: Tbounds;
-    outline_raw: Tpath;   // outline path original (Integer Points)
-    outline: Tpath;       // skaliert und mit Offsets
+    enable:      boolean;
+    pen:         Integer;
+    fileID:      Integer;                                   // von welchem File?
+    closed:      boolean; // closed Polygon (TRUE) o. offener Linienpfad (FALSE)
+    isChild:     boolean;                                    // hat einen Parent
+    parentID:    Integer;         // -1 wenn kein Parent gefunden, sonst Block-#
+    isParent:    boolean;                                  // hat eine ChildList
+    childList:   Array of Integer;
+    bounds:      Tbounds;
+    outline_raw: Tpath;  // outline path before manipulation with pen parameters
+    outline:     Tpath;                          // after pen scaling and offset
+    hilite_raw:  TPath;  // hilite points before manipulation with pen parameter
+    hilite:      TPath;                                     // after pen scaling
   end;
 
   Tfinal = record
@@ -471,19 +475,11 @@ begin
   new_block:= my_len;
 end;
 
-procedure append_point(fileID, blockID: Integer; new_pt: TintPoint);
-// f�r File-Import:
-// h�ngt �bergebenen Punkt an Block-Pfad an und setzt File-Bounds
-var my_len: Integer;
+procedure append_point(fileID, blockID: Integer; new_pt: TintPoint; AType: TPtType);
+// für File-Import:
+// hängt übergebenen Punkt an Block-Pfad an und setzt File-Bounds
+var l: Integer;
 begin
-  my_len:= length(blockArrays[fileID, blockID].outline_raw);
-
-//  // Skalierung und Offsets des Files
-//  new_pt.X:= FileParamArray[fileID].offset.x
-//    + (round(new_pt.X * 10 * FileParamArray[fileID].scale) div 1000);
-//  new_pt.Y:= FileParamArray[fileID].offset.y
-//    + (round(new_pt.Y * 10 * FileParamArray[fileID].scale) div 1000);
-
   // Bounds des Files neu setzen
   if new_pt.X < FileParamArray[fileID].bounds.min.x then
     FileParamArray[fileID].bounds.min.x:= new_pt.X;
@@ -506,11 +502,21 @@ begin
   if new_pt.Y > FileParamArray[fileID].bounds.max.y then
     blockArrays[fileID, blockID].bounds.max.y:= new_pt.Y;
 
-  // Raw-Points bereits mit File-Offset/Scale
-  SetLength(blockArrays[fileID, blockID].outline_raw, my_len+1);
-  blockArrays[fileID, blockID].outline_raw[my_len]:= new_pt;
-  SetLength(blockArrays[fileID, blockID].outline, my_len+1);
-  blockArrays[fileID, blockID].outline[my_len]:= new_pt;
+  if t_mill in AType  then begin
+    l:= length(blockArrays[fileID, blockID].outline_raw);
+    SetLength(blockArrays[fileID, blockID].outline_raw, l+1);
+    SetLength(blockArrays[fileID, blockID].outline, l+1);
+    blockArrays[fileID, blockID].outline_raw[l]:= new_pt;
+    blockArrays[fileID, blockID].outline[l]:=     new_pt;
+  end;
+
+  if t_hilite in AType then begin
+    l:= length(blockArrays[fileID, blockID].hilite_raw);
+    SetLength(blockArrays[fileID, blockID].hilite_raw, l+1);
+    SetLength(blockArrays[fileID, blockID].hilite, l+1);
+    blockArrays[fileID, blockID].hilite_raw[l]:= new_pt;
+    blockArrays[fileID, blockID].hilite[l]:=     new_pt;
+  end;
 end;
 
 // #############################################################################
@@ -525,7 +531,7 @@ var b,p, my_pathlen, my_blocklen: Integer;
   my_file_entry: Tfile_param;
   my_pt, my_first_pt, my_last_pt: TIntPoint;
   my_offset: TintPoint;
-  my_scale: Double;
+  my_scale: TFloatPoint;
 
 begin
   my_file_entry:= FileParamArray[fileID];
@@ -573,8 +579,8 @@ begin
       my_pt:= blockArrays[fileID, b].outline_raw[p];
 
       // Skalierung und Offsets des Files
-      my_pt.X:= my_offset.X + (round(my_pt.X * 10 * my_scale) div 1000);
-      my_pt.Y:= my_offset.y + (round(my_pt.Y * 10 * my_scale) div 1000);
+      my_pt.X:= my_offset.X + (round(my_pt.X * 10 * my_scale.X) div 1000);
+      my_pt.Y:= my_offset.y + (round(my_pt.Y * 10 * my_scale.Y) div 1000);
 
       nx:= my_file_entry.bounds.min.x + my_file_entry.bounds.max.x - my_pt.X;
       ny:= my_file_entry.bounds.min.y + my_file_entry.bounds.max.y - my_pt.Y;
@@ -622,6 +628,80 @@ begin
       blockArrays[fileID, b].outline_raw[p]:= my_pt;
     end;      // path
   end;        // blocks
+end;
+
+procedure file_Rotate_Mirror_Scale_Offset(fileID: Integer; auto_close_polygons: boolean);
+// Jeden Block prüfen, ob geschlossener Pfad; danach outline_raw-Pfade
+// rotieren und spiegeln
+// Verwendet beim Import gesetzte File-Bounds
+// muss gleich nach Import geschehen
+var FParam:                             Tfile_param;
+    b, p, BlockLen, PathLen, HiliteLen: integer;
+    FirstPt, LastPt:                    TintPoint;
+
+  procedure DoManipulations(var Pt: TIntPoint);
+  var a, c: double;
+  begin
+    Pt.X:= FParam.offset.X + (round(Pt.X * 10 * FParam.scale.X) div 1000);
+    Pt.Y:= FParam.offset.y + (round(Pt.Y * 10 * FParam.scale.Y) div 1000);
+    if FParam.rotate <> deg0 then begin                    // rotation of file
+      c:=sqrt(Pt.X*Pt.X + Pt.Y*Pt.Y);                           // hypothenuse
+      if c > 0.01 then a:= arccos(Pt.X/c)                               // angle
+                  else a:= 0;
+      case FParam.rotate of
+        deg90:  a:=a+pi/2;
+        deg180: a:=a+pi;
+        deg270: a:=a+3*pi/2;
+      end;
+      Pt.X:=round(c*cos(a));
+      Pt.Y:=round(c*sin(a));
+    end;
+                                       // mirroring, scaling and offsets of file
+    if FParam.mirror then Pt.X:= -Pt.X;
+  end;
+
+begin
+  file_rotate_mirror(fileID, auto_close_polygons);
+  exit;
+
+  FParam:= FileParamArray[fileID];
+  if not FParam.valid then exit;                                 // entry unused
+
+  BlockLen:= length(blockArrays[fileID]);
+  if BlockLen = 0 then exit;                           // keine Blöcke enthalten
+
+  for b:= 0 to BlockLen - 1 do begin
+                                                         // handle closed pathes
+    PathLen:= length(blockArrays[fileID, b].outline_raw);
+    HiliteLen:= length(blockArrays[fileID, b].hilite_raw);
+    if PathLen = 0 then continue;                       // keine Pfade enthalten
+
+  // letzten Eintrag entfernen, falls gleich erstem Punkt, dafür "closed" setzen
+    FirstPt:= blockArrays[fileID,b].outline_raw[0];
+    LastPt:=  blockArrays[fileID,b].outline_raw[PathLen-1];
+    if (FirstPt.X = LastPt.X) and (FirstPt.Y = LastPt.Y) and
+       (PathLen > 1) and auto_close_polygons then begin
+      dec(PathLen);
+      blockArrays[fileID,b].closed:= true;
+      setlength(blockArrays[fileID,b].outline_raw, PathLen);
+      setlength(blockArrays[fileID,b].outline,     PathLen);
+
+      if  HiliteLen > 1 then begin
+        FirstPt:= blockArrays[fileID,b].hilite[0];
+        LastPt:=  blockArrays[fileID,b].hilite[HiliteLen-1];
+        if (FirstPt.X = LastPt.X) and (FirstPt.Y = LastPt.Y) then begin
+          dec(HiliteLen);
+          setlength(blockArrays[fileID,b].Hilite_raw, HiliteLen);
+          setlength(blockArrays[fileID,b].Hilite,     HiliteLen);
+        end;
+      end;
+    end;
+
+    for p:= 0 to PathLen - 1 do         // rework all points of outline_raw path
+      DoManipulations(blockArrays[fileID, b].outline_raw[p]);
+    for p:= 0 to HiliteLen - 1 do            // rework all points of hilite path
+      DoManipulations(blockArrays[fileID, b].hilite_raw[p]);
+  end;
 end;
 
 procedure block_scale(fileID, blockID: Integer);

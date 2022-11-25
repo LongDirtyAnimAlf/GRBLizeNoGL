@@ -4,7 +4,7 @@ object Form1: TForm1
   Top = 184
   Width = 932
   BorderStyle = bsSingle
-  ClientHeight = 675
+  ClientHeight = 695
   ClientWidth = 932
   Color = clBtnFace
   Constraints.MaxHeight = 800
@@ -564,14 +564,14 @@ object Form1: TForm1
     Top = 36
     Width = 594
     TabStop = False
-    ActivePage = TabSheet1
+    ActivePage = TabSheetRun
     Font.Color = clWindowText
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     HotTrack = True
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 2
     OnChange = PageControl1Change
     OnMouseUp = PageControl1MouseUp

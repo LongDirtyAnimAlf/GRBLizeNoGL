@@ -2762,7 +2762,8 @@ var my_str: String;
 begin
   my_str:= 'X '+ LabelXdrag.Caption + 'Y '+ LabelYdrag.Caption;
   my_str:= StringReplace(my_str,',','.',[rfReplaceAll]);
-  if isGrblActive then begin
+  //if isGrblActive then
+  begin
     SendReceive('G91', 200);   // relative Move
     SendReceive('G0 ' + my_str, 200);
     SendReceive('G90', 200);   // absolute Move
@@ -2788,9 +2789,10 @@ procedure TForm1.RadioButtonDragZMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 var my_str: String;
 begin
-  my_str:= 'XZ '+ LabelZdrag.Caption;
+  my_str:= 'Z '+ LabelZdrag.Caption;
   my_str:= StringReplace(my_str,',','.',[rfReplaceAll]);
-  if isGrblActive then begin
+  //if isGrblActive then
+  begin
     SendReceive('G91', 200);   // relative Move
     SendReceive('G0 ' + my_str, 200);
     SendReceive('G90', 200);   // absolute Move
@@ -2804,8 +2806,8 @@ var dx, dy, dz: Double;
   f: Integer;
   first_loop_done: boolean;
 begin
-  if isSimActive then
-    exit;
+  //if isSimActive then
+  //  exit;
   WaitForIdle;
   dx := 0;
   dy := 0;
@@ -2887,19 +2889,22 @@ begin
     first_loop_done:= false;
     while GetAsyncKeyState(VK_LBUTTON) <> 0 do begin
       if dx <> 0 then
-        if isGrblActive then begin
+        //if isGrblActive then
+        begin
           SendSingleCommandStr('G91');   // relative Move
           SendSingleCommandStr('G0 X' + FloatToStrDot(dx));
           SendSingleCommandStr('G90');   // absolute Move
         end;
       if dy <> 0 then
-        if isGrblActive then begin
+        //if isGrblActive then
+        begin
           SendSingleCommandStr('G91');   // relative Move
           SendSingleCommandStr('G0 Y' + FloatToStrDot(dy));
           SendSingleCommandStr('G90');   // absolute Move
         end;
       if dz <> 0 then
-        if isGrblActive then begin
+        //if isGrblActive then
+        begin
           SendSingleCommandStr('G91');   // relative Move
           SendSingleCommandStr('G0 Z' + FloatToStrDot(dz));
           SendSingleCommandStr('G90');   // absolute Move
