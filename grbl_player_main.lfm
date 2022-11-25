@@ -665,15 +665,15 @@ object Form1: TForm1
         OnKeyPress = SgFilesKeyPress
         OnMouseDown = SgFilesMouseDown
         ColWidths = (
-          63
-          63
-          63
-          63
-          63
-          63
-          63
-          62
-          62
+          61
+          61
+          61
+          61
+          61
+          61
+          61
+          61
+          60
         )
       end
       object SgJobDefaults: TStringGrid
@@ -702,7 +702,7 @@ object Form1: TForm1
         OnMouseDown = SgJobDefaultsMouseDown
         ColWidths = (
           160
-          101
+          84
         )
       end
       object MemoComment: TMemo

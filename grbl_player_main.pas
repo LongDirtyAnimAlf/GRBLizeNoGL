@@ -552,6 +552,7 @@ var
   ComPortUsed: Integer;
   JobSettingsPath: String;
 
+  is_relative: Boolean;
   grbl_mpos, grbl_wpos, old_grbl_wpos, grbl_wco: T3dFloat;
   WorkZero:T3dFloat;  // Absolutwerte Werkstück-Null
   grbl_feed_ov, grbl_seek_ov, grbl_speed_ov: Integer;

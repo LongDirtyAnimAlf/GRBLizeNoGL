@@ -147,7 +147,6 @@ var
   x,y,z: Double;
   is_absolute: Boolean;
   is_offset: Boolean;
-
 begin
   if (my_str[1] = '/') or (my_str[1] = '(') then // andere Kommentare
     exit;
@@ -159,6 +158,8 @@ begin
     exit;
   if pos('G4 P', my_str) > 0 then // dwell
     mdelay(500);
+  if (pos('G90', my_str) > 0) then is_relative:=false;     // G90
+  if (pos('G91', my_str) > 0) then is_relative:=true;     // G91
   is_offset:= (pos('G92', my_str) > 0);     // G92
   if pos('G1', my_str) > 0 then
     gcsim_seek:= false
@@ -171,6 +172,9 @@ begin
   if idx > 0 then begin
     inc(idx);
     x:= extract_float(my_str, idx, true); // GCode-Dezimaltrenner
+    if is_relative then
+      grbl_wpos.x:=gcsim_x_old+x
+    else
     if is_offset then begin
       grbl_wpos.x:= x;
     end else if is_absolute then
@@ -182,6 +186,9 @@ begin
   if idx > 0 then begin
     inc(idx);
     y:= extract_float(my_str, idx, true); // GCode-Dezimaltrenner
+    if is_relative then
+      grbl_wpos.y:=gcsim_y_old+y
+    else
     if is_offset then begin
       grbl_wpos.y:= y;
     end else if is_absolute then
@@ -193,6 +200,9 @@ begin
   if idx > 0 then begin
     inc(idx);
     z:= extract_float(my_str, idx, true); // GCode-Dezimaltrenner
+    if is_relative then
+      grbl_wpos.z:=gcsim_z_old+z
+    else
     if is_offset then begin
       grbl_wpos.z:= z;
     end else if is_absolute then
