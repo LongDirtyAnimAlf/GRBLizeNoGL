@@ -3,14 +3,14 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Active="Debug"/>
+    <BuildModes Active="Release"/>
     <Units>
       <Unit>
         <Filename Value="GRBLize.dpr"/>
         <IsPartOfProject Value="True"/>
         <TopLine Value="15"/>
         <CursorPos Y="47"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -22,7 +22,7 @@
         <UnitName Value="about"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="24" Y="11"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -31,7 +31,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="28"/>
         <CursorPos X="22" Y="34"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -39,7 +39,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="31"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -48,7 +48,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="33"/>
         <CursorPos X="9" Y="54"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -57,7 +57,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="124"/>
         <CursorPos Y="153"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -66,7 +66,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="120"/>
         <CursorPos X="42" Y="145"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -76,7 +76,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -86,7 +86,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -96,7 +96,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -108,7 +108,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos Y="34"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -118,9 +118,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="329"/>
-        <CursorPos X="84" Y="334"/>
-        <UsageCount Value="36"/>
+        <TopLine Value="328"/>
+        <CursorPos X="27" Y="356"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -130,7 +130,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -140,7 +140,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -150,7 +150,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -160,7 +160,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -169,11 +169,10 @@
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="52"/>
-        <CursorPos X="23" Y="14"/>
-        <UsageCount Value="36"/>
+        <TopLine Value="1132"/>
+        <CursorPos Y="1143"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -184,16 +183,15 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="383"/>
         <CursorPos X="11" Y="407"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
       </Unit>
       <Unit>
         <Filename Value="import_files.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="474"/>
-        <CursorPos X="45" Y="485"/>
-        <UsageCount Value="36"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
+        <TopLine Value="147"/>
+        <CursorPos X="39" Y="163"/>
+        <UsageCount Value="31"/>
       </Unit>
       <Unit>
         <Filename Value="app_Defaults.pas"/>
@@ -202,7 +200,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="62"/>
         <CursorPos X="40" Y="85"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
       </Unit>
       <Unit>
         <Filename Value="DirectX\DirectDraw.pas"/>
@@ -211,7 +209,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -220,7 +218,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="60"/>
         <CursorPos X="6" Y="77"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
       </Unit>
       <Unit>
         <Filename Value="cam_view.pas"/>
@@ -228,20 +226,20 @@
         <HasResources Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="14"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\fpcsrc\packages\fcl-base\src\syncobjs.pp"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="joypad.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="83"/>
         <CursorPos X="3" Y="96"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -249,45 +247,47 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="7073"/>
         <CursorPos X="15" Y="7079"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="page_blocks.inc"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="140"/>
         <CursorPos Y="168"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\graphics.pp"/>
         <UnitName Value="Graphics"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="272"/>
         <CursorPos X="18" Y="292"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\fpcsrc\rtl\objpas\classes\classesh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="74"/>
         <CursorPos X="56" Y="91"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="page_job.inc"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="381"/>
-        <CursorPos X="11" Y="332"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="737"/>
+        <CursorPos X="56" Y="744"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="page_pens.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
         <CursorPos Y="15"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -295,7 +295,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="489"/>
         <CursorPos Y="505"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -303,14 +303,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="91"/>
         <CursorPos X="3" Y="33"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="page_atc.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="101"/>
         <CursorPos Y="121"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -319,7 +319,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="4850"/>
         <CursorPos X="10" Y="4867"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -327,7 +327,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="4969"/>
         <CursorPos X="5" Y="4986"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -335,7 +335,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="474"/>
         <CursorPos X="10" Y="491"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -343,29 +343,30 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="3974"/>
         <CursorPos Y="3991"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="grbl_player_main.lfm"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="25"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\grids.pas"/>
         <UnitName Value="Grids"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="1781"/>
         <CursorPos X="14" Y="1796"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="decodestatus_09.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="15"/>
         <CursorPos Y="22"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -374,42 +375,43 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="2592"/>
         <CursorPos X="10" Y="2618"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="GRBLize.lpi"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="11" Y="11"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="XML"/>
       </Unit>
       <Unit>
         <Filename Value="page_blocks.pas"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="99"/>
         <CursorPos X="17" Y="128"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="page_grblsetup.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="125"/>
         <CursorPos Y="155"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\fpcsrc\rtl\win\wininc\func.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="805"/>
         <CursorPos X="10" Y="822"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\fpcsrc\rtl\win\wininc\defines.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2016"/>
         <CursorPos X="15" Y="2032"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\stdctrls.pp"/>
@@ -417,34 +419,34 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="397"/>
         <CursorPos X="18" Y="427"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="drawing_window.dfm"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="12"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit>
       <Unit>
         <Filename Value="ABOUT.dfm"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="7"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit>
       <Unit>
         <Filename Value="cam_view.dfm"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="7"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit>
       <Unit>
         <Filename Value="deviceselect.dfm"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="6"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit>
       <Unit>
@@ -453,7 +455,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="162"/>
         <CursorPos X="26" Y="180"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\forms.pp"/>
@@ -461,7 +463,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1182"/>
         <CursorPos X="46" Y="1199"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\lcltype.pp"/>
@@ -469,35 +471,35 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="124"/>
         <CursorPos X="23" Y="139"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\fpcsrc\rtl\win\wininc\base.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="84"/>
         <CursorPos X="24" Y="101"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\fpcsrc\rtl\win\sysosh.inc"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="22"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="hpgl_import.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1529"/>
-        <CursorPos X="31" Y="1561"/>
-        <UsageCount Value="12"/>
+        <TopLine Value="189"/>
+        <CursorPos Y="205"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="drill_import.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="316"/>
-        <CursorPos X="5" Y="349"/>
-        <UsageCount Value="12"/>
+        <TopLine Value="321"/>
+        <CursorPos Y="349"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -505,7 +507,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos X="16" Y="32"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit>
       <Unit>
@@ -513,7 +515,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="562"/>
         <CursorPos X="13" Y="579"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -521,32 +523,129 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1490"/>
         <CursorPos X="18" Y="1450"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit>
-      <Unit>
-        <Filename Value="hpgl_import.pas"/>
-        <EditorIndex Value="-1"/>
-        <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit>
-      <Unit>
-        <Filename Value="C:\fpcupsystems\trunk\fpcsrc\rtl\objpas\math.pp"/>
-        <UnitName Value="Math"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="65"/>
-        <CursorPos X="7" Y="82"/>
-        <UsageCount Value="12"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="1">
+    <JumpHistory HistoryIndex="29">
       <Position>
-        <Filename Value="grbl_player_main.pas"/>
-        <Caret Line="14" Column="23" TopLine="13"/>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="869" TopLine="838"/>
       </Position>
       <Position>
         <Filename Value="page_job.inc"/>
-        <Caret Line="1136" Column="16" TopLine="1109"/>
+        <Caret Line="892" Column="32" TopLine="864"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="895" Column="31" TopLine="867"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="1113" Column="36" TopLine="1085"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1143" TopLine="1132"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="1019" Column="28" TopLine="1002"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\grids.pas"/>
+        <Caret Line="1854" Column="19" TopLine="1839"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\grids.pas"/>
+        <Caret Line="1497" Column="18" TopLine="1481"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\grids.pas"/>
+        <Caret Line="1256" Column="27" TopLine="1240"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="1019" Column="19" TopLine="1002"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="1020" Column="26" TopLine="1002"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\grids.pas"/>
+        <Caret Line="1437" Column="15" TopLine="1421"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\grids.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\grids.pas"/>
+        <Caret Line="1092" Column="31" TopLine="1065"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\grids.pas"/>
+        <Caret Line="3905" Column="13" TopLine="3883"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\grids.pas"/>
+        <Caret Line="3911" Column="21" TopLine="3883"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="1023" Column="29" TopLine="996"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1143" TopLine="1132"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="744" TopLine="707"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="703" Column="22" TopLine="689"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1143" TopLine="1132"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="746" Column="57" TopLine="736"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="803" Column="11" TopLine="776"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\fpcupsystems\stable\lazarus\lcl\grids.pas"/>
+        <Caret Line="1796" Column="14" TopLine="1781"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="746" Column="11" TopLine="736"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="747" Column="20" TopLine="736"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="942" Column="13" TopLine="914"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="1034" TopLine="1019"/>
+      </Position>
+      <Position>
+        <Filename Value="grbl_player_main.pas"/>
+        <Caret Line="1143" TopLine="1132"/>
+      </Position>
+      <Position>
+        <Filename Value="page_job.inc"/>
+        <Caret Line="749" Column="7" TopLine="741"/>
       </Position>
     </JumpHistory>
     <RunParams>

@@ -109,7 +109,7 @@ begin
             LastPoint.X:= round(my_x * c_hpgl_scale);
             LastPoint.Y:= round(my_y * c_hpgl_scale);
             my_block_Idx:= length(blockArrays[fileID])-1;
-            append_point(fileID, my_block_idx, LastPoint,[t_mill,t_hilite]);
+            append_point(fileID, my_block_idx, LastPoint);
             blockArrays[fileID, my_block_idx].pen:= CurrentPen;
             check_filebounds(FileID, LastPoint);
 
@@ -346,7 +346,7 @@ begin
 
   CloseFile(my_ReadFile);
   FileParamArray[fileID].valid := true;
-  //file_rotate_mirror(fileID, false);
+  file_rotate_mirror(fileID, false);
   if job.optimize_drills then
     optimize_drillfile(fileID);
   block_scale_file(fileID);

@@ -356,8 +356,7 @@ begin
       FileParamArray[i-1].mirror:= Cells[3, i] = 'ON';
       FileParamArray[i-1].offset.X:= round(StrToFloatDef(Cells[4, i], 0) * c_hpgl_scale);
       FileParamArray[i-1].offset.Y:= round(StrToFloatDef(Cells[5, i], 0) * c_hpgl_scale);
-      FileParamArray[i-1].scale.X:= StrToFloatDef(Cells[6, i], 100.0);
-      FileParamArray[i-1].scale.Y:=FileParamArray[i-1].scale.X;
+      FileParamArray[i-1].scale:= StrToFloatDef(Cells[6, i], 100.0);
       my_path:= Cells[0,i];
       my_ext:= AnsiUpperCase(ExtractFileExt(my_path));
       if my_ext = '' then
