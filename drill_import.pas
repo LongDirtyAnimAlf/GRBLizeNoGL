@@ -53,13 +53,21 @@ begin
   end;
 end;
 }
+<<<<<<< HEAD
 procedure drill_import_line(my_line: String; fileID, penOverride: Integer; fac: Double);
+=======
+procedure drill_import_line(my_line: String; fileID, penOverride: Integer);
+>>>>>>> remotes/origin/master
 // Actions: none, lift, seek, drill, mill
 var
   my_x, my_y: double;
   my_pos: Integer;
   my_char: char;
   my_tool, my_block_Idx: Integer;
+<<<<<<< HEAD
+=======
+  has_dec_point: boolean;  // Dezimalpunkt in Koordinaten (selten!)
+>>>>>>> remotes/origin/master
   num_dec_digits: Integer; // Anzahl Dezimalstellen
   my_val, my_fac: Double;
 
@@ -109,10 +117,13 @@ begin
             LastPoint.X:= round(my_x * c_hpgl_scale);
             LastPoint.Y:= round(my_y * c_hpgl_scale);
             my_block_Idx:= length(blockArrays[fileID])-1;
-            append_point(fileID, my_block_idx, LastPoint,[t_mill,t_hilite]);
+            append_point(fileID, my_block_idx, LastPoint);
             blockArrays[fileID, my_block_idx].pen:= CurrentPen;
+<<<<<<< HEAD
             check_filebounds(FileID, LastPoint);
 
+=======
+>>>>>>> remotes/origin/master
 //            blockArrays[fileID, my_block_idx].enable:= true;
           end;
         end;
@@ -172,7 +183,10 @@ begin
   last_y:= 0;
   prefer_x:= 5;
   prefer_y:= 5;
+<<<<<<< HEAD
   found_idx:= 0;
+=======
+>>>>>>> remotes/origin/master
 
   for i:= 0 to my_len-1 do begin
     // alle nicht besuchten Punkte absuchen
@@ -226,18 +240,19 @@ end;
 // EXCELLON DRILL (DRL) Import
 // #############################################################################
 
-// nach Vorschlag von Frank Kaiser frank.kaiser@fuxbau.netgeändert
-
 procedure drill_fileload(my_name:String; fileID, penOverride: Integer; useDrillDia: Boolean);
 // Liest File in FileBuffer und liefert Länge zurück
 var
   my_ReadFile: TextFile;
   my_line: String;
   my_tool, my_pos: integer;
+<<<<<<< HEAD
   my_val, my_fac: Double;
+=======
+  my_val: Double;
+>>>>>>> remotes/origin/master
   invalid_header, my_valid: boolean;
   my_char: char;
-  FirstLine : boolean;
 
 begin
   if not FileExists(my_name) then begin
@@ -248,17 +263,19 @@ begin
   FileParamArray[fileID].bounds.min.y := high(Integer);
   FileParamArray[fileID].bounds.max.x := low(Integer);
   FileParamArray[fileID].bounds.max.y := low(Integer);
+<<<<<<< HEAD
   use_inches_in_drillfile:= false; // default METRIC
+=======
+  use_inches_in_drillfile:= true; // default Inches
+>>>>>>> remotes/origin/master
   my_line:='';
   FileMode := fmOpenRead;
   AssignFile(my_ReadFile, my_name);
   CurrentPen:= 10;
   PendingAction:= lift;
   invalid_header:= true;
-  FirstLine := true;
   Reset(my_ReadFile);
-
-  ///// Header mit Tool-Tabelle laden //////////////////////////////////////////
+  // Header mit Tool-Tabelle laden
   my_fac:= 0.001;
   while not Eof(my_ReadFile) do begin
     Readln(my_ReadFile,my_line);
@@ -270,48 +287,30 @@ begin
       if my_line[1] = '/' then
         continue;
     end;
-
-    my_pos:= 1;
-
- {
- // @ Frank Kaiser: lädt Easy-PC-Dateien nicht
-    if (my_line = '%') then begin   //  and FirstLine
-      FirstLine := false;
-      if Eof(my_ReadFile) then
-        break
-      else begin
-        Readln(my_ReadFile,my_line);
-        ParseCommand(my_pos, my_line, my_val, my_char);
-        if (my_char <> 'M') or (my_val <> 48) then
-          break;
-        continue;
-      end;
-    end;
-}
     if AnsiContainsStr(my_line, 'INCH') then
       use_inches_in_drillfile:= true;
     if AnsiContainsStr(my_line, 'METRIC') then
       use_inches_in_drillfile:= false;
 
+    my_pos:= 1;
     ParseCommand(my_pos, my_line, my_val, my_char);
-
-    if my_char = 'M' then begin
-      if my_val = 71 then
-        use_inches_in_drillfile:= false;
-      if my_val = 72 then
-        use_inches_in_drillfile:= true;
-      continue;
-    end;
-
     if my_char = 'T' then begin
+<<<<<<< HEAD
       if pos('.',my_line) > 0 then
         my_fac:= 1;
+=======
+>>>>>>> remotes/origin/master
       my_tool:= round(my_val + 10);
       repeat
         my_valid:= ParseCommand(my_pos, my_line, my_val, my_char);
       until (my_char = 'C') or (not my_valid);
+<<<<<<< HEAD
       if (my_char = 'C') and (my_tool < 32) then begin
         my_val:= my_val * my_fac;
+=======
+      if my_char = 'C' then
+      if (my_tool < 32) then begin
+>>>>>>> remotes/origin/master
         if use_inches_in_drillfile then
           my_val:= my_val * 25.4;
         if useDrillDia then begin
@@ -321,34 +320,27 @@ begin
           job.pens[my_tool].shape:= drillhole;
         end;
       end;
-      continue;
     end;
-
     if (my_line = '%') or (my_line = 'M95') then begin
       invalid_header:= false;
       break;
     end;
   end;
   if invalid_header then begin
+    showmessage('Drill file invalid!');
     CloseFile(my_ReadFile);
-    Form1.Memo1.lines.add('');
-    Form1.Memo1.lines.add('WARNING: Invalid drill file:');
-    Form1.Memo1.lines.add(my_name);
-    PlaySound('SYSTEMHAND', 0, SND_ASYNC);
     exit;
   end;
-
-  ///// read body //////////////////////////////////////////////////////////////
   while not Eof(my_ReadFile) do begin
     Readln(my_ReadFile,my_line);
     drill_import_line(my_line, fileID, penOverride, my_fac);
   end;
-
   CloseFile(my_ReadFile);
   FileParamArray[fileID].valid := true;
-  //file_rotate_mirror(fileID, false);
+  file_rotate_mirror(fileID, false);
   if job.optimize_drills then
     optimize_drillfile(fileID);
   block_scale_file(fileID);
 end;
+
 
