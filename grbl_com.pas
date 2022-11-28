@@ -512,8 +512,8 @@ var
   target_time, current_time: TLargeInteger;
   has_timeout: Boolean;
 begin
+StopWatch.Start;
   Result := '';
-  StopWatch.Start;
   COMSetTimeout(1);
   my_str:= '';
   my_char:= #0;

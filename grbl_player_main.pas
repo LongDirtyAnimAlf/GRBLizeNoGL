@@ -9,6 +9,7 @@ uses
   Controls, StdActns, Classes, ActnList, Menus,
   SysUtils, StrUtils, Windows, Graphics, Forms, Messages,
   Dialogs,  Grids, SynEdit, Registry, MMsystem, SyncObjs,
+  SynHighlighterCNC,
   {$ifndef FPC}
   ToolWin, GraphUtil, Spin, FileCtrl, ShellApi,
   VFrames, XPMan, ValEdit, System.ImageList, System.Actions,
@@ -436,7 +437,8 @@ type
 
   private
     { Private declarations }
-    form_CriticalSection: TCriticalSection;
+    form_CriticalSection  : TCriticalSection;
+    CNC                   : TSynCNCSyn;
   public
     procedure AddInfo(aMessage:string);
     procedure ClearInfo;
@@ -695,7 +697,6 @@ const
 implementation
 
 uses
-  SynHighlighterCNC,
   import_files, Clipper, About, bsearchtree,
   {$ifndef FPC}cam_view,{$endif}
   gerber_import;
@@ -1038,13 +1039,10 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 var
   grbl_ini: TRegistry;
-  CNC: TSynCNCSyn;
 begin
   CNC := TSynCNCSyn.Create(Self);
-  CommandOutputScreen.Highlighter := CNC;
-
   //CommandOutputScreen.Lines.Text:=CNC.SampleSource;
-  exit;
+  //exit;
 
   StartupDone:= false;
   Show;
@@ -2932,6 +2930,13 @@ end;
 
 procedure TForm1.AddInfo(aMessage:string);
 begin
+  if (NOT Assigned(CommandOutputScreen.Highlighter)) then
+  begin
+    if aMessage='(Job run started.)' then
+    begin
+      CommandOutputScreen.Highlighter := CNC;
+    end;
+  end;
   CommandOutputScreen.Lines.Append(aMessage);
   CommandOutputScreen.CaretX:=0;
   CommandOutputScreen.CaretY:=CommandOutputScreen.Lines.Count;
@@ -2939,6 +2944,7 @@ end;
 
 procedure TForm1.ClearInfo;
 begin
+  CommandOutputScreen.Highlighter := nil;
   CommandOutputScreen.Lines.Clear;
   CommandOutputScreen.CaretX:=0;
   CommandOutputScreen.CaretY:=CommandOutputScreen.Lines.Count;

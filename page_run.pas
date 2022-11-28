@@ -74,10 +74,10 @@ begin
     exit;
   WaitForIdle;
   if switch_on then begin
-    Form1.AddInfo('Spindle ON, acceleration wait '+ IntToStr(job.spindle_wait) + ' sec');
+    Form1.AddInfo('(Spindle ON, acceleration wait '+ IntToStr(job.spindle_wait) + ' sec.)');
     SendSingleCommandStr('M3');
   end else begin
-    Form1.AddInfo('Spindle OFF, brake wait '+ IntToStr(job.spindle_wait div 2) + ' sec');
+    Form1.AddInfo('(Spindle OFF, brake wait '+ IntToStr(job.spindle_wait div 2) + ' sec.)');
     SendSingleCommandStr('M5');
   end;
   if not Form1.CheckBoxSim.checked then begin
@@ -704,7 +704,7 @@ begin
   Form1.BtnRunjob.tag:= 0;
   WaitForIdle;
   drawing_tool_down:= false;
-  Form1.AddInfo('Job ended.');
+  Form1.AddInfo('(Job ended.)');
   Form1.AddInfo('');
   NeedsRedraw:= true;
   Form1.ProgressBar1.position:= 0;
@@ -734,8 +734,8 @@ begin
   gcsim_tooltip:= Form1.ComboBoxGtip.ItemIndex;
   Form4.FormRefresh(nil);
   Memo1.lines.Clear;
-  Memo1.lines.add('Job run started.');
-  Memo1.lines.add('=========================================');
+  Memo1.lines.add('(Job run started.)');
+  Memo1.lines.add('(=========================================)');
   my_len:= length(final_array);
   if my_len < 1 then
      exit;
@@ -876,7 +876,7 @@ begin
     CancelJob;
     exit;
   end;
-  Memo1.lines.add('Blocks done.');
+  Memo1.lines.add('(Blocks done.)');
   WaitForIdle;
 // grbl_millpath und grbl_drillpath enden mit job.z_penup, deshalb:
   SendSingleCommandStr('G0 G53 Z0'); // move Z up
