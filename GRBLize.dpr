@@ -32,7 +32,7 @@ uses
   cam_view in 'cam_view.pas' {Form3},
   VFrames in 'VFrames.pas',
   {$endif}
-  DirectDraw in 'DirectX\DirectDraw.pas';
+  DirectDraw in 'DirectX\DirectDraw.pas', SynEditStrConstExtra;
 
 {$R *.res}
 

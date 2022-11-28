@@ -171,13 +171,13 @@ begin
   NeedsRedraw:= true;
   if HomingPerformed then with Form1 do begin
     TimerStatus.Enabled:= false;
-    Memo1.lines.add('Zero request from machine panel');
+    AddInfo('Zero request from machine panel');
     PlaySound('SYSTEMEXCLAMATION', 0, SND_ASYNC);
     if (axis_mask and 1 = 1) then begin
       WorkZero.X:= grbl_mpos.x;
       my_str:= 'G92 X0';
       my_response:= uppercase(grbl_SendWithShortTimeout(my_str));
-      Form1.Memo1.lines.add(my_str);
+      Form1.AddInfo(my_str);
       WorkZeroXdone:= true;
     end;
 
@@ -185,24 +185,24 @@ begin
       WorkZero.Y:= grbl_mpos.y;
       my_str:= 'G92 Y0';
       my_response:= uppercase(grbl_SendWithShortTimeout(my_str));
-      Form1.Memo1.lines.add(my_str);
+      Form1.AddInfo(my_str);
       WorkZeroYdone:= true;
     end;
 
     if (axis_mask and 4 = 4) then begin
-      Memo1.lines.add('Set Z pos to Z gauge height from Job Defaults');
+      AddInfo('Set Z pos to Z gauge height from Job Defaults');
       WorkZero.Z:= grbl_mpos.Z - job.z_gauge;
       MposOnPartGauge:= grbl_mpos.Z;
       WorkZero.Z:= MposOnPartGauge - job.z_gauge;
-      Form1.Memo1.lines.add('Cancel Tool Length Offset (TLO)');
+      Form1.AddInfo('Cancel Tool Length Offset (TLO)');
       my_str:= 'G49';  // cancel tool offset
       my_response:= uppercase(grbl_SendWithShortTimeout(my_str));
-      Form1.Memo1.lines.add(my_str);
+      Form1.AddInfo(my_str);
       InvalidateTLCs;
       my_str:= 'G92 Z'+FloatToStrDot(job.z_gauge);
       my_response:= uppercase(grbl_SendWithShortTimeout(my_str));
       UpdateATC;
-      Form1.Memo1.lines.add(my_str);
+      Form1.AddInfo(my_str);
       WorkZeroZdone:= true;
     end;
 
@@ -210,7 +210,7 @@ begin
       WorkZero.C:= grbl_mpos.C;
       my_str:= 'G92 C0';
       my_response:= uppercase(grbl_SendWithShortTimeout(my_str));
-      Form1.Memo1.lines.add(my_str);
+      Form1.AddInfo(my_str);
     end;
 
     InvalidateTLCs;
@@ -219,7 +219,7 @@ begin
     until MachineState <> zero;
     TimerStatus.Enabled:= true;
   end else
-    Form1.Memo1.lines.add('WARNING: Zero request ignored - no Home Cycle performed');
+    Form1.AddInfo('WARNING: Zero request ignored - no Home Cycle performed');
 end;
 
 
@@ -247,7 +247,7 @@ begin
       inc(StatusFaultCounter);  // nicht angekommen
       exit;  // Timeout ist KEINE Push-Message
     end;
-    Form1.Memo1.lines.add(my_response);
+    Form1.AddInfo(my_response);
     zero_mask:= 0;
     if AnsiContainsStr(my_response, 'ZeroX') then
       zero_mask:= zero_mask or 1;
@@ -512,9 +512,9 @@ var
   target_time, current_time: TLargeInteger;
   has_timeout: Boolean;
 begin
+  Result := '';
   StopWatch.Start;
   COMSetTimeout(1);
-  Result := '';
   my_str:= '';
   my_char:= #0;
   has_timeout:= timeout > 0;
@@ -744,8 +744,8 @@ begin
     grbl_rx_clear;
     grbl_SendRealTimeCmd(#24);   // Soft Reset CTRL-X, Stepper sofort stoppen
     sleep(250);
-    Form1.Memo1.lines.add('');
-    Form1.Memo1.lines.add('Startup Message and Version Info:');
+    Form1.AddInfo('');
+    Form1.AddInfo('Startup Message and Version Info:');
     repeat
       my_str1:= grbl_receiveStr_noCheck(500);
       CheckForPushmessage(my_str1);
@@ -800,10 +800,10 @@ begin
     if MachineOptions.HomingOrigin <> get_AppDefaults_bool(45) then begin
     // Positive Maschinenrichtung?
       PlaySound('SYSTEMHAND', 0, SND_ASYNC);
-      Form1.Memo1.lines.add('');
-      Form1.Memo1.lines.add('WARNING: GRBL option HOMING_FORCE_SET_ORIGIN detected.');
-      Form1.Memo1.lines.add('Please set positive machine space in App Defaults,');
-      Form1.Memo1.lines.add('otherwise jog functions will not work properly.');
+      Form1.AddInfo('');
+      Form1.AddInfo('WARNING: GRBL option HOMING_FORCE_SET_ORIGIN detected.');
+      Form1.AddInfo('Please set positive machine space in App Defaults,');
+      Form1.AddInfo('otherwise jog functions will not work properly.');
     end;
     MachineOptions.PositiveSpace:= get_AppDefaults_bool(45);
     HomingPerformed:= false;
@@ -817,19 +817,19 @@ begin
         begin
           // Nach Neustart immer Alarm wg. Homing Lock
           PlaySound('SYSTEMHAND', 0, SND_ASYNC);
-          Form1.Memo1.lines.add('');
-          Form1.Memo1.lines.add('WARNING: Alarm state, machine not homed!');
-          Form1.Memo1.lines.add('Press HOME CYCLE on machine panel');
-          Form1.Memo1.lines.add('or Machine Control page.');
+          Form1.AddInfo('');
+          Form1.AddInfo('WARNING: Alarm state, machine not homed!');
+          Form1.AddInfo('Press HOME CYCLE on machine panel');
+          Form1.AddInfo('or Machine Control page.');
           result:= true; // Homing ermöglichen
         end;
       hold:
         begin
           PlaySound('SYSTEMHAND', 0, SND_ASYNC);
-          Form1.Memo1.lines.add('');
-          Form1.Memo1.lines.add('ERROR: Machine on HOLD.');
-          Form1.Memo1.lines.add('Press CONTINUE or RESET on machine panel.');
-          Form1.Memo1.lines.add('Try connecting again.');
+          Form1.AddInfo('');
+          Form1.AddInfo('ERROR: Machine on HOLD.');
+          Form1.AddInfo('Press CONTINUE or RESET on machine panel.');
+          Form1.AddInfo('Try connecting again.');
         end;
       idle:
         begin
@@ -837,15 +837,15 @@ begin
           my_str1:= ansiuppercase(grbl_receiveStr_noCheck(20));
           result:= true;
           HomingPerformed:= true;
-          Form1.Memo1.lines.add('');
-          Form1.Memo1.lines.add('Machine ready.')
+          Form1.AddInfo('');
+          Form1.AddInfo('Machine ready.')
         end;
     else begin
         PlaySound('SYSTEMHAND', 0, SND_ASYNC);
-        Form1.Memo1.lines.add('');
-        Form1.Memo1.lines.add('ERROR: Communication fault');
-        Form1.Memo1.lines.add('Invalid response or wrong GRBL version.');
-        Form1.Memo1.lines.add('Try connecting again.');
+        Form1.AddInfo('');
+        Form1.AddInfo('ERROR: Communication fault');
+        Form1.AddInfo('Invalid response or wrong GRBL version.');
+        Form1.AddInfo('Try connecting again.');
         Form1.BtnCloseClick(nil);
       end;
     end;

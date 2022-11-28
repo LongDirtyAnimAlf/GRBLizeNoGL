@@ -245,7 +245,7 @@ begin
     Rows[45].DelimitedText:='"Positive Machine Space",OFF';
   end;
   ClearFiles;
-  Form1.Memo1.lines.add('Job/application default settings applied');
+  Form1.AddInfo('Job/application default settings applied');
 end;
 
 procedure DefaultsGridListToJob;
@@ -392,7 +392,7 @@ begin
         Cells[8, i]:= 'SVG'; // Remark
         svg_fileload(my_path, i-1, -1);
       end else
-        Form1.Memo1.lines.add('Unknown File Extension:' + ExtractFileName(my_path));
+        Form1.AddInfo('Unknown File Extension:' + ExtractFileName(my_path));
       FileParamArray[i-1].penoverride:= pen_override;
       if pen_override >= 0 then begin
         job.pens[pen_override].enable:= true;
@@ -412,8 +412,8 @@ begin
   NeedsRedraw:= true;
 
   Form1.SgPens.Repaint;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Mill/drill files (re)loaded.');
+  Form1.AddInfo('');
+  Form1.AddInfo('Mill/drill files (re)loaded.');
 end;
 
 Procedure OpenJobFile;
@@ -521,13 +521,13 @@ begin
       end;
     end;
     sl.Free;
-    Form1.Memo1.lines.add('');
-    Form1.Memo1.lines.add('Job and block/path settings applied.');
+    Form1.AddInfo('');
+    Form1.AddInfo('Job and block/path settings applied.');
   end else begin
     InitJob;
     PenGridListToJob;
-    Form1.Memo1.lines.add('');
-    Form1.Memo1.lines.add('Job reset and initialized.');
+    Form1.AddInfo('');
+    Form1.AddInfo('Job reset and initialized.');
   end;
   // sind Files noch aktuell?
   for i:= 1 to c_numOfFiles +1 do begin
@@ -537,10 +537,10 @@ begin
     my_date:= FileAge(Form1.SgFiles.Cells[0,i]);
     if my_date <> StrToIntDef(Form1.SgFiles.Cells[9,i],0) then begin
       PlaySound('SYSTEMHAND', 0, SND_ASYNC);
-      Form1.Memo1.lines.add('');
-      Form1.Memo1.lines.add('WARNING: One or more mill/drill file(s)');
-      Form1.Memo1.lines.add('have been changed since last job was saved.');
-      Form1.Memo1.lines.add('All mill paths will be rebuild and enabled!');
+      Form1.AddInfo('');
+      Form1.AddInfo('WARNING: One or more mill/drill file(s)');
+      Form1.AddInfo('have been changed since last job was saved.');
+      Form1.AddInfo('All mill paths will be rebuild and enabled!');
       OpenFilesInGrid;
       break;
     end;

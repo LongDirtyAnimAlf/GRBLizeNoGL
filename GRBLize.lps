@@ -3,14 +3,14 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Active="Release"/>
+    <BuildModes Active="Debug"/>
     <Units>
       <Unit>
         <Filename Value="GRBLize.dpr"/>
         <IsPartOfProject Value="True"/>
         <TopLine Value="15"/>
         <CursorPos Y="47"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -22,7 +22,7 @@
         <UnitName Value="about"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="24" Y="11"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -31,7 +31,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="28"/>
         <CursorPos X="22" Y="34"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -39,7 +39,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="31"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -48,17 +48,16 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="33"/>
         <CursorPos X="9" Y="54"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
         <Filename Value="grbl_com.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="673"/>
-        <CursorPos X="3" Y="688"/>
-        <UsageCount Value="34"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
+        <TopLine Value="160"/>
+        <CursorPos X="14" Y="193"/>
+        <UsageCount Value="41"/>
       </Unit>
       <Unit>
         <Filename Value="ftdiclass\FTDIchip.pas"/>
@@ -66,7 +65,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="120"/>
         <CursorPos X="42" Y="145"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -76,7 +75,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -86,7 +85,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -96,7 +95,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -108,7 +107,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos Y="34"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -120,7 +119,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="328"/>
         <CursorPos X="27" Y="356"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -130,7 +129,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -140,7 +139,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -150,7 +149,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -160,7 +159,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -169,11 +168,10 @@
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="2747"/>
-        <CursorPos X="18" Y="2768"/>
-        <UsageCount Value="34"/>
+        <TopLine Value="1037"/>
+        <CursorPos X="5" Y="1046"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -184,7 +182,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="383"/>
         <CursorPos X="11" Y="407"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
       </Unit>
       <Unit>
         <Filename Value="import_files.pas"/>
@@ -192,7 +190,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="624"/>
         <CursorPos X="28" Y="544"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -202,7 +200,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="116"/>
         <CursorPos X="3" Y="156"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -212,7 +210,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
       <Unit>
@@ -221,16 +219,25 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="60"/>
         <CursorPos X="6" Y="77"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="41"/>
       </Unit>
       <Unit>
         <Filename Value="cam_view.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="14"/>
-        <UsageCount Value="34"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
+        <TopLine Value="301"/>
+        <CursorPos X="18" Y="341"/>
+        <UsageCount Value="41"/>
+      </Unit>
+      <Unit>
+        <Filename Value="syneditstrconstextra.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SynEditStrConstExtra"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="184"/>
+        <CursorPos Y="224"/>
+        <UsageCount Value="25"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\fpcsrc\packages\fcl-base\src\syncobjs.pp"/>
@@ -277,10 +284,9 @@
       <Unit>
         <Filename Value="page_job.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="340"/>
-        <CursorPos Y="360"/>
-        <UsageCount Value="15"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
+        <TopLine Value="510"/>
+        <CursorPos X="20" Y="543"/>
+        <UsageCount Value="17"/>
       </Unit>
       <Unit>
         <Filename Value="page_pens.inc"/>
@@ -293,10 +299,9 @@
       <Unit>
         <Filename Value="page_run.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="3"/>
-        <CursorPos Y="30"/>
-        <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
+        <TopLine Value="594"/>
+        <CursorPos X="14" Y="614"/>
+        <UsageCount Value="12"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\fpcsrc\rtl\objpas\sysutils\sysinth.inc"/>
@@ -393,10 +398,9 @@
       <Unit>
         <Filename Value="page_grblsetup.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="40"/>
-        <CursorPos X="3" Y="60"/>
-        <UsageCount Value="11"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
+        <TopLine Value="108"/>
+        <CursorPos X="10" Y="128"/>
+        <UsageCount Value="13"/>
       </Unit>
       <Unit>
         <Filename Value="C:\fpcupsystems\stable\fpcsrc\rtl\win\wininc\func.inc"/>
@@ -574,43 +578,303 @@
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
+      <Unit>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="1836"/>
+        <CursorPos X="10" Y="1841"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synedittypes.pp"/>
+        <UnitName Value="SynEditTypes"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="37"/>
+        <CursorPos X="17" Y="57"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synhighlighterpython.pas"/>
+        <UnitName Value="SynHighlighterPython"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="372"/>
+        <CursorPos X="18" Y="380"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synedithighlighter.pp"/>
+        <UnitName Value="SynEditHighlighter"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="391"/>
+        <CursorPos X="25" Y="407"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synedit.pp"/>
+        <UnitName Value="SynEdit"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="6488"/>
+        <CursorPos X="18" Y="6509"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\syneditmiscclasses.pp"/>
+        <UnitName Value="SynEditMiscClasses"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1245"/>
+        <CursorPos X="31" Y="1260"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\syneditfoldedview.pp"/>
+        <UnitName Value="SynEditFoldedView"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="711"/>
+        <CursorPos X="33" Y="722"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\lazsynedittext.pas"/>
+        <UnitName Value="LazSynEditText"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="197"/>
+        <CursorPos X="26" Y="221"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synhighlightertex.pas"/>
+        <UnitName Value="SynHighlighterTeX"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\syneditstrconst.pp"/>
+        <UnitName Value="SynEditStrConst"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="4"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synhighlighterany.pas"/>
+        <UnitName Value="SynHighlighterAny"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="394"/>
+        <CursorPos X="14" Y="426"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synhighlighterbat.pas"/>
+        <UnitName Value="SynHighlighterBat"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="106"/>
+        <CursorPos X="14" Y="125"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synbeautifierpascal.pas"/>
+        <UnitName Value="SynBeautifierPascal"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synhighlighterpas.pp"/>
+        <UnitName Value="SynHighlighterPas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="4765"/>
+        <CursorPos X="38" Y="4774"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\lazsyntextarea.pp"/>
+        <UnitName Value="LazSynTextArea"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="319"/>
+        <CursorPos X="35" Y="336"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synedittextbuffer.pp"/>
+        <UnitName Value="SynEditTextBuffer"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="398"/>
+        <CursorPos X="35" Y="424"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synhighlightercpp.pp"/>
+        <UnitName Value="SynHighlighterCpp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1489"/>
+        <CursorPos Y="1496"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\stable\lazarus\components\synedit\synedithighlighter.pp"/>
+        <UnitName Value="SynEditHighlighter"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="349"/>
+        <CursorPos X="14" Y="364"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\syncompletion.pas"/>
+        <UnitName Value="SynCompletion"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1144"/>
+        <CursorPos X="13" Y="1164"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synhighlightermulti.pas"/>
+        <UnitName Value="SynHighlighterMulti"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1780"/>
+        <CursorPos X="11" Y="1791"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\test\testhighlightmulti.pas"/>
+        <UnitName Value="TestHighlightMulti"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="656"/>
+        <CursorPos X="17" Y="675"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synpluginsyncroedit.pp"/>
+        <UnitName Value="SynPluginSyncroEdit"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="173"/>
+        <CursorPos X="5" Y="193"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\fpcupsystems\trunk\lazarus\components\synedit\synhighlightersql.pas"/>
+        <UnitName Value="SynHighlighterSQL"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1097"/>
+        <CursorPos X="42" Y="1117"/>
+        <UsageCount Value="10"/>
+      </Unit>
     </Units>
-    <JumpHistory HistoryIndex="8">
+    <JumpHistory HistoryIndex="28">
       <Position>
-        <Filename Value="grbl_player_main.pas"/>
-        <Caret Line="2767" Column="18" TopLine="2747"/>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="621" Column="28" TopLine="588"/>
       </Position>
       <Position>
-        <Filename Value="grbl_player_main.pas"/>
-        <Caret Line="2796" Column="18" TopLine="2776"/>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="629" Column="28" TopLine="596"/>
       </Position>
       <Position>
-        <Filename Value="grbl_player_main.pas"/>
-        <Caret Line="2894" Column="33" TopLine="2875"/>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="637" Column="28" TopLine="604"/>
       </Position>
       <Position>
-        <Filename Value="grbl_player_main.pas"/>
-        <Caret Line="555" Column="14" TopLine="535"/>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="645" Column="28" TopLine="612"/>
       </Position>
       <Position>
-        <Filename Value="grbl_player_main.pas"/>
-        <Caret Line="2768" Column="11" TopLine="2747"/>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="653" Column="28" TopLine="620"/>
       </Position>
       <Position>
-        <Filename Value="grbl_player_main.pas"/>
-        <Caret Line="1918" Column="13" TopLine="1883"/>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="661" Column="28" TopLine="628"/>
       </Position>
       <Position>
-        <Filename Value="grbl_player_main.pas"/>
-        <Caret Line="1918" Column="13" TopLine="1883"/>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="669" Column="28" TopLine="636"/>
       </Position>
       <Position>
-        <Filename Value="grbl_player_main.pas"/>
-        <Caret Line="2902" Column="33" TopLine="2883"/>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="677" Column="28" TopLine="644"/>
       </Position>
       <Position>
-        <Filename Value="grbl_player_main.pas"/>
-        <Caret Line="2768" Column="18" TopLine="2747"/>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="685" Column="28" TopLine="652"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="693" Column="28" TopLine="660"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="701" Column="28" TopLine="668"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="709" Column="28" TopLine="676"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="717" Column="28" TopLine="684"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="725" Column="28" TopLine="692"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="733" Column="28" TopLine="700"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="1816" Column="31" TopLine="1783"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="1820" Column="33" TopLine="1787"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="1822" Column="41" TopLine="1789"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="1823" Column="18" TopLine="1790"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="1824" Column="18" TopLine="1791"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="1829" Column="26" TopLine="1796"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="1824" Column="11" TopLine="1796"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="1823" Column="11" TopLine="1796"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="1822" Column="34" TopLine="1796"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="1820" Column="26" TopLine="1796"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="1816" Column="24" TopLine="1796"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="733" Column="21" TopLine="713"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="1832" Column="27" TopLine="1801"/>
+      </Position>
+      <Position>
+        <Filename Value="SynHighlighterCNC.pas"/>
+        <Caret Line="233" Column="22" TopLine="213"/>
       </Position>
     </JumpHistory>
     <RunParams>
@@ -618,4 +882,15 @@
       <Modes ActiveMode=""/>
     </RunParams>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints>
+      <Item>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="SynHighlighterCNC.pas"/>
+        <Line Value="1273"/>
+      </Item>
+    </BreakPoints>
+  </Debugging>
 </CONFIG>

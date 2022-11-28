@@ -40,7 +40,7 @@ begin
           out_of_work:= true;
       end;
       if out_of_work then begin
-        Form1.Memo1.lines.add('WARNING: Tool path ' + IntToStr(i+1) + ' outside work - disabled');
+        Form1.AddInfo('WARNING: Tool path ' + IntToStr(i+1) + ' outside work - disabled');
         my_entry.enable:= false;
         final_array[i].enable:= false;
       end;

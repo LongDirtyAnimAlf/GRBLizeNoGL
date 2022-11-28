@@ -331,9 +331,9 @@ begin
   end;
   if invalid_header then begin
     CloseFile(my_ReadFile);
-    Form1.Memo1.lines.add('');
-    Form1.Memo1.lines.add('WARNING: Invalid drill file:');
-    Form1.Memo1.lines.add(my_name);
+    Form1.AddInfo('');
+    Form1.AddInfo('WARNING: Invalid drill file:');
+    Form1.AddInfo(my_name);
     PlaySound('SYSTEMHAND', 0, SND_ASYNC);
     exit;
   end;

@@ -1227,8 +1227,8 @@ end;
 procedure TForm2.pu_toolisAtPartZeroClick(Sender: TObject);
 begin
   WaitForIdle;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Manual Work/part Y zero');
+  Form1.AddInfo('');
+  Form1.AddInfo('Manual Work/part Y zero');
 
   grbl_offsXY(0, 0);
   SendListToGrbl;
@@ -1244,8 +1244,8 @@ procedure TForm2.pu_toolisatpointClick(Sender: TObject);
 var x,y: Double;
 begin
   WaitForIdle;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Offset to point');
+  Form1.AddInfo('');
+  Form1.AddInfo('Offset to point');
   hilite_to(x,y);
 
   grbl_offsXY(x, y);
@@ -1262,8 +1262,8 @@ procedure TForm2.pu_toolIsAtCenterClick(Sender: TObject);
 var x,y: Double;
 begin
   WaitForIdle;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Offset tool to center');
+  Form1.AddInfo('');
+  Form1.AddInfo('Offset tool to center');
   hilite_center_to(x,y);
 
   grbl_offsXY(x, y);
@@ -1281,8 +1281,8 @@ end;
 procedure TForm2.pu_camIsAtPartZeroClick(Sender: TObject);
 begin
   WaitForIdle;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Offset cam to part zero');
+  Form1.AddInfo('');
+  Form1.AddInfo('Offset cam to part zero');
 
   grbl_offsXY(-job.cam_x, -job.cam_y);
   SendListToGrbl;
@@ -1297,8 +1297,8 @@ end;
 procedure TForm2.pu_camIsAtPointClick(Sender: TObject);
 var x,y: Double;
 begin
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Offset cam to point');
+  Form1.AddInfo('');
+  Form1.AddInfo('Offset cam to point');
   hilite_to(x,y);
 
   x:= x - job.cam_x;
@@ -1317,8 +1317,8 @@ procedure TForm2.pu_camIsAtCenterClick(Sender: TObject);
 var x,y: Double;
 begin
   WaitForIdle;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Offset cam to center');
+  Form1.AddInfo('');
+  Form1.AddInfo('Offset cam to center');
   hilite_center_to(x,y);
 
   x:= x - job.cam_x;
@@ -1338,8 +1338,8 @@ end;
 procedure TForm2.pu_moveToolToPartZeroClick(Sender: TObject);
 begin
   WaitForIdle;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move tool to part zero');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move tool to part zero');
 
   if WorkZeroXdone and WorkZeroYdone then begin
     grbl_moveZ(0, true);  // move Z up
@@ -1347,12 +1347,12 @@ begin
     if WorkZeroAllDone then begin
       grbl_moveZ(job.z_penlift, false);
     end else begin
-      Form1.Memo1.lines.add('WARNING: Z Zero not set!');
+      Form1.AddInfo('WARNING: Z Zero not set!');
       PlaySound('SYSTEMHAND', 0, SND_ASYNC);
     end;
     SendListToGrbl;
   end else begin
-    Form1.Memo1.lines.add('WARNING: X,Y Zero not set!');
+    Form1.AddInfo('WARNING: X,Y Zero not set!');
     PlaySound('SYSTEMHAND', 0, SND_ASYNC);
   end;
 end;
@@ -1361,8 +1361,8 @@ procedure TForm2.pu_moveToolToPointClick(Sender: TObject);
 var x,y: Double;
 begin
   WaitForIdle;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move tool to point');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move tool to point');
   hilite_to(x, y);
 
   if WorkZeroXdone and WorkZeroYdone then begin
@@ -1371,12 +1371,12 @@ begin
     if WorkZeroAllDone then begin
       grbl_moveZ(job.z_penlift, false);
     end else begin
-      Form1.Memo1.lines.add('WARNING: Z Zero not set!');
+      Form1.AddInfo('WARNING: Z Zero not set!');
       PlaySound('SYSTEMHAND', 0, SND_ASYNC);
     end;
     SendListToGrbl;
   end else begin
-    Form1.Memo1.lines.add('WARNING: X,Y Zero not set!');
+    Form1.AddInfo('WARNING: X,Y Zero not set!');
     PlaySound('SYSTEMHAND', 0, SND_ASYNC);
   end;
 end;
@@ -1385,8 +1385,8 @@ procedure TForm2.pu_moveToolToCenterClick(Sender: TObject);
 var x,y: Double;
 begin
   WaitForIdle;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move tool to center');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move tool to center');
   hilite_center_to(x,y);
 
   if WorkZeroXdone and WorkZeroYdone then begin
@@ -1395,12 +1395,12 @@ begin
     if WorkZeroAllDone then begin
       grbl_moveZ(job.z_penlift, false);
     end else begin
-      Form1.Memo1.lines.add('WARNING: Z Zero not set!');
+      Form1.AddInfo('WARNING: Z Zero not set!');
       PlaySound('SYSTEMHAND', 0, SND_ASYNC);
     end;
     SendListToGrbl;
   end else begin
-    Form1.Memo1.lines.add('WARNING: X,Y Zero not set!');
+    Form1.AddInfo('WARNING: X,Y Zero not set!');
     PlaySound('SYSTEMHAND', 0, SND_ASYNC);
   end;
 end;
@@ -1410,8 +1410,8 @@ end;
 procedure TForm2.pu_moveCamToPartZeroClick(Sender: TObject);
 begin
   WaitForIdle;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move cam to part zero');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move cam to part zero');
 
   if WorkZeroXdone and WorkZeroYdone then begin
     grbl_moveZ(0, true);  // move Z up absolute
@@ -1419,7 +1419,7 @@ begin
     grbl_moveZ(job.cam_z_abs, true);
     SendListToGrbl;
   end else begin
-    Form1.Memo1.lines.add('WARNING: X,Y Zero not set!');
+    Form1.AddInfo('WARNING: X,Y Zero not set!');
     PlaySound('SYSTEMHAND', 0, SND_ASYNC);
   end;
 end;
@@ -1428,8 +1428,8 @@ procedure TForm2.pu_moveCamToPointClick(Sender: TObject);
 var x,y: Double;
 begin
   WaitForIdle;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move cam to point');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move cam to point');
   hilite_to(x,y);
   x:= x - job.cam_x;
   y:= y - job.cam_y;
@@ -1440,7 +1440,7 @@ begin
     grbl_moveZ(job.cam_z_abs, true);
     SendListToGrbl;
   end else begin
-    Form1.Memo1.lines.add('WARNING: X,Y Zero not set!');
+    Form1.AddInfo('WARNING: X,Y Zero not set!');
     PlaySound('SYSTEMHAND', 0, SND_ASYNC);
   end;
 end;
@@ -1448,8 +1448,8 @@ end;
 procedure TForm2.pu_moveCamToCenterClick(Sender: TObject);
 var x,y: Double;
 begin
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move cam to center');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move cam to center');
   hilite_center_to(x, y);
   x:= x - job.cam_x;
   y:= y - job.cam_y;
@@ -1460,7 +1460,7 @@ begin
     grbl_moveZ(job.cam_z_abs, true);
     SendListToGrbl;
   end else begin
-    Form1.Memo1.lines.add('WARNING: X,Y Zero not set!');
+    Form1.AddInfo('WARNING: X,Y Zero not set!');
     PlaySound('SYSTEMHAND', 0, SND_ASYNC);
   end;
 end;

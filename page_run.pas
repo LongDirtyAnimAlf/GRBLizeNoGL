@@ -74,10 +74,10 @@ begin
     exit;
   WaitForIdle;
   if switch_on then begin
-    Form1.Memo1.lines.add('Spindle ON, acceleration wait '+ IntToStr(job.spindle_wait) + ' sec');
+    Form1.AddInfo('Spindle ON, acceleration wait '+ IntToStr(job.spindle_wait) + ' sec');
     SendSingleCommandStr('M3');
   end else begin
-    Form1.Memo1.lines.add('Spindle OFF, brake wait '+ IntToStr(job.spindle_wait div 2) + ' sec');
+    Form1.AddInfo('Spindle OFF, brake wait '+ IntToStr(job.spindle_wait div 2) + ' sec');
     SendSingleCommandStr('M5');
   end;
   if not Form1.CheckBoxSim.checked then begin
@@ -93,8 +93,8 @@ end;
 function machine_busy_msg: Boolean;
 begin
   if MachineState <> idle then begin
-    Form1.Memo1.lines.add('');
-    Form1.Memo1.lines.add('WARNING: Machine not idle, command ignored');
+    Form1.AddInfo('');
+    Form1.AddInfo('WARNING: Machine not idle, command ignored');
     PlaySound('SYSTEMHAND', 0, SND_ASYNC);
   end;
   result:= MachineState <> idle;
@@ -124,9 +124,9 @@ end;
 function sim_not_supportet(const do_reset: Boolean): Boolean;
 begin
   if Form1.CheckBoxSim.checked then begin
-    Form1.Memo1.lines.add('Not supported in simulation');
+    Form1.AddInfo('Not supported in simulation');
     if do_reset then begin
-      Form1.Memo1.lines.add('Coordinates reset to sim');
+      Form1.AddInfo('Coordinates reset to sim');
       ResetSimulation;
     end;
     result:= true;
@@ -165,7 +165,7 @@ begin
 // verhindert, dass das Werkzeug in den Tisch rammt
 // nach Stopp durch Kontakt steht Maschinenposition in grbl_mpos.Z
 // wird in result übernommen, Z kehrt danach auf 0 zurück
-  Form1.Memo1.lines.add('Probing Z (20 mm max.), wait for contact');
+  Form1.AddInfo('Probing Z (20 mm max.), wait for contact');
   result:= 0;
   if grbl_is_connected and (not Form1.CheckBoxSim.checked) then begin
     if (MachineState = alarm) then
@@ -173,21 +173,21 @@ begin
     WaitForIdle;
     DisableStatus;
     my_response:= grbl_SendStr('G38.2 Z' + FloatToStrDot(grbl_mpos.Z - 25) + ' F200' + #13, true);
-    Form1.Memo1.lines.add(my_response);
+    Form1.AddInfo(my_response);
     my_zval:= extract_probe_pos(my_response);
     grbl_wait_for_timeout(50);
     if (MachineState = alarm) or (my_zval = 0) then begin
       MessageDlg('Probing failed. ALARM LOCK set,'
         + #13 + 'click ALARM panel to clear.', mtWarning, [mbOK], 0);
-      Form1.Memo1.lines.add('ALARM lock set by GRBL');
+      Form1.AddInfo('ALARM lock set by GRBL');
     end else begin
       // 2 mm abheben und nochmal
       grbl_SendStr('G0 G53 Z' + FloatToSTrDot(my_zval + 2) + #13, true);
       my_response:= grbl_SendStr('G38.2 Z' + FloatToStrDot(my_zval - 5) + ' F50' + #13, true);
       grbl_wait_for_timeout(50);
-      Form1.Memo1.lines.add(my_response);
+      Form1.AddInfo(my_response);
       my_zval:= extract_probe_pos(my_response);
-      Form1.Memo1.lines.add('Probe contact at Z = ' + FloatToStr(my_zval));
+      Form1.AddInfo('Probe contact at Z = ' + FloatToStr(my_zval));
       result:= my_zval;
     end;
     EnableStatus;
@@ -200,8 +200,8 @@ begin
   if (MachineState = alarm) then
     exit;
   // Probe an Fixed-Position anfahren, grbl_mpos.Z merken und zurück nach oben
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move to reference probe');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move to reference probe');
   grbl_moveZ(0, true);
   grbl_moveXY(job.probe_x, job.probe_y, true);
   grbl_moveZ(job.probe_z, true);
@@ -225,7 +225,7 @@ begin
   if (MachineState = alarm) then
     exit;
   WaitForIdle;
-  Form1.Memo1.lines.add('Cancel Tool Length Offset (TLO)');
+  Form1.AddInfo('Cancel Tool Length Offset (TLO)');
   SendSingleCommandStr('G49');
 end;
 
@@ -237,10 +237,10 @@ begin
     exit;
   if FirstToolReferenced then begin
     WaitForIdle;
-    Form1.Memo1.lines.add('Set new Tool Length Offset (TLO) to '+FloatToStrDot(ToolDelta)+ ' mm');
+    Form1.AddInfo('Set new Tool Length Offset (TLO) to '+FloatToStrDot(ToolDelta)+ ' mm');
     SendSingleCommandStr('G43.1 Z'+FloatToStrDot(ToolDelta));
   end else begin
-    Form1.Memo1.lines.add('Tool Length Reference not set, will cancel TLO');
+    Form1.AddInfo('Tool Length Reference not set, will cancel TLO');
     SendSingleCommandStr('G49');
   end;
 end;
@@ -269,7 +269,7 @@ begin
     if my_dlg_result = mrOK then begin
       LEDbusy.Checked:= true;
       CancelG43offset;
-      Form1.Memo1.lines.add('Tool Length Offset/Reference (TLC)');
+      Form1.AddInfo('Tool Length Offset/Reference (TLC)');
       SendSingleCommandStr('G0 G53 Z0');
       MposOnFixedProbe:= probe_z_fixed; // festen Sensor anfahren
       if (MachineState = alarm) then
@@ -297,8 +297,8 @@ end;
 procedure TForm1.BtnZeroXClick(Sender: TObject);
 begin
   WaitForIdle;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Manual Work/part X zero');
+  Form1.AddInfo('');
+  Form1.AddInfo('Manual Work/part X zero');
   drawing_tool_down:= false;
   WorkZeroXdone:= true;
   SendSingleCommandStr('G92 X0');
@@ -310,8 +310,8 @@ end;
 procedure TForm1.BtnZeroYClick(Sender: TObject);
 begin
   WaitForIdle;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Manual Work/part Y zero');
+  Form1.AddInfo('');
+  Form1.AddInfo('Manual Work/part Y zero');
   drawing_tool_down:= false;
   WorkZeroYdone:= true;
   SendSingleCommandStr('G92 Y0');
@@ -414,7 +414,7 @@ begin
     exit;
   spindle_on_off(false);
   grbl_moveZ(0, true);  // Z ganz oben, absolut!
-  Form1.Memo1.lines.add('Move to manual tool change position');
+  Form1.AddInfo('Move to manual tool change position');
   grbl_moveXY(job.toolchange_x, job.toolchange_y, true);
   grbl_moveZ(job.toolchange_z, true);
 // manuelle Wechselposition
@@ -434,9 +434,9 @@ begin
   if Form1.CheckFixedProbeZ.checked and (my_dlg_result = mrYES) then begin
     CurrentToolCompensated:= false;
     if DoTLCandConfirm(false) then
-      Form1.Memo1.lines.add('Tool changed, new Tool Delta Z applied');
+      Form1.AddInfo('Tool changed, new Tool Delta Z applied');
   end else
-    Form1.Memo1.lines.add('Tool not changed, Tool Delta Z retained');
+    Form1.AddInfo('Tool not changed, Tool Delta Z retained');
   ToolInSpindle:= 10; // unknown Tool
   if Form1.Show3DPreview1.checked then
     Form4.GLSupdateATC;
@@ -496,8 +496,8 @@ begin
   if machine_busy_msg then
     exit;
   LEDbusy.Checked:= true;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move to park position');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move to park position');
   spindle_on_off(false);
   drawing_tool_down:= false;
   grbl_moveZ(0, true);  // Z ganz oben, absolut!
@@ -512,8 +512,8 @@ begin
   if machine_busy_msg then
     exit;
   LEDbusy.Checked:= true;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move to fixture 1 zero');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move to fixture 1 zero');
   spindle_on_off(false);
   drawing_tool_down:= false;
   grbl_moveZ(0, true);  // Z ganz oben, absolut!
@@ -533,8 +533,8 @@ begin
   if machine_busy_msg then
     exit;
   LEDbusy.Checked:= true;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move to fixture 2 zero');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move to fixture 2 zero');
   spindle_on_off(false);
   drawing_tool_down:= false;
   grbl_moveZ(0, true);  // Z ganz oben, absolut!
@@ -704,8 +704,8 @@ begin
   Form1.BtnRunjob.tag:= 0;
   WaitForIdle;
   drawing_tool_down:= false;
-  Form1.Memo1.lines.add('Job ended.');
-  Form1.Memo1.lines.add('');
+  Form1.AddInfo('Job ended.');
+  Form1.AddInfo('');
   NeedsRedraw:= true;
   Form1.ProgressBar1.position:= 0;
   Form1.BtnCancel.tag:= 0;
@@ -729,7 +729,7 @@ begin
   if machine_busy_msg then
     exit;
   BtnRunjob.tag:= 1;
-  Memo1.lines.clear;
+  ClearInfo;
   gcsim_dia:= Form1.ComboBoxGdia.ItemIndex+1;
   gcsim_tooltip:= Form1.ComboBoxGtip.ItemIndex;
   Form4.FormRefresh(nil);
@@ -739,7 +739,7 @@ begin
   my_len:= length(final_array);
   if my_len < 1 then
      exit;
-  Form1.Memo1.lines.add('');
+  Form1.AddInfo('');
   my_entry:= final_array[0];
   last_pen:= my_entry.pen;
   is_firstloop := true;

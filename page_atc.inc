@@ -61,10 +61,10 @@ begin
       if atc_slot <= c_numATCslots then begin
         SetATCslot(pen_idx, atc_slot);
         job.pens[pen_idx].atc:= atc_slot;
-  //        Form1.Memo1.lines.add('Pen/Tool ' + IntToStr(pen_idx) + ' assigned to ATC #' + IntToStr(atc_slot));
+  //        Form1.AddInfo('Pen/Tool ' + IntToStr(pen_idx) + ' assigned to ATC #' + IntToStr(atc_slot));
       end else begin
         PlaySound('SYSTEMHAND', 0, SND_ASYNC);
-        Form1.Memo1.lines.add('WARNING: ATC full, some tools not assigned');
+        Form1.AddInfo('WARNING: ATC full, some tools not assigned');
       end;
     end;
   end;
@@ -183,7 +183,7 @@ begin
     exit;
   spindle_on_off(false);
   grbl_moveZ(0, true);  // Z ganz oben, absolut!
-  Form1.Memo1.lines.add('Move to manual tool change position');
+  Form1.AddInfo('Move to manual tool change position');
   grbl_moveXY(job.toolchange_x, job.toolchange_y, true);
   grbl_moveZ(job.toolchange_z, true);
 // manuelle Wechselposition
@@ -206,11 +206,11 @@ begin
   if Form1.CheckTLCprobe.checked and (my_dlg_result = mrYES) then begin
     if do_tlc then
       if DoTLCandConfirm(false, atc_idx_new) then begin
-        Form1.Memo1.lines.add('Tool changed, new Tool Delta Z applied');
+        Form1.AddInfo('Tool changed, new Tool Delta Z applied');
         result:= true;
       end;
   end else begin
-    Form1.Memo1.lines.add('Tool not changed, Tool Delta Z retained');
+    Form1.AddInfo('Tool not changed, Tool Delta Z retained');
   end;
   if my_dlg_result = mrCANCEL then begin
     result:= false;
@@ -239,8 +239,8 @@ begin
   spindle_on_off(false);
   my_atc_x:= job.atc_zero_x + (atc_pos_idx * job.atc_delta_x);
   my_atc_y:= job.atc_zero_y + (atc_pos_idx * job.atc_delta_y);
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Unload tool at ATC slot #'+ IntToStr(atc_idx));
+  Form1.AddInfo('');
+  Form1.AddInfo('Unload tool at ATC slot #'+ IntToStr(atc_idx));
   grbl_moveZ(0, true);  // move Z up
   grbl_moveXY(my_atc_x, my_atc_y, true);
   SendListToGrbl;
@@ -269,8 +269,8 @@ begin
   spindle_on_off(false);
   my_atc_x:= job.atc_zero_x + (atc_pos_idx * job.atc_delta_x);
   my_atc_y:= job.atc_zero_y + (atc_pos_idx * job.atc_delta_y);
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Load tool at ATC slot #'+ IntToStr(atc_idx));
+  Form1.AddInfo('');
+  Form1.AddInfo('Load tool at ATC slot #'+ IntToStr(atc_idx));
   grbl_moveZ(0, true);  // move Z up
   grbl_moveXY(my_atc_x, my_atc_y, true);
   grbl_moveZ(job.atc_pickup_z + 20, true);  // move Z down

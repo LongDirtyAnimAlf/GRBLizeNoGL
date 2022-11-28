@@ -72,7 +72,7 @@ begin
   WaitForIdle;
   if switch_on then begin
     SendSingleCommandStr('M3S1000');
-    Form1.Memo1.lines.add('Spindle ON, acceleration wait '+ IntToStr(job.spindle_wait) + ' sec');
+    Form1.AddInfo('Spindle ON, acceleration wait '+ IntToStr(job.spindle_wait) + ' sec');
   end else begin
     if isCancelled then
       SendSingleCommandStr('M5')  // Liste senden abgeschaltet!
@@ -81,7 +81,7 @@ begin
       grbl_sendlist.add('M5');
       SendListToGrbl;
     end;
-    Form1.Memo1.lines.add('Spindle OFF, brake wait '+ IntToStr(job.spindle_wait div 2) + ' sec');
+    Form1.AddInfo('Spindle OFF, brake wait '+ IntToStr(job.spindle_wait div 2) + ' sec');
   end;
   if isGrblActive then begin
     if switch_on then
@@ -96,8 +96,8 @@ end;
 function machine_busy_msg: Boolean;
 begin
   if MachineState <> idle then begin
-    Form1.Memo1.lines.add('');
-    Form1.Memo1.lines.add('WARNING: Machine not idle, command ignored');
+    Form1.AddInfo('');
+    Form1.AddInfo('WARNING: Machine not idle, command ignored');
     PlaySound('SYSTEMHAND', 0, SND_ASYNC);
   end;
   result:= MachineState <> idle;
@@ -156,7 +156,7 @@ begin
 // verhindert, dass das Werkzeug in den Tisch rammt
 // nach Stopp durch Kontakt steht Maschinenposition in grbl_mpos.Z
 // wird in result übernommen, Z kehrt danach auf 0 zurück
-  Form1.Memo1.lines.add('Probing Z (20 mm max.), wait for contact');
+  Form1.AddInfo('Probing Z (20 mm max.), wait for contact');
   result:= 0;
   if isGrblActive then
     try
@@ -209,16 +209,16 @@ begin
         exit;
       end;
 
-      Form1.Memo1.lines.add('Probe contact at Z = ' + FloatToStr(my_zval2));
+      Form1.AddInfo('Probe contact at Z = ' + FloatToStr(my_zval2));
       // liegen beide Werte im Toleranzbereich 0,1 mm?
       if CompareValue(my_zval1, my_zval2, 0.1) = 0 then
         result:= my_zval2
       else
-        Form1.Memo1.lines.add('ERROR: Probe contact failure - exceed tolerance');
+        Form1.AddInfo('ERROR: Probe contact failure - exceed tolerance');
 
     finally
       if MachineState = alarm then begin
-        Form1.Memo1.lines.add('ALARM lock set by GRBL');
+        Form1.AddInfo('ALARM lock set by GRBL');
         MessageDlg('Probing failed. ALARM LOCK set,'
           + #13 + 'by GRBL - will be cleared automatically.', mtWarning, [mbOK], 0);
         ClearAlarmLock;
@@ -246,8 +246,8 @@ begin
   if (MachineState = alarm) then
     exit;
   // Probe an Fixed-Position anfahren, grbl_mpos.Z merken und zurück nach oben
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move to reference probe');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move to reference probe');
   grbl_moveZ(0, true);
   grbl_moveXY(job.probe_x, job.probe_y, true);
   grbl_moveZ(job.probe_z, true);
@@ -266,7 +266,7 @@ begin
   if (MachineState = alarm) then
     exit;
   WaitForIdle;
-  Form1.Memo1.lines.add('Cancel Tool Length Offset (TLO)');
+  Form1.AddInfo('Cancel Tool Length Offset (TLO)');
   SendSingleCommandStr('G49');
 end;
 
@@ -276,7 +276,7 @@ begin
   if (MachineState = alarm) then
     exit;
   WaitForIdle;
-  Form1.Memo1.lines.add('Set new Tool Length Offset (TLO) to '+FloatToStrDot(my_delta)+ ' mm');
+  Form1.AddInfo('Set new Tool Length Offset (TLO) to '+FloatToStrDot(my_delta)+ ' mm');
   SendSingleCommandStr('G43.1 Z'+FloatToStrDot(my_delta));
 end;
 
@@ -313,7 +313,7 @@ begin
     result:= false;
     LEDbusy.Checked:= true;
     CancelG43offset;
-    Form1.Memo1.lines.add('Tool Length Offset/Reference (TLC)');
+    Form1.AddInfo('Tool Length Offset/Reference (TLC)');
     SendSingleCommandStr('G0 G53 Z0');
     MposOnFixedProbe:= probe_z_fixed; // festen Sensor anfahren
     if (MachineState = alarm) or (MposOnFixedProbe = 0) then
@@ -368,8 +368,8 @@ begin
   LastToolUsed:= ToolInSpindle;
   spindle_on_off(false);
   drawing_tool_down:= false;
-  Form1.Memo1.lines.add('Job ended.');
-  Form1.Memo1.lines.add('');
+  Form1.AddInfo('Job ended.');
+  Form1.AddInfo('');
   NeedsRedraw:= true;
   Form1.ProgressBar1.position:= 0;
   Form1.BtnRunJob.enabled:= true;
@@ -400,9 +400,9 @@ begin
         break;
       Application.ProcessMessages;
       if my_entry.milling_enables[p] then begin
-        Memo1.lines.add('');
-        Memo1.lines.add('Run path '+ IntToStr(p));
-        Memo1.lines.add('=========================================');
+        AddInfo('');
+        AddInfo('Run path '+ IntToStr(p));
+        AddInfo('=========================================');
         grbl_sendlist.add(BitChangeStr(my_entry));
         if my_entry.shape = drillhole then
           grbl_drillpath(my_entry.millings[p], my_entry.pen, job.pens[my_entry.pen].offset)
@@ -433,15 +433,15 @@ begin
 
     ToolInSpindle:= sgATC.Row;
     ForceToolPositions(grbl_wpos.x, grbl_wpos.y, grbl_wpos.z);
-    Form1.Memo1.lines.add('');
-    Memo1.lines.clear;
+    Form1.AddInfo('');
+    ClearInfo;
     my_btn := MessageDlg('Is machine zeroed with selected tool?'
       + #13 + 'Make sure spindle collet is loaded with:'
       + #13 + #13 + pen_description(atcArray[ToolInSpindle].pen)
       + #13 + #13 + 'Click OK to proceed, CANCEL to terminate job.', mtConfirmation, mbOKCancel, 0);
-    Memo1.lines.Clear;
-    Memo1.lines.add('Job run started.');
-    Memo1.lines.add('=========================================');
+    ClearInfo;
+    AddInfo('Job run started.');
+    AddInfo('=========================================');
     if my_btn = mrCancel then
       exit;
 
@@ -464,9 +464,9 @@ begin
       LEDbusy.Checked:= true;
       spindle_on_off(true);
       run_path(my_entry);
-      Memo1.lines.add('Path done.');
+      AddInfo('Path done.');
     end;
-    Memo1.lines.add('Blocks done.');
+    AddInfo('Blocks done.');
     WaitForIdle;
 // grbl_millpath und grbl_drillpath enden mit job.z_penup, deshalb:
     SendSingleCommandStr('G0 G53 Z-1'); // move Z up
@@ -508,21 +508,21 @@ begin
       ResetSimulation;
     if ToolInSpindle <> 1 then begin
       PlaySound('SYSTEMHAND', 0, SND_ASYNC);
-      Memo1.lines.add('');
-      Memo1.lines.add('ERROR: Tool 1 is not in spindle.');
+      AddInfo('');
+      AddInfo('ERROR: Tool 1 is not in spindle.');
       exit;
     end;
 
     BtnRunjob.tag:= 1;
 
-    Memo1.lines.clear;
+    ClearInfo;
     my_btn := MessageDlg('Is machine zeroed with first tool?'
       + #13 + 'Make sure spindle collet is loaded with:'
       + #13 + #13 + pen_description(atcArray[ToolInSpindle].pen)
       + #13 + #13 + 'Click OK to proceed, CANCEL to terminate job.', mtConfirmation, mbOKCancel, 0);
-    Memo1.lines.Clear;
-    Memo1.lines.add('Job run started.');
-    Memo1.lines.add('=========================================');
+    ClearInfo;
+    AddInfo('Job run started.');
+    AddInfo('=========================================');
     if my_btn = mrCancel then
       exit;
     if (not atcArray[ToolInSpindle].TREFok) and CheckToolChange.checked then begin
@@ -551,7 +551,7 @@ begin
         LEDbusy.Checked:= true;
         spindle_on_off(true);
         run_path(my_entry); // Alle Pfade abarbeiten
-        Memo1.lines.add('Path done.');
+        AddInfo('Path done.');
       end;
 
       if (not isCancelled) and CheckToolChange.checked then begin
@@ -579,7 +579,7 @@ begin
       end;
     end; // for loop
 
-    Memo1.lines.add('Blocks done.');
+    AddInfo('Blocks done.');
     WaitForIdle;
 // grbl_millpath und grbl_drillpath enden mit job.z_penup, deshalb:
     SendSingleCommandStr('G0 G53 Z-1'); // move Z up
@@ -611,8 +611,8 @@ begin
     if isSimActive then
       ResetSimulation;
     BtnRunjob.tag:= 1;
-    Memo1.lines.Clear;
-    Memo1.lines.add('G-Code file run started.');
+    ClearInfo;
+    AddInfo('G-Code file run started.');
     mdelay(grbl_delay_long);
     ForceToolPositions(grbl_wpos.x, grbl_wpos.y, grbl_wpos.z);
 
@@ -632,11 +632,11 @@ begin
       end;
       LEDbusy.Checked:= true;
       Readln(my_ReadFile, my_line);
-      Memo1.lines.add(my_line);
+      AddInfo(my_line);
 
       my_resp:= grbl_sendStr(my_line + #13, true);
       if my_resp <> 'ok' then begin
-        Memo1.lines.add('### Unexpected response: ' + my_resp);
+        AddInfo('### Unexpected response: ' + my_resp);
         break;
       end;
     end;

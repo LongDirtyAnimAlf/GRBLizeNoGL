@@ -320,7 +320,7 @@ var Scale  : double;                          // scale between file and internal
       if valid and (xx<>100) and (yy<>100) then exit;
     end;
 
-    Form1.Memo1.lines.add('ERROR: Unbekannter Parameter in DIM-File: ' + Line);
+    Form1.AddInfo('ERROR: Unbekannter Parameter in DIM-File: ' + Line);
   end;
 
   procedure dim_import_cmd(line: String; fileID, penOverride: Integer);
@@ -379,7 +379,7 @@ var Scale  : double;                          // scale between file and internal
         exit;
       end;
     end;
-    Form1.Memo1.lines.add('ERROR: Unbekanntes Kommando in DIM-File: ' + Line);
+    Form1.AddInfo('ERROR: Unbekanntes Kommando in DIM-File: ' + Line);
   end;
 
 var
@@ -691,7 +691,7 @@ try
 
 finally
   if state = error then begin
-    Form1.Memo1.lines.add('ERROR: Zeile nicht auswertbar: ' + Line);
+    Form1.AddInfo('ERROR: Zeile nicht auswertbar: ' + Line);
     state:= corrupt;
   end;
   Analysis := pos('</svg>',Line) > 0                // Analyse ist abgeschlossen
@@ -851,7 +851,7 @@ try
 
 finally
   if state = error then begin
-    Form1.Memo1.lines.add('ERROR: Zeile nicht auswertbar: ' + Line);
+    Form1.AddInfo('ERROR: Zeile nicht auswertbar: ' + Line);
     state:= corrupt;
   end;
 //  i := pos('</g>',Line);
@@ -1305,7 +1305,7 @@ try
 
 finally
   if state = error then begin
-    Form1.Memo1.lines.add('ERROR: Zeile nicht auswertbar: ' + Line);
+    Form1.AddInfo('ERROR: Zeile nicht auswertbar: ' + Line);
     state:= corrupt;
   end;
   Analysis := pos('/>',Line) > 0                    // Analyse ist abgeschlossen
@@ -1412,7 +1412,7 @@ try
 
 finally
   if state = error then begin
-    Form1.Memo1.lines.add('ERROR: Zeile nicht auswertbar: ' + Line);
+    Form1.AddInfo('ERROR: Zeile nicht auswertbar: ' + Line);
     state:= corrupt;
   end;
   Analysis := pos('/>',Line) > 0                       // Analyse ist abgeschlossen
@@ -1494,7 +1494,7 @@ begin
 
   finally
     if state = error then begin
-      Form1.Memo1.lines.add('ERROR: Zeile nicht auswertbar: ' + Line);
+      Form1.AddInfo('ERROR: Zeile nicht auswertbar: ' + Line);
       state:= corrupt;
     end;
 
@@ -1512,7 +1512,7 @@ begin
 
       if Tool > c_numOfPens then begin               // ==> kein Platz mehr frei
         state:= corrupt;
-        Form1.Memo1.lines.add('ERROR: Zu wenige Tools!');
+        Form1.AddInfo('ERROR: Zu wenige Tools!');
       end else begin
         pen[0]:= 1;
         pen[pen[0]]:= Tool;         // Werkzeug neu setzen, Farbe wird ignoriert
@@ -1626,7 +1626,7 @@ begin
         if pos('<svg', s)     > 0 then
            if SVG = nil then SVG := TSvg.Create(nil, fileID, penOverride)
            else begin
-             Form1.Memo1.lines.add('ERROR (Zeile ' + inttostr(z) + '): Unerwartetes SVG-Element!');
+             Form1.AddInfo('ERROR (Zeile ' + inttostr(z) + '): Unerwartetes SVG-Element!');
              exit;
            end;
 
@@ -1634,41 +1634,41 @@ begin
            if ((SVG.ClassType = TSvg) or (SVG.ClassType = TSvgGroup))
               then SVG:= TSvgGroup.Create(SVG)
               else begin
-                 Form1.Memo1.lines.add('ERROR (Zeile ' + inttostr(z) + '): Unerwartetes Group-Element!');
+                 Form1.AddInfo('ERROR (Zeile ' + inttostr(z) + '): Unerwartetes Group-Element!');
                  exit;
               end;
 
         if pos('<path', s)    > 0 then
            if (SVG.ClassType = TSvgGroup) then SVG:= TSvgPath.Create(SVG)
               else begin
-                 Form1.Memo1.lines.add('ERROR (Zeile ' + inttostr(z) + '): Unerwartetes Path-Element!');
+                 Form1.AddInfo('ERROR (Zeile ' + inttostr(z) + '): Unerwartetes Path-Element!');
                  exit;
               end;
 
         if pos('<rect', s)    > 0 then
            if (SVG.ClassType = TSvgGroup) then SVG:= TSvgRect.Create(SVG)
               else begin
-                 Form1.Memo1.lines.add('ERROR (Zeile ' + inttostr(z) + '): Unerwartetes Rect-Element!');
+                 Form1.AddInfo('ERROR (Zeile ' + inttostr(z) + '): Unerwartetes Rect-Element!');
                  exit;
               end;
 
         if pos('<ellipse', s) > 0 then
            if (SVG.ClassType = TSvgGroup) then SVG:= TSvgEllipse.Create(SVG)
               else begin
-                 Form1.Memo1.lines.add('ERROR (Zeile ' + inttostr(z) + '): Unerwartetes Ellipse-Element!');
+                 Form1.AddInfo('ERROR (Zeile ' + inttostr(z) + '): Unerwartetes Ellipse-Element!');
                  exit;
               end;
 
         if pos('<circle', s)  > 0 then
            if (SVG.ClassType = TSvgGroup) then SVG:= TSvgCircle.Create(SVG)
               else begin
-                 Form1.Memo1.lines.add('ERROR (Zeile ' + inttostr(z) + '): Unerwartetes Circle-Element!');
+                 Form1.AddInfo('ERROR (Zeile ' + inttostr(z) + '): Unerwartetes Circle-Element!');
                  exit;
               end;
 
         if SVG <> nil then begin
           if SVG.Analysis(s) then begin
-            if not SVG.valid then Form1.Memo1.lines.add('ERROR (Zeile ' + inttostr(z) + '): Element nicht korrekt!')
+            if not SVG.valid then Form1.AddInfo('ERROR (Zeile ' + inttostr(z) + '): Element nicht korrekt!')
             else begin
               n:= SVG.pen[0];
               for i:=1 to n do begin

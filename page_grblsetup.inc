@@ -5,7 +5,7 @@
 procedure OpenCOMport;
 begin
   com_isopen:= COMopen(com_name);
-  Form1.Memo1.lines.add(com_name + ' connected - please wait...');
+  Form1.AddInfo(com_name + ' connected - please wait...');
   if com_isopen then begin
     COMSetup(trim(deviceselectbox.EditBaudrate.Text));
     Form1.DeviceView.Text:= 'Serial port ' + com_name;
@@ -27,7 +27,7 @@ begin
       // Öffnet Device nach Seriennummer
       // Stellt sicher, dass das beim letzten Form1.Close
       // geöffnete Device auch weiterhin verfügbar ist.
-      Form1.Memo1.lines.add(InitFTDIbySerial(ftdi_serial,deviceselectbox.EditBaudrate.Text)
+      Form1.AddInfo(InitFTDIbySerial(ftdi_serial,deviceselectbox.EditBaudrate.Text)
         + ' - please wait...');
       ftdi.getDeviceInfo(my_device, pid, vid, my_description, ftdi_serial);
       Form1.DeviceView.Text:= ftdi_serial + ' - ' + my_description;
@@ -125,7 +125,7 @@ begin
   DeviceView.Font.Style:= [fsbold];
 
   HomingPerformed:= false;
-  Memo1.lines.add('COM/USB disconnected');
+  AddInfo('COM/USB disconnected');
   CheckBoxSim.Checked:= true;
   BtnRescan.Enabled:= true;
   ResetToolFlags;

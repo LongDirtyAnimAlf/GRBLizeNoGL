@@ -8,7 +8,7 @@ uses
   Math, StdCtrls, ComCtrls, Buttons, ExtCtrls, ImgList,
   Controls, StdActns, Classes, ActnList, Menus,
   SysUtils, StrUtils, Windows, Graphics, Forms, Messages,
-  Dialogs,  Grids, Registry, MMsystem, SyncObjs,
+  Dialogs,  Grids, SynEdit, Registry, MMsystem, SyncObjs,
   {$ifndef FPC}
   ToolWin, GraphUtil, Spin, FileCtrl, ShellApi,
   VFrames, XPMan, ValEdit, System.ImageList, System.Actions,
@@ -36,6 +36,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    CommandOutputScreen: TSynEdit;
     MainMenu1: TMainMenu;
     File1: TMenuItem;
     FileNewItem: TMenuItem;
@@ -191,7 +192,6 @@ type
     LabelHintZ2: TLabel;
     Label15: TLabel;
     Label16: TLabel;
-    Memo1: TMemo;
     Label13: TLabel;
     Bevel4: TBevel;
     Bevel10: TBevel;
@@ -438,6 +438,8 @@ type
     { Private declarations }
     form_CriticalSection: TCriticalSection;
   public
+    procedure AddInfo(aMessage:string);
+    procedure ClearInfo;
     { Public declarations }
   end;
 
@@ -693,6 +695,7 @@ const
 implementation
 
 uses
+  SynHighlighterCNC,
   import_files, Clipper, About, bsearchtree,
   {$ifndef FPC}cam_view,{$endif}
   gerber_import;
@@ -988,7 +991,7 @@ end;
 procedure ResetSimulation;
 // willkürliche Ausgangswerte, auch für Simulation
 begin
-  Form1.Memo1.lines.add('Reset Simulation');
+  Form1.AddInfo('Reset Simulation');
   ResetCoordinates;
   gcsim_x_old:= grbl_wpos.x;
   gcsim_y_old:= grbl_wpos.y;
@@ -1035,13 +1038,19 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 var
   grbl_ini: TRegistry;
-
+  CNC: TSynCNCSyn;
 begin
+  CNC := TSynCNCSyn.Create(Self);
+  CommandOutputScreen.Highlighter := CNC;
+
+  //CommandOutputScreen.Lines.Text:=CNC.SampleSource;
+  exit;
+
   StartupDone:= false;
   Show;
-  Memo1.lines.Clear;
-  Memo1.lines.add(c_ProgNameStr + c_VerStr);
-  Memo1.lines.add('with joystick/gamepad support for GRBL 1.1');
+  ClearInfo;
+  AddInfo(c_ProgNameStr + c_VerStr);
+  AddInfo('with joystick/gamepad support for GRBL 1.1');
   form_CriticalSection := TCriticalSection.Create;
   StopWatch:= TStopWatch.Create;
   Width:= Constraints.MaxWidth;
@@ -1142,7 +1151,7 @@ begin
   SgGrblSettings.FixedCols:= 1;
   SgAppdefaults.FixedCols:= 1;
   BringToFront;
-  Memo1.lines.add(''+ SetUpFTDI);
+  AddInfo(''+ SetUpFTDI);
 
   if ftdi_was_open or com_was_open then begin
     BtnConnect.Enabled:= true;
@@ -1157,7 +1166,7 @@ begin
   SetToolChangeChecks(job.toolchange_pause);
   ResetCoordinates;
   ResetToolflags;
-  Form1.Memo1.lines.add('');
+  Form1.AddInfo('');
   ResetSimulation;
   if ftdi_was_open then
     OpenFTDIport
@@ -1201,7 +1210,7 @@ begin
     else
       grbl_ini.WriteString('FTDIdeviceSerial', 'NONE');
     grbl_ini.WriteBool('FTDIdeviceOpen',ftdi_isopen);
-    grbl_ini.WriteString('ComBaudrate', deviceselectbox.EditBaudrate.Text);
+    if Assigned(deviceselectbox) then grbl_ini.WriteString('ComBaudrate', deviceselectbox.EditBaudrate.Text);
     grbl_ini.WriteString('ComPort', com_name);
     grbl_ini.WriteBool('ComOpen', com_isopen);
   finally
@@ -1358,10 +1367,10 @@ begin
   SquareCorner_mpos:= grbl_mpos;
   EditCornerX.Text:= 'MPOS';
   EditCornerY.Text:= 'MPOS';
-  Memo1.Lines.Add('');
-  Memo1.Lines.Add('Upper right corner');
-  Memo1.Lines.Add('set to machine position');
-  Memo1.Lines.Add('X: ' + FormatFloat('000.00', SquareCorner_mpos.x)
+  AddInfo('');
+  AddInfo('Upper right corner');
+  AddInfo('set to machine position');
+  AddInfo('X: ' + FormatFloat('000.00', SquareCorner_mpos.x)
     + '   Y: ' + FormatFloat('000.00', SquareCorner_mpos.y));
   SquareCornerManualEnter:= false;
   SquareCornerSetToMpos:= true;
@@ -1373,22 +1382,22 @@ var
   x1, x2, y1, y2, z, pocket_step: Double;
   outline_only: Boolean;
 begin
-  Memo1.Lines.Add('');
+  AddInfo('');
   if SquareCornerManualEnter then begin
     if (not WorkZeroXdone) or (not WorkZeroYdone) then begin
-      Memo1.Lines.Add('##### Error: Machine XY not zeroed on part!');
+      AddInfo('##### Error: Machine XY not zeroed on part!');
       exit;
     end;
     if (abs(grbl_wpos.x) > 2) or (abs(grbl_wpos.y) > 2) then begin
-      Memo1.Lines.Add('##### Error: Tool not near zero position!');
+      AddInfo('##### Error: Tool not near zero position!');
       exit;
     end;
     SquareCorner_wpos.X:=StrToFloatDef(EditCornerX.Text,0);
     SquareCorner_wpos.Y:=StrToFloatDef(EditCornerY.Text,0);
-    Memo1.Lines.Add('Square corner set manually');
+    AddInfo('Square corner set manually');
   end else begin
     if not SquareCornerSetToMpos then begin
-      Memo1.Lines.Add('##### Error: Upper right corner not set!');
+      AddInfo('##### Error: Upper right corner not set!');
       exit;
     end;
     // Maschinenkoordinaten gesetzt, ändern auf Werkstück
@@ -1399,17 +1408,17 @@ begin
     EditCornerY.Text:= FormatFloat('0.00', SquareCorner_wpos.Y);
     WorkZeroXdone:= false;    // wurde überschrieben
     WorkZeroYdone:= false;
-    Memo1.Lines.Add('Lower left square corner set to zero');
+    AddInfo('Lower left square corner set to zero');
   end;
 
   if (SquareCorner_wpos.X >= 0) and  (SquareCorner_wpos.Y >= 0) then begin
-    Memo1.Lines.Add('');
-    Memo1.Lines.Add('Upper right corner set to');
-    Memo1.Lines.Add('X:' + FormatFloat('000.00', SquareCorner_wpos.x)
+    AddInfo('');
+    AddInfo('Upper right corner set to');
+    AddInfo('X:' + FormatFloat('000.00', SquareCorner_wpos.x)
       + '  Y:' + FormatFloat('000.00', SquareCorner_wpos.y));
   end else begin
-    Memo1.Lines.Add('');
-    Memo1.Lines.Add('##### Error: Corner positions invalid!');
+    AddInfo('');
+    AddInfo('##### Error: Corner positions invalid!');
     exit;
   end;
   WorkZeroZdone:= false;  // hat sich geändert!
@@ -1514,10 +1523,10 @@ procedure TForm1.BtnSetRadiusClick(Sender: TObject);
 begin
   CircleRadius_mpos:= grbl_mpos;
   EditRadius.Text:= 'MPOS';
-  Memo1.Lines.Add('');
-  Memo1.Lines.Add('Circle radius (outer edge)');
-  Memo1.Lines.Add('set to machine position');
-  Memo1.Lines.Add('X: ' + FormatFloat('000.00', CircleRadius_mpos.x)
+  AddInfo('');
+  AddInfo('Circle radius (outer edge)');
+  AddInfo('set to machine position');
+  AddInfo('X: ' + FormatFloat('000.00', CircleRadius_mpos.x)
     + '   Y: ' + FormatFloat('000.00', CircleRadius_mpos.y));
   CircleRadiusManualEnter:= false;
   CircleRadiusSetToMpos:= true;
@@ -1529,21 +1538,21 @@ var my_radius, z, pocket_step: Double;
   my_str: String;
 
 begin
-  Memo1.Lines.Add('');
+  AddInfo('');
   if CircleRadiusManualEnter then begin
     if (not WorkZeroXdone) or (not WorkZeroYdone) then begin
-      Memo1.Lines.Add('##### Error: Machine XY not zeroed on part!');
+      AddInfo('##### Error: Machine XY not zeroed on part!');
       exit;
     end;
     if (abs(grbl_wpos.x) > 2) or (abs(grbl_wpos.y) > 2) then begin
-      Memo1.Lines.Add('##### Error: Tool not near zero position!');
+      AddInfo('##### Error: Tool not near zero position!');
       exit;
     end;
     CircleRadius:=StrToFloatDef(EditRadius.Text,0);
-    Memo1.Lines.Add('Circle radius set manually');
+    AddInfo('Circle radius set manually');
   end else begin
     if not CircleRadiusSetToMpos then begin
-      Memo1.Lines.Add('##### Error: Circle radius (outer edge) not set!');
+      AddInfo('##### Error: Circle radius (outer edge) not set!');
       exit;
     end;
     // Maschinenkoordinaten gesetzt, ändern auf Werkstück
@@ -1553,15 +1562,15 @@ begin
     EditRadius.Text:= FormatFloat('0.00', CircleRadius);
     WorkZeroXdone:= false;    // wurde überschrieben
     WorkZeroYdone:= false;
-    Memo1.Lines.Add('Circle center set to zero');
+    AddInfo('Circle center set to zero');
   end;
 
   if (CircleRadius > 0) then begin
-    Memo1.Lines.Add('');
-    Memo1.Lines.Add('Circle radius set to: ' + FormatFloat('000.00', CircleRadius));
+    AddInfo('');
+    AddInfo('Circle radius set to: ' + FormatFloat('000.00', CircleRadius));
   end else begin
-    Memo1.Lines.Add('');
-    Memo1.Lines.Add('##### Error: Radius invalid!');
+    AddInfo('');
+    AddInfo('##### Error: Radius invalid!');
     exit;
   end;
 
@@ -1662,8 +1671,8 @@ begin
   UpDown2.Position:= 0;
   UpDown3.Position:= 0;
   if PageControl1.TabIndex = 4 then begin
-    Memo1.Lines.clear;
-    Memo1.Lines.Add('Corner/center reset');
+    ClearInfo;
+    AddInfo('Corner/center reset');
   end;
 end;
 
@@ -1831,9 +1840,9 @@ begin
     TimerStatus.Enabled:= false;
     GetStatus; // muss eingetroffen sein
     if (MachineState = alarm) and (old_machine_state <> alarm) then
-      Form1.Memo1.lines.add('ALARM state, reset machine and perform home cycle');
+      Form1.AddInfo('ALARM state, reset machine and perform home cycle');
     if (MachineState = hold) and (old_machine_state <> hold) then
-      Form1.Memo1.lines.add('HOLD state, press CONTINUE or click READY panel');
+      Form1.AddInfo('HOLD state, press CONTINUE or click READY panel');
     ForceToolPositions(grbl_wpos.X, grbl_wpos.Y, grbl_wpos.Z);
     if MachineOptions.NewGrblVersion then begin
       {$I joypad_handling.inc}
@@ -1893,9 +1902,9 @@ begin
     if AnsiContainsStr(my_str, '>') then
       exit; // war eine im Timer angeforderte Statusmeldung
     if AnsiContainsStr(my_str, '[') then
-      Form1.Memo1.lines.add('GRBL response: ' + my_str)
+      Form1.AddInfo('GRBL response: ' + my_str)
     else
-      Form1.Memo1.lines.add('WARNING: unexpected response "' + my_str + '"');
+      Form1.AddInfo('WARNING: unexpected response "' + my_str + '"');
   end;
 end;
 
@@ -1904,7 +1913,7 @@ function SendReceive(my_cmd: String; my_timeout: Integer): String;
 // bei abgeschaltetem Status senden und empfangen
 begin
   if isGRBLactive then begin
-    Form1.Memo1.lines.add(my_cmd);
+    Form1.AddInfo(my_cmd);
     Form1.form_CriticalSection.Acquire;
     if my_timeout > 0 then begin
       grbl_SendStr(my_cmd + #13, false);
@@ -1914,7 +1923,7 @@ begin
     ResponseMsg(result);
     Form1.form_CriticalSection.Leave;
   end else begin
-    Form1.Memo1.lines.add(my_cmd);
+    Form1.AddInfo(my_cmd);
     InterpretGcodeLine(my_cmd);
     NeedsRedraw:= true;
   end;
@@ -1925,7 +1934,7 @@ function SendReceiveAndDwell(my_cmd: String): String;
 // Sende einzelnen Befehl, hierfür 100 ms Timeout
 begin
   if isGRBLactive then begin
-    Form1.Memo1.lines.add(my_cmd);
+    Form1.AddInfo(my_cmd);
     Form1.form_CriticalSection.Acquire;
     grbl_SendStr(my_cmd + #13, false);
     result:= grbl_receiveStr(100);
@@ -1934,7 +1943,7 @@ begin
     ResponseMsg(result);
     Form1.form_CriticalSection.Leave;
   end else begin
-    Form1.Memo1.lines.add(my_cmd);
+    Form1.AddInfo(my_cmd);
     InterpretGcodeLine(my_cmd);
     NeedsRedraw:= true;
   end;
@@ -1946,7 +1955,7 @@ begin
   if isGrblActive then begin
     SendReceive(my_command, 200);
   end else begin
-    Form1.Memo1.lines.add(my_command);
+    Form1.AddInfo(my_command);
     InterpretGcodeLine(my_command);
     NeedsRedraw:= true;
   end;
@@ -1958,7 +1967,7 @@ begin
   if isGrblActive then begin
     SendReceiveAndDwell(my_command);
   end else begin
-    Form1.Memo1.lines.add(my_command);
+    Form1.AddInfo(my_command);
     InterpretGcodeLine(my_command);
     NeedsRedraw:= true;
   end;
@@ -1966,9 +1975,9 @@ end;
 
 procedure ClearAlarmLock;
 begin
-  Form1.Memo1.lines.add('');
+  Form1.AddInfo('');
   HomingPerformed:= false;
-  Form1.Memo1.lines.add('Unlock ALARM state');
+  Form1.AddInfo('Unlock ALARM state');
   if isGrblActive then begin
     ResetToolflags;
     Form1.form_CriticalSection.Acquire;
@@ -1980,7 +1989,7 @@ begin
     Form1.form_CriticalSection.Leave;
   end else
     ResetSimulation;
-  Form1.Memo1.lines.add('Proceed with care!');
+  Form1.AddInfo('Proceed with care!');
 end;
 
 
@@ -1990,10 +1999,10 @@ var pos_changed: Boolean;
 begin
   with Form1 do begin
     gcsim_active:= false;
-    Memo1.lines.add('');
-    Memo1.lines.add('Cancel Job');
-    Memo1.lines.add('=========================================');
-    Memo1.lines.add('Feed hold, wait for stop...');
+    AddInfo('');
+    AddInfo('Cancel Job');
+    AddInfo('=========================================');
+    AddInfo('Feed hold, wait for stop...');
     Form1.form_CriticalSection.Acquire;
     grbl_sendRealTimeCmd('!');   // Feed Hold
     mdelay(100);
@@ -2002,30 +2011,30 @@ begin
       pos_changed:= GetStatus;
     until (not pos_changed) and (MachineState = hold) or isEmergency;
     mdelay(100);
-    Memo1.lines.add('Reset GRBL');
+    AddInfo('Reset GRBL');
     grbl_sendRealTimeCmd(#24);   // Reset CTRL-X, Maschine steht
     sleep(200);
-    Form1.Memo1.lines.add(grbl_receiveStr(20));
-    Form1.Memo1.lines.add(grbl_receiveStr(20));
+    Form1.AddInfo(grbl_receiveStr(20));
+    Form1.AddInfo(grbl_receiveStr(20));
     // Locked/Alarm-Meldung, sonst #Timeout
-    Form1.Memo1.lines.add(grbl_receiveStr(20));
+    Form1.AddInfo(grbl_receiveStr(20));
 
     SpindleRunning:= false;
     SendActive:= false;
-    Memo1.lines.add('Feed release');
+    AddInfo('Feed release');
     grbl_sendRealTimeCmd('~');   // Feed Hold löschen
     grbl_rx_clear; // letzte Antwort verwerfen
-    Memo1.lines.add('Unlock Alarm State');
+    AddInfo('Unlock Alarm State');
     grbl_sendStr('$X' + #13, false);   // Unlock
     grbl_wait_for_timeout(100);
-    Memo1.lines.add('Move Z up, restore Offsets');
+    AddInfo('Move Z up, restore Offsets');
     grbl_sendStr('G0 G53 Z-1' + #13, true);  // Move Z up
     grbl_sendStr('G4 P1' + #13, true);       // Dwell/Pause
-    Memo1.lines.add('');
+    AddInfo('');
     grbl_sendStr('G92 Z'+FloatToStrDot(-WorkZero.Z) + #13, true); // wir sind auf 0
     grbl_sendStr('G92 X'+ FloatToSTrDot(grbl_mpos.X - WorkZero.X)
       +' Y'+ FloatToSTrDot(grbl_mpos.Y - WorkZero.Y) + #13, true);
-    Memo1.lines.add('Done.');
+    AddInfo('Done.');
     Form1.form_CriticalSection.Leave;
     repeat
       Application.processmessages;
@@ -2038,12 +2047,12 @@ procedure CancelSim;
 begin
   with Form1 do begin
     PanelAlive.tag:= 0;  // Receive Cancel löschen
-    Memo1.lines.add('');
-    Memo1.lines.add('Cancel Job Simulation');
-    Memo1.lines.add('=========================================');
+    AddInfo('');
+    AddInfo('Cancel Job Simulation');
+    AddInfo('=========================================');
     spindle_on_off(false);
     SendSingleCommandAndDwell('G0 G53 Z0');
-    Memo1.lines.add('Done.');
+    AddInfo('Done.');
   end;
 end;
 
@@ -2064,12 +2073,12 @@ begin
   ShowAliveState(s_alive_wait_indef);
   if isGrblActive then begin
     if SendActive then begin  // nicht reentrant!
-      Form1.Memo1.lines.add('WARNING: Send is active, ignored');
+      Form1.AddInfo('WARNING: Send is active, ignored');
       PlaySound('SYSTEMHAND', 0, SND_ASYNC);
       exit;
     end;
     if MachineState = alarm then begin
-      Form1.Memo1.lines.add('ALARM state, command ignored.');
+      Form1.AddInfo('ALARM state, command ignored.');
       PlaySound('SYSTEMHAND', 0, SND_ASYNC);
       grbl_sendlist.Clear;
       exit;
@@ -2083,7 +2092,7 @@ begin
       if length(my_str) > 1 then begin
         if (my_str[1] <> '/') and (my_str[1] <> '(') then begin
           // alles OK, neuen Befehl senden
-          Form1.Memo1.lines.add(my_str);
+          Form1.AddInfo(my_str);
           if isCancelled then begin
             CancelMachine;
             break;
@@ -2092,15 +2101,15 @@ begin
           // wenn nicht OK, Alarmzustand, timeout oder Fehler
           if pos('OK', LastResponseStr) = 0 then begin
             if pos('ALARM', LastResponseStr) > 0 then begin
-              Form1.Memo1.lines.add(LastResponseStr);
-              Form1.Memo1.lines.add('ALARM state, reset machine and perform home cycle');
-              Form1.Memo1.lines.add('Processing cancelled');
+              Form1.AddInfo(LastResponseStr);
+              Form1.AddInfo('ALARM state, reset machine and perform home cycle');
+              Form1.AddInfo('Processing cancelled');
               PlaySound('SYSTEMHAND', 0, SND_ASYNC);
              break;
             end else if pos('ERROR', LastResponseStr) > 0 then begin
-              Form1.Memo1.lines.add(LastResponseStr);
-              Form1.Memo1.lines.add('ERROR state, communication fault');
-              Form1.Memo1.lines.add('Processing cancelled');
+              Form1.AddInfo(LastResponseStr);
+              Form1.AddInfo('ERROR state, communication fault');
+              Form1.AddInfo('Processing cancelled');
               PlaySound('SYSTEMHAND', 0, SND_ASYNC);
               break;
             end;
@@ -2123,7 +2132,7 @@ begin
       if length(my_str) > 1 then begin
         if (my_str[1] <> '/') and (my_str[1] <> '(') then begin
           // alles OK, neuen Befehl senden
-          Form1.Memo1.lines.add(my_str);
+          Form1.AddInfo(my_str);
           InterpretGcodeLine(my_str);
           NeedsRedraw:= true;
         end;
@@ -2240,8 +2249,8 @@ begin
   LEDbusy.Checked:= true;
   grbl_moveZ(0, true);  // Z ganz oben, absolut!
   my_atc:= sgATC.Row-1;
-  Form1.Memo1.lines.add('');
-  Memo1.lines.add('Move to ATC #'+IntToStr(my_atc)+' position (Z up)');
+  Form1.AddInfo('');
+  AddInfo('Move to ATC #'+IntToStr(my_atc)+' position (Z up)');
   my_atc_x:= job.atc_zero_x + (my_atc * job.atc_delta_x);
   my_atc_y:= job.atc_zero_y + (my_atc * job.atc_delta_y);
   grbl_moveXY(my_atc_x, my_atc_y, true);
@@ -2253,8 +2262,8 @@ end;
 
 procedure TForm1.BtnMoveMillCenterClick(Sender: TObject);
 begin
-  Memo1.lines.add('');
-  Memo1.lines.add('Move to job center position (Z up)');
+  AddInfo('');
+  AddInfo('Move to job center position (Z up)');
   grbl_moveZ(0, true);
   grbl_moveXY(final_bounds_mm.mid.x, final_bounds_mm.mid.y, false);
   SendListToGrbl;
@@ -2270,17 +2279,17 @@ begin
   button_enable(false);
   ResetToolflags;
   SendActive:= false;
-  Memo1.lines.add('');
-  Memo1.lines.add('WARNING: Emergency Stop');
-  Memo1.lines.add('=========================================');
+  AddInfo('');
+  AddInfo('WARNING: Emergency Stop');
+  AddInfo('=========================================');
   // E-Stop ausführen
   if not isSimActive then begin
     grbl_sendRealTimeCmd(#24);   // Soft Reset CTRL-X, Stepper sofort stoppen
     sleep(200);
-    Form1.Memo1.lines.add(grbl_receiveStr(20));
-    Form1.Memo1.lines.add(grbl_receiveStr(20));
+    Form1.AddInfo(grbl_receiveStr(20));
+    Form1.AddInfo(grbl_receiveStr(20));
     // Locked/Alarm-Meldung, sonst #Timeout
-    Form1.Memo1.lines.add(grbl_receiveStr(20));
+    Form1.AddInfo(grbl_receiveStr(20));
     SpindleRunning:= false;
     mdelay(250);
     BtnEmergStop.tag:= 1;
@@ -2291,13 +2300,13 @@ begin
       + #13 + 'to release ALARM LOCK.', mtWarning, [mbOK], 0);
     EnableStatus;  // automatische Upates freischalten
   end else begin
-    Memo1.lines.add('Reset GRBL Simulation');
+    AddInfo('Reset GRBL Simulation');
   end;
   HomingPerformed:= false;
   ClearATCarray;
   UpdateATC;
-  Memo1.lines.add('Done. Please re-run Home Cycle.');
-  Memo1.lines.add('');
+  AddInfo('Done. Please re-run Home Cycle.');
+  AddInfo('');
 end;
 
 procedure TForm1.BtnCancelClick(Sender: TObject);
@@ -2308,8 +2317,8 @@ begin
     exit;
   BtnCancel.tag:= 1;
   BtnRunJob.Tag:= 0;
-  Memo1.lines.add('');
-  Memo1.lines.add('Processing Cancel Request...');
+  AddInfo('');
+  AddInfo('Processing Cancel Request...');
   // Wird von Run-Thread erledigt
 end;
 
@@ -2318,23 +2327,23 @@ begin
   BtnEmergStop.tag:= 0;
   BtnCancel.tag:= 0;
   BtnRunjob.tag:= 0;
-  Memo1.lines.add('');
+  AddInfo('');
   if isSimActive then
-    Memo1.lines.add('Home Cycle Override always on in simulation mode.')
+    AddInfo('Home Cycle Override always on in simulation mode.')
   else
-    Memo1.lines.add('Home Cycle Override initiated');
+    AddInfo('Home Cycle Override initiated');
   DefaultsGridListToJob;
   if isGrblActive then begin
     LEDbusy.Checked:= true;
     spindle_on_off(false);
     ResetToolflags;
-    Memo1.lines.add('WARNING: Home Cycle override - do not rely on machine position!');
+    AddInfo('WARNING: Home Cycle override - do not rely on machine position!');
     ClearAlarmlock;
   end else
     ResetSimulation;
-  Memo1.lines.add('Proceed with care!');
+  AddInfo('Proceed with care!');
   HomingPerformed:= true;
-  Memo1.lines.add('');
+  AddInfo('');
 end;
 
 
@@ -2347,8 +2356,8 @@ begin
   BtnCancel.Caption:= 'CANCEL';
   BtnCancel.tag:= 0;
   BtnRunjob.tag:= 0;
-  Memo1.lines.add('');
-  Memo1.lines.add('Home cycle initiated');
+  AddInfo('');
+  AddInfo('Home cycle initiated');
   if isGrblActive then begin
     LEDbusy.Checked:= true;
     ResetToolflags;
@@ -2356,9 +2365,9 @@ begin
     grbl_wait_for_timeout(100);
     my_response:= grbl_sendStr('$x'+#13, true);
     my_response:= grbl_sendStr('$h'+#13, true);
-    Memo1.lines.add(my_response);
+    AddInfo(my_response);
     if my_response <> 'ok' then begin
-      Memo1.lines.add('WARNING: Home Cycle failed - do not rely on machine position!');
+      AddInfo('WARNING: Home Cycle failed - do not rely on machine position!');
       MessageDlg('Home Cycle failed. ALARM LOCK cleared,'
         + #13 + 'but do not rely on machine position.', mtWarning, [mbOK], 0);
       ClearAlarmlock;
@@ -2370,17 +2379,17 @@ begin
   CancelG43offset;
   DefaultsGridListToJob;
   HomingPerformed:= true;
-  Memo1.lines.add('Done.');
-  Memo1.lines.add('');
+  AddInfo('Done.');
+  AddInfo('');
 end;
 
 procedure TForm1.PanelReadyClick(Sender: TObject);
 begin
   // Clear HOLD runtime cmd
-  Memo1.lines.add('Machine CONTINUE, Receive resumed');
+  AddInfo('Machine CONTINUE, Receive resumed');
   grbl_sendRealTimeCmd('~');
   PanelAlive.tag := 0;
-  Memo1.lines.add('Clear HOLD state');
+  AddInfo('Clear HOLD state');
   if isGrblActive then
     EnableStatus;  // Koordinaten-Abfrage freischalten
 end;
@@ -2457,7 +2466,7 @@ end;
 procedure TForm1.PanelHoldClick(Sender: TObject);
 begin
   // Set HOLD runtime cmd
-  Memo1.lines.add('Machine HOLD');
+  AddInfo('Machine HOLD');
   grbl_sendRealTimeCmd('!');
 end;
 
@@ -2472,8 +2481,8 @@ end;
 procedure TForm1.PanelAliveClick(Sender: TObject);
 begin
   PanelAlive.tag := 1;
-  Memo1.lines.add('WARNING: Receive cancelled');
-  Memo1.lines.add('Click READY panel to resume');
+  AddInfo('WARNING: Receive cancelled');
+  AddInfo('Click READY panel to resume');
 end;
 
 procedure TForm1.BtnReloadAllClick(Sender: TObject);
@@ -2542,9 +2551,9 @@ begin
    my_dlg_result:= mrYes;
   if my_dlg_result = mrYes then begin
     LEDbusy.Checked:= true;
-    Memo1.lines.add('');
-    Memo1.lines.add('Probe tool on part (floating probe), will set Z to ');
-    Memo1.lines.add('Z Gauge value ' + FormatFloat('00.00', job.probe_z_gauge) + ' mm above part');
+    AddInfo('');
+    AddInfo('Probe tool on part (floating probe), will set Z to ');
+    AddInfo('Z Gauge value ' + FormatFloat('00.00', job.probe_z_gauge) + ' mm above part');
     if isSimActive then
       ResetSimulation;
     InvalidateTLCs;
@@ -2552,7 +2561,7 @@ begin
     MposOnPartGauge:= probe_z;
     if MposOnPartGauge = 0 then begin
       ResetToolflags;
-      Memo1.lines.add('WARNING: Z height invalid.');
+      AddInfo('WARNING: Z height invalid.');
       PlaySound('SYSTEMHAND', 0, SND_ASYNC);
     end else begin
       WorkZeroZdone:= true;
@@ -2584,7 +2593,7 @@ begin
     exit;
   spindle_on_off(false);
   grbl_moveZ(0, true);  // Z ganz oben, absolut!
-  Form1.Memo1.lines.add('Move to manual tool change position');
+  Form1.AddInfo('Move to manual tool change position');
   grbl_moveXY(job.toolchange_x, job.toolchange_y, true);
   grbl_moveZ(job.toolchange_z, true);
 // manuelle Wechselposition
@@ -2602,7 +2611,7 @@ begin
     mtConfirmation, mbOKCancel, 0) = mrCancel then
       exit;
     if DoTLCandConfirm(false, 1) then
-      Form1.Memo1.lines.add('Tool changed, new Tool Delta Z applied');
+      Form1.AddInfo('Tool changed, new Tool Delta Z applied');
   end else
 }
     if MessageDlg('Manual Tool Change'
@@ -2627,8 +2636,8 @@ begin
   if machine_busy_msg then
     exit;
   LEDbusy.Checked:= true;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move to park position');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move to park position');
   spindle_on_off(false);
   drawing_tool_down:= false;
   grbl_moveZ(0, true);  // Z ganz oben, absolut!
@@ -2643,8 +2652,8 @@ begin
   if machine_busy_msg then
     exit;
   LEDbusy.Checked:= true;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move to fixture 1 zero');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move to fixture 1 zero');
   spindle_on_off(false);
   drawing_tool_down:= false;
   grbl_moveZ(0, true);  // Z ganz oben, absolut!
@@ -2664,8 +2673,8 @@ begin
   if machine_busy_msg then
     exit;
   LEDbusy.Checked:= true;
-  Form1.Memo1.lines.add('');
-  Form1.Memo1.lines.add('Move to fixture 2 zero');
+  Form1.AddInfo('');
+  Form1.AddInfo('Move to fixture 2 zero');
   spindle_on_off(false);
   drawing_tool_down:= false;
   grbl_moveZ(0, true);  // Z ganz oben, absolut!
@@ -2684,10 +2693,10 @@ procedure TForm1.BtnMoveXYzeroClick(Sender: TObject);
 begin
   if machine_busy_msg then
     exit;
-  Memo1.lines.add('');
+  AddInfo('');
   if WorkZeroXDone and WorkZeroYDone then begin
     LEDbusy.Checked:= true;
-    Memo1.lines.add('Move tool to part XY zero');
+    AddInfo('Move tool to part XY zero');
     spindle_on_off(false);
     drawing_tool_down:= false;
     // nur anheben, wenn X/Y nicht in Nullpunkt-Nähe
@@ -2696,7 +2705,7 @@ begin
     grbl_moveXY(0,0, false);
     SendListToGrbl;
   end else begin
-    Form1.Memo1.lines.add('WARNING: XY Zero not set!');
+    Form1.AddInfo('WARNING: XY Zero not set!');
     PlaySound('SYSTEMHAND', 0, SND_ASYNC);
   end;
   NeedsRedraw:= true;
@@ -2706,16 +2715,16 @@ procedure TForm1.BtnMoveZzeroClick(Sender: TObject);
 begin
   if machine_busy_msg then
     exit;
-  Memo1.lines.add('');
+  AddInfo('');
   if WorkZeroAllDone then begin
     LEDbusy.Checked:= true;
-    Memo1.lines.add('Move tool to part Z zero');
-    Memo1.lines.add('Pen Lift value ' + FormatFloat('00.00', job.z_penlift) + ' mm above part');
+    AddInfo('Move tool to part Z zero');
+    AddInfo('Pen Lift value ' + FormatFloat('00.00', job.z_penlift) + ' mm above part');
     spindle_on_off(false);
     drawing_tool_down:= false;
     grbl_moveZ(job.z_penlift, false);
   end else begin
-    Form1.Memo1.lines.add('WARNING: Z Zero not set!');
+    Form1.AddInfo('WARNING: Z Zero not set!');
     PlaySound('SYSTEMHAND', 0, SND_ASYNC);
   end;
   SendListToGrbl;
@@ -2919,6 +2928,20 @@ begin
   end;
   EnableStatus;
   NeedsRedraw:= true;
+end;
+
+procedure TForm1.AddInfo(aMessage:string);
+begin
+  CommandOutputScreen.Lines.Append(aMessage);
+  CommandOutputScreen.CaretX:=0;
+  CommandOutputScreen.CaretY:=CommandOutputScreen.Lines.Count;
+end;
+
+procedure TForm1.ClearInfo;
+begin
+  CommandOutputScreen.Lines.Clear;
+  CommandOutputScreen.CaretX:=0;
+  CommandOutputScreen.CaretY:=CommandOutputScreen.Lines.Count;
 end;
 
 end.

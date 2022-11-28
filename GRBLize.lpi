@@ -64,6 +64,12 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="SynEditDsgn"/>
+      </Item>
+      <Item>
+        <PackageName Value="SynEdit"/>
+      </Item>
+      <Item>
         <PackageName Value="LCL"/>
       </Item>
     </RequiredPackages>
@@ -175,6 +181,11 @@
         <Filename Value="cam_view.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="syneditstrconstextra.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SynEditStrConstExtra"/>
       </Unit>
     </Units>
   </ProjectOptions>

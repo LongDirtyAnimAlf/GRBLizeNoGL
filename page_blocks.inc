@@ -75,7 +75,7 @@ begin
             out_of_work:= true;
         end;
         if out_of_work then begin
-          // Form1.Memo1.lines.add('WARNING: Tool path ' + IntToStr(i+1) + ' outside work - disabled');
+          // Form1.AddInfo('WARNING: Tool path ' + IntToStr(i+1) + ' outside work - disabled');
           final_array[i].enable:= false;
           result:= true;
         end;
@@ -110,7 +110,7 @@ begin
     if isSimActive then
       ResetCoordinates;
     if result then begin
-      Form1.Memo1.lines.add('WARNING: Tool paths outside work area disabled');
+      Form1.AddInfo('WARNING: Tool paths outside work area disabled');
     end;
     AutoAssignATCtoolsToJob;
     if Form1.CheckUseATC2.checked then
