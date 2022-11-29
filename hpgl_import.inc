@@ -1781,8 +1781,7 @@ begin
             my_action:= none;
             break;
           end;
-
-        'F', 'S':
+        'F', 'N', 'S':
           ParseLine(my_pos, my_line, my_dval, my_cmd_str); // dummy
       end;
     end;

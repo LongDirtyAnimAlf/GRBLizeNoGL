@@ -177,7 +177,7 @@ begin
       WorkZero.X:= grbl_mpos.x;
       my_str:= 'G92 X0';
       my_response:= uppercase(grbl_SendWithShortTimeout(my_str));
-      Form1.AddInfo(my_str);
+      Form1.AddGcode(my_str);
       WorkZeroXdone:= true;
     end;
 
@@ -185,7 +185,7 @@ begin
       WorkZero.Y:= grbl_mpos.y;
       my_str:= 'G92 Y0';
       my_response:= uppercase(grbl_SendWithShortTimeout(my_str));
-      Form1.AddInfo(my_str);
+      Form1.AddGCode(my_str);
       WorkZeroYdone:= true;
     end;
 
@@ -197,12 +197,12 @@ begin
       Form1.AddInfo('Cancel Tool Length Offset (TLO)');
       my_str:= 'G49';  // cancel tool offset
       my_response:= uppercase(grbl_SendWithShortTimeout(my_str));
-      Form1.AddInfo(my_str);
+      Form1.AddGCode(my_str);
       InvalidateTLCs;
       my_str:= 'G92 Z'+FloatToStrDot(job.z_gauge);
       my_response:= uppercase(grbl_SendWithShortTimeout(my_str));
       UpdateATC;
-      Form1.AddInfo(my_str);
+      Form1.AddGCode(my_str);
       WorkZeroZdone:= true;
     end;
 
@@ -210,7 +210,7 @@ begin
       WorkZero.C:= grbl_mpos.C;
       my_str:= 'G92 C0';
       my_response:= uppercase(grbl_SendWithShortTimeout(my_str));
-      Form1.AddInfo(my_str);
+      Form1.AddGCode(my_str);
     end;
 
     InvalidateTLCs;

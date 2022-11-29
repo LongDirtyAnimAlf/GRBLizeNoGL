@@ -6,7 +6,6 @@ object Form1: TForm1
   ClientHeight = 695
   ClientWidth = 932
   Color = clBtnFace
-  Constraints.MaxHeight = 800
   Constraints.MinHeight = 695
   Constraints.MinWidth = 932
   DefaultMonitor = dmMainForm
@@ -28,14 +27,20 @@ object Form1: TForm1
     Style = bsRaised
   end
   object Bevel5: TBevel
+    AnchorSideLeft.Control = PageControl1
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = PageControl1
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    Left = 606
-    Height = 609
-    Top = 32
-    Width = 318
-    Anchors = [akTop, akLeft, akRight]
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 602
+    Height = 605
+    Top = 36
+    Width = 322
+    Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Right = 8
+    BorderSpacing.Bottom = 54
     Style = bsRaised
   end
   object Bevel9: TBevel
@@ -350,10 +355,14 @@ object Form1: TForm1
     ParentFont = False
   end
   object LabelATCmsg: TLabel
-    Left = 612
+    AnchorSideLeft.Control = sgATC
+    AnchorSideBottom.Control = sgATC
+    Left = 608
     Height = 13
     Top = 423
     Width = 93
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Bottom = 6
     Caption = 'ATC or Tool List'
     Font.Color = cl3DDkShadow
     Font.Height = -11
@@ -391,24 +400,36 @@ object Form1: TForm1
     Caption = 'Label19'
   end
   object LabelJoyInfo: TLabel
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
     Left = 8
     Height = 13
     Top = 647
     Width = 60
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Bottom = 35
     Caption = 'LabelJoyInfo'
   end
   object LabelJoySend: TLabel
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
     Left = 220
     Height = 13
     Top = 647
     Width = 60
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Bottom = 35
     Caption = 'LabelJoyInfo'
   end
   object LabelStatusFaults: TLabel
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
     Left = 404
     Height = 13
     Top = 647
     Width = 58
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Bottom = 35
     Caption = 'StatusFaults'
     Font.Color = clGrayText
     Font.Height = -11
@@ -416,10 +437,18 @@ object Form1: TForm1
     ParentFont = False
   end
   object LabelResponse: TLabel
+    AnchorSideLeft.Control = Bevel5
+    AnchorSideTop.Control = Bevel5
+    AnchorSideTop.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
     Left = 606
     Height = 13
     Top = 647
     Width = 48
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Left = 4
+    BorderSpacing.Bottom = 35
     Caption = 'Response'
     Font.Color = clGrayText
     Font.Height = -11
@@ -7316,11 +7345,20 @@ object Form1: TForm1
     OnClick = PanelAliveClick
   end
   object sgATC: TStringGrid
-    Left = 606
+    AnchorSideLeft.Control = Bevel5
+    AnchorSideRight.Control = Bevel5
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Bevel5
+    AnchorSideBottom.Side = asrBottom
+    Left = 608
     Height = 193
     Hint = 'List of all Tools used in job. Right-click for disable/enable.'
     Top = 442
-    Width = 297
+    Width = 308
+    Anchors = [akLeft, akRight, akBottom]
+    BorderSpacing.Left = 6
+    BorderSpacing.Right = 8
+    BorderSpacing.Bottom = 6
     ColCount = 3
     DefaultDrawing = False
     DefaultRowHeight = 18
@@ -7361,10 +7399,10 @@ object Form1: TForm1
     AnchorSideRight.Control = Bevel5
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = LabelATCmsg
-    Left = 612
+    Left = 608
     Height = 355
     Top = 60
-    Width = 304
+    Width = 308
     BorderSpacing.Left = 6
     BorderSpacing.Top = 6
     BorderSpacing.Right = 8

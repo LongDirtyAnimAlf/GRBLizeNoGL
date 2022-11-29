@@ -71,8 +71,8 @@ begin
     exit;
   WaitForIdle;
   if switch_on then begin
-    SendSingleCommandStr('M3S1000');
-    Form1.AddInfo('(Spindle ON, acceleration wait '+ IntToStr(job.spindle_wait) + ' sec.)');
+    SendSingleCommandStr('M3 S1000');
+    Form1.AddInfo('Spindle ON, acceleration wait '+ IntToStr(job.spindle_wait) + ' sec.');
   end else begin
     if isCancelled then
       SendSingleCommandStr('M5')  // Liste senden abgeschaltet!
@@ -81,7 +81,7 @@ begin
       grbl_sendlist.add('M5');
       SendListToGrbl;
     end;
-    Form1.AddInfo('(Spindle OFF, brake wait '+ IntToStr(job.spindle_wait div 2) + ' sec.)');
+    Form1.AddInfo('Spindle OFF, brake wait '+ IntToStr(job.spindle_wait div 2) + ' sec.');
   end;
   if isGrblActive then begin
     if switch_on then
@@ -368,7 +368,7 @@ begin
   LastToolUsed:= ToolInSpindle;
   spindle_on_off(false);
   drawing_tool_down:= false;
-  Form1.AddInfo('(Job ended.)');
+  Form1.AddInfo('Job ended.');
   Form1.AddInfo('');
   NeedsRedraw:= true;
   Form1.ProgressBar1.position:= 0;
@@ -385,7 +385,7 @@ end;
 
 function BitChangeStr(const my_entry: Tfinal): String;
 begin
-  result:='// Bit change: ' + FormatFloat('0.00', job.pens[my_entry.pen].diameter)
+  result:=';Bit change: ' + FormatFloat('0.00', job.pens[my_entry.pen].diameter)
     + ' ' + IntToStr(job.pens[my_entry.pen].tooltip)+' '+ IntToStr(job.pens[my_entry.pen].color);
 end;
 
@@ -401,8 +401,8 @@ begin
       Application.ProcessMessages;
       if my_entry.milling_enables[p] then begin
         AddInfo('');
-        AddInfo('(Run path '+ IntToStr(p)+'.)');
-        AddInfo('(=========================================)');
+        AddInfo('Run path '+ IntToStr(p)+'.');
+        AddInfo('=========================================');
         grbl_sendlist.add(BitChangeStr(my_entry));
         if my_entry.shape = drillhole then
           grbl_drillpath(my_entry.millings[p], my_entry.pen, job.pens[my_entry.pen].offset)
@@ -440,8 +440,8 @@ begin
       + #13 + #13 + pen_description(atcArray[ToolInSpindle].pen)
       + #13 + #13 + 'Click OK to proceed, CANCEL to terminate job.', mtConfirmation, mbOKCancel, 0);
     ClearInfo;
-    AddInfo('(Job run started.)');
-    AddInfo('(=========================================)');
+    AddInfo('Job run started.');
+    AddInfo('=========================================');
     if my_btn = mrCancel then
       exit;
 
@@ -464,9 +464,9 @@ begin
       LEDbusy.Checked:= true;
       spindle_on_off(true);
       run_path(my_entry);
-      AddInfo('(Path done.)');
+      AddInfo('Path done.');
     end;
-    AddInfo('(Blocks done.)');
+    AddInfo('Blocks done.');
     WaitForIdle;
 // grbl_millpath und grbl_drillpath enden mit job.z_penup, deshalb:
     SendSingleCommandStr('G0 G53 Z-1'); // move Z up
@@ -521,8 +521,8 @@ begin
       + #13 + #13 + pen_description(atcArray[ToolInSpindle].pen)
       + #13 + #13 + 'Click OK to proceed, CANCEL to terminate job.', mtConfirmation, mbOKCancel, 0);
     ClearInfo;
-    AddInfo('(Job run started.)');
-    AddInfo('(=========================================)');
+    AddInfo('Job run started.');
+    AddInfo('=========================================');
     if my_btn = mrCancel then
       exit;
     if (not atcArray[ToolInSpindle].TREFok) and CheckToolChange.checked then begin
@@ -551,7 +551,7 @@ begin
         LEDbusy.Checked:= true;
         spindle_on_off(true);
         run_path(my_entry); // Alle Pfade abarbeiten
-        AddInfo('(Path done.)');
+        AddInfo('Path done.');
       end;
 
       if (not isCancelled) and CheckToolChange.checked then begin
@@ -579,7 +579,7 @@ begin
       end;
     end; // for loop
 
-    AddInfo('(Blocks done.)');
+    AddInfo('Blocks done.');
     WaitForIdle;
 // grbl_millpath und grbl_drillpath enden mit job.z_penup, deshalb:
     SendSingleCommandStr('G0 G53 Z-1'); // move Z up
@@ -632,7 +632,7 @@ begin
       end;
       LEDbusy.Checked:= true;
       Readln(my_ReadFile, my_line);
-      AddInfo(my_line);
+      AddGCode(my_line);
 
       my_resp:= grbl_sendStr(my_line + #13, true);
       if my_resp <> 'ok' then begin

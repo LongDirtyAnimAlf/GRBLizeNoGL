@@ -74,10 +74,10 @@ begin
     exit;
   WaitForIdle;
   if switch_on then begin
-    Form1.AddInfo('(Spindle ON, acceleration wait '+ IntToStr(job.spindle_wait) + ' sec.)');
+    Form1.AddInfo('Spindle ON, acceleration wait '+ IntToStr(job.spindle_wait) + ' sec.');
     SendSingleCommandStr('M3');
   end else begin
-    Form1.AddInfo('(Spindle OFF, brake wait '+ IntToStr(job.spindle_wait div 2) + ' sec.)');
+    Form1.AddInfo('Spindle OFF, brake wait '+ IntToStr(job.spindle_wait div 2) + ' sec.');
     SendSingleCommandStr('M5');
   end;
   if not Form1.CheckBoxSim.checked then begin
@@ -473,7 +473,7 @@ begin
       my_tooltip:= job.pens[i].tooltip;
       if job.pens[i].shape = drillhole then
         my_tooltip:= 6;
-      my_str:= '// Tool #' + IntToStr(i) +' = '
+      my_str:= ';Tool #' + IntToStr(i) +' = '
         + FormatFloat('0.00',job.pens[i].diameter) + ' mm, ' + ToolTipArray[my_tooltip];
       if (not Form1.CheckUseATC.Checked) and (my_pen = i) then
         my_str:= my_str + ', tool must be in collet';
@@ -704,7 +704,7 @@ begin
   Form1.BtnRunjob.tag:= 0;
   WaitForIdle;
   drawing_tool_down:= false;
-  Form1.AddInfo('(Job ended.)');
+  Form1.AddInfo('Job ended.');
   Form1.AddInfo('');
   NeedsRedraw:= true;
   Form1.ProgressBar1.position:= 0;
@@ -713,7 +713,7 @@ end;
 
 function BitChangeStr(const my_entry: Tfinal): String;
 begin
-  result:='// Bit change: ' + FormatFloat('0.00', job.pens[my_entry.pen].diameter)
+  result:=';Bit change: ' + FormatFloat('0.00', job.pens[my_entry.pen].diameter)
     + ' ' + IntToStr(job.pens[my_entry.pen].tooltip)+' '+ IntToStr(job.pens[my_entry.pen].color);
 end;
 

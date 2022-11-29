@@ -441,6 +441,7 @@ type
     CNC                   : TSynCNCSyn;
   public
     procedure AddInfo(aMessage:string);
+    procedure AddGCode(aMessage:string);
     procedure ClearInfo;
     { Public declarations }
   end;
@@ -1041,9 +1042,7 @@ var
   grbl_ini: TRegistry;
 begin
   CNC := TSynCNCSyn.Create(Self);
-  //CommandOutputScreen.Lines.Text:=CNC.SampleSource;
-  //exit;
-
+  CommandOutputScreen.Highlighter := CNC;
   StartupDone:= false;
   Show;
   ClearInfo;
@@ -1164,7 +1163,7 @@ begin
   SetToolChangeChecks(job.toolchange_pause);
   ResetCoordinates;
   ResetToolflags;
-  Form1.AddInfo('');
+  AddInfo('');
   ResetSimulation;
   if ftdi_was_open then
     OpenFTDIport
@@ -1911,7 +1910,7 @@ function SendReceive(my_cmd: String; my_timeout: Integer): String;
 // bei abgeschaltetem Status senden und empfangen
 begin
   if isGRBLactive then begin
-    Form1.AddInfo(my_cmd);
+    Form1.AddGCode(my_cmd);
     Form1.form_CriticalSection.Acquire;
     if my_timeout > 0 then begin
       grbl_SendStr(my_cmd + #13, false);
@@ -1921,7 +1920,7 @@ begin
     ResponseMsg(result);
     Form1.form_CriticalSection.Leave;
   end else begin
-    Form1.AddInfo(my_cmd);
+    Form1.AddGCode(my_cmd);
     InterpretGcodeLine(my_cmd);
     NeedsRedraw:= true;
   end;
@@ -1932,7 +1931,7 @@ function SendReceiveAndDwell(my_cmd: String): String;
 // Sende einzelnen Befehl, hierfür 100 ms Timeout
 begin
   if isGRBLactive then begin
-    Form1.AddInfo(my_cmd);
+    Form1.AddGCode(my_cmd);
     Form1.form_CriticalSection.Acquire;
     grbl_SendStr(my_cmd + #13, false);
     result:= grbl_receiveStr(100);
@@ -1941,7 +1940,7 @@ begin
     ResponseMsg(result);
     Form1.form_CriticalSection.Leave;
   end else begin
-    Form1.AddInfo(my_cmd);
+    Form1.AddGCode(my_cmd);
     InterpretGcodeLine(my_cmd);
     NeedsRedraw:= true;
   end;
@@ -1953,7 +1952,7 @@ begin
   if isGrblActive then begin
     SendReceive(my_command, 200);
   end else begin
-    Form1.AddInfo(my_command);
+    Form1.AddGCode(my_command);
     InterpretGcodeLine(my_command);
     NeedsRedraw:= true;
   end;
@@ -1965,7 +1964,7 @@ begin
   if isGrblActive then begin
     SendReceiveAndDwell(my_command);
   end else begin
-    Form1.AddInfo(my_command);
+    Form1.AddGCode(my_command);
     InterpretGcodeLine(my_command);
     NeedsRedraw:= true;
   end;
@@ -2128,9 +2127,10 @@ begin
         break;
       end;
       if length(my_str) > 1 then begin
-        if (my_str[1] <> '/') and (my_str[1] <> '(') then begin
-          // alles OK, neuen Befehl senden
-          Form1.AddInfo(my_str);
+        // alles OK, neuen Befehl senden
+        Form1.AddGCode(my_str);
+        if (my_str[1] <> ';') AND (my_str[1] <> '(') then
+        begin
           InterpretGcodeLine(my_str);
           NeedsRedraw:= true;
         end;
@@ -2930,21 +2930,19 @@ end;
 
 procedure TForm1.AddInfo(aMessage:string);
 begin
-  if (NOT Assigned(CommandOutputScreen.Highlighter)) then
-  begin
-    if aMessage='(Job run started.)' then
-    begin
-      CommandOutputScreen.Highlighter := CNC;
-    end;
-  end;
-  CommandOutputScreen.Lines.Append(aMessage);
+  CommandOutputScreen.Lines.Append(';'+aMessage);
   CommandOutputScreen.CaretX:=0;
   CommandOutputScreen.CaretY:=CommandOutputScreen.Lines.Count;
 end;
 
+procedure TForm1.AddGCode(aMessage:string);
+begin
+  CommandOutputScreen.Lines.Append(aMessage);
+  CommandOutputScreen.CaretX:=0;
+  CommandOutputScreen.CaretY:=CommandOutputScreen.Lines.Count;
+end;
 procedure TForm1.ClearInfo;
 begin
-  CommandOutputScreen.Highlighter := nil;
   CommandOutputScreen.Lines.Clear;
   CommandOutputScreen.CaretX:=0;
   CommandOutputScreen.CaretY:=CommandOutputScreen.Lines.Count;
